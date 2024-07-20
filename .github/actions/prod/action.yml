@@ -19,16 +19,16 @@ runs:
     - name: Output Node version
       shell: bash
       run: node --version
-    - name: Output Npm version
+    - name: Output Yarn version
       shell: bash
-      run: npm --version
+      run: yarn --version
 
     # Get and install all deps -------------------------------------------------
     - name: Install Dependencies
       shell: bash
-      run: npm ci
+      run: yarn install --frozen-lockfile
 
     # Build application --------------------------------------------------------
     - name: Setup web client
       shell: bash
-      run: npm run build
+      run: yarn build
