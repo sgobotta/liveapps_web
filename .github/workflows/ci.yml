@@ -1,0 +1,35 @@
+name: CI
+
+on:
+  workflow_dispatch:
+  # This action is triggered on any branch that opens a pull request.
+  push:
+    branches:
+      - "*"
+    # This action is not triggered when markdown files are modified.
+    paths-ignore:
+      - '**.md'
+  pull_request:
+    branches:
+      - "*"
+    # This action is not triggered when markdown files are modified.
+    paths-ignore:
+      - '**.md'
+
+jobs:
+  test:
+    runs-on: ubuntu-22.04
+    steps:
+      # Run the dev action -----------------------------------------------------
+      - uses: actions/checkout@v2.3.4
+      - name: Run test checks
+        uses: ./.github/actions/test
+
+  prod:
+    runs-on: ubuntu-22.04
+
+    steps:
+      # Run the prod action ----------------------------------------------------
+      - uses: actions/checkout@v2.3.4
+      - name: Run production checks
+        uses: ./.github/actions/prod

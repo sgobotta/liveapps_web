@@ -1,0 +1,34 @@
+name: Test
+
+description: Run unit tests
+
+runs:
+  using: "composite"
+  steps:
+    # Checkout code ------------------------------------------------------------
+    - name: Check out code
+      uses: actions/checkout@v4
+
+    # Setup Nodejs versions ----------------------------------------------------
+    - name: Setup nodejs
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20.x'
+
+    # Print version names ------------------------------------------------------
+    - name: Output Node version
+      shell: bash
+      run: node --version
+    - name: Output Npm version
+      shell: bash
+      run: npm --version
+
+    # Get and build all the deps -----------------------------------------------
+    - name: Install Dependencies
+      shell: bash
+      run: npm install
+
+    # Run tests ----------------------------------------------------------------
+    - name: Run tests
+      shell: bash
+      run: npm test -- --watchAll=false --passWithNoTests
