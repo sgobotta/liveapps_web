@@ -54,7 +54,12 @@ module.exports = {
           '800': '#1F1F1F',
           '900': '#030303',
         }
-      }
+      },
+      fontFamily: {
+        'sans': ['Montserrat-Thin', 'Helvetica', 'Arial', 'sans-serif'],
+        'serif': ['MutantAcademyDCBB'],
+        'serif-bold': ['MutantAcademyBB']
+      },
     },
   },
   plugins: [],

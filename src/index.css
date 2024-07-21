@@ -2,12 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+@import "./css/fonts.css";
+@import "./css/scrollbar.css";
+
 @layer base {
   body {
-    margin: 0;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-      'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-      sans-serif;
+    @apply cursor-default m-0;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
@@ -19,5 +19,9 @@
 
   a {
     @apply text-accent-p-500
+  }
+
+  h1 {
+    @apply text-3xl
   }
 }
