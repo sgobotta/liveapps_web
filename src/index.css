@@ -7,7 +7,7 @@
 
 @layer base {
   body {
-    @apply cursor-default m-0;
+    @apply cursor-default m-0 bg-accent-s-800;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
@@ -23,5 +23,14 @@
 
   h1 {
     @apply text-3xl
+  }
+
+  ::-moz-selection {
+    /* Code for Firefox */
+    @apply text-white bg-accent-p-500;
+  }
+  
+  ::selection {
+    @apply text-white bg-accent-p-500;
   }
 }

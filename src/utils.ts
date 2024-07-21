@@ -7,3 +7,8 @@ export function shuffleArray(array: any[]) {
   }
   return array;
 }
+
+export function preventDefault(e: React.DragEvent<HTMLDivElement>): boolean {
+  e.preventDefault()
+  return false
+}
