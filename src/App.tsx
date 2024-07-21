@@ -63,7 +63,7 @@ function App() {
         md:grid-rows-5 md:grid-cols-5
         lg:grid-rows-5 lg:grid-cols-6
         xl:grid-rows-6 xl:grid-cols-6
-        2xl:grid-rows-8 2xl:grid-cols-8
+        2xl:grid-rows-12 2xl:grid-cols-12
       ">
         {shuffledImages.map((imagePath, index) => (
           <div
