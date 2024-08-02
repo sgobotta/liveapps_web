@@ -69,7 +69,11 @@ function App() {
           <div
             onDragStart={preventDefault}
             onDrop={preventDefault}
-            className={`border-[1px]] transition duration-[3s] active:-translate-x-0 active:translate-y-0 active:scale-x-[-1] hover:rounded-2xl hover:scale-[1.2] ${index % 2 ? 'hover:-rotate-12' : 'hover:rotate-12'}`} key={imageKey(index)}
+            className={`
+              border-[1px]] transition duration-[0.5s] active:-translate-x-0 active:translate-y-0 active:scale-x-[-1]
+              hover:rounded-2xl hover:scale-[1.2] ${index % 2 ? 'hover:-rotate-12' : 'hover:rotate-12'}
+            `}
+            key={imageKey(index)}
           >
             <img
               src={process.env.PUBLIC_URL + imagePath}
