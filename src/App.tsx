@@ -39,24 +39,21 @@ function App() {
         App-header absolute w-full z-40
       ">
         <div className='
-          backdrop-filter backdrop-blur-sm
-          fixed top-24 flex justify-center items-center
-          w-full shadow-2xl
-          bg-gradient-to-r from-primary-500/0 via-accent-p-500/30 to-secondary-500/0
-          border-accent-s-900/70 border-y-[1px]
           h-32
+          w-4/12 sm:w-2/12 md:w-1/6 xl:w-1/12 2xl:w-1/12
+          backdrop-filter backdrop-invert hover:backdrop-brightness-150 hover:backdrop-blur-3xl backdrop-blur-md
+          -translate-x-4 hover:-translate-x-0 scale-100 active:scale-95 active:-translate-x-6
+          fixed top-24 flex items-center
+          shadow-2xl
+          bg-gradient-to-r from-primary-500/0 via-accent-p-500/30 to-secondary-500/0
+          border-accent-s-900/70 border-y-[1px] border-r-[1px]
+          rounded-e-xl
           transition duration-300
           opacity-100 hover:bg-accent-p-300/0
         '>
-          <div className='absolute left-0 z-50'>
+          <div className='absolute right-2 z-50'>
             <img src={livedj} className="App-logo" alt="logo" />
           </div>
-          <h1>
-            <span className='text-accent-s-50 font-normal'>Liveapps</span>
-            <span className="text-accent-s-50 font-extralight pl-2">
-              (づ ◕‿◕ )づ
-            </span>
-          </h1>
         </div>
       </header>
       <div className="
