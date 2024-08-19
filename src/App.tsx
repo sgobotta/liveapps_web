@@ -52,7 +52,7 @@ function App() {
           opacity-100 hover:bg-accent-p-300/0
         '>
           <div className='absolute right-2 z-50'>
-            <img src={livedj} className="App-logo" alt="logo" />
+            <img src={livedj} className="App-logo" alt="livedj logo" />
           </div>
         </div>
       </header>
