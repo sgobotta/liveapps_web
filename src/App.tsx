@@ -1,44 +1,60 @@
-import React from 'react';
+import React, { useState } from 'react';
 import livedj from './live-dj-iso-black.svg';
 // import background from './background.svg'
 import './App.css';
-import { preventDefault, shuffleArray } from './utils';
+import useLongPress from './hooks/useLongPress';
+import { preventDefault } from './utils';
+import useImages from './hooks/useImages';
 
 function App() {
-  const landscapeTotalImages = 66
-  const itemTotalImages = 21
-  const humanTotalImages = 50
-  const miscTotalImages = 78
-
-  const padFilename = (filename: number) => String(filename).padStart(3, '0')
-
-  const rootNamespace = 'images'
-  const landscapeNamespace = (filename: string) => `${rootNamespace}/landscape/${filename}.png`
-  const itemNamespace = (filename: string) => `${rootNamespace}/items/${filename}.png`
-  const humanNamespace = (filename: string) => `${rootNamespace}/humans/${filename}.png`
-  const miscNamespace = (filename: string) => `${rootNamespace}/misc/${filename}.png`
-
-  const generateImageNames = (totalImages: number, namespaceFunction: (imageName: string) => string) =>
-    Array.from(Array(totalImages).keys()).map(imageName =>
-      namespaceFunction(padFilename(imageName))
-    )
-
-  const landscapeImages = generateImageNames(landscapeTotalImages, landscapeNamespace)
-  const itemImages = generateImageNames(itemTotalImages, itemNamespace)
-  const humanImages = generateImageNames(humanTotalImages, humanNamespace)
-  const miscImages = generateImageNames(miscTotalImages, miscNamespace)
-
-  const images = landscapeImages.concat(itemImages).concat(humanImages).concat(miscImages)
-  const shuffledImages = shuffleArray(images)
+  
+  const { images } = useImages()
 
   function imageKey(index: number) { return `image-${index}`}
+
+  // ---------------------------------------------------------------------------
+  // longPressEvent
+  //
+
+  const [longPressCount, setlongPressCount] = useState(0)
+  const [clickCount, setClickCount] = useState(0)
+
+  const bindElementToCursor = (e: any) => {
+    e.target.addEventListener('mousemove', function(ev: any) {
+      e.target.style.transform = 'translateY('+(ev.clientY)+'px)';
+      e.target.style.transform = 'translateX('+(ev.clientX)+'px)';            
+    },false);
+    setTimeout(() => {
+      e.target.style.transform = ''
+    }, 3000)
+  }
+
+  const onLongPress = (e: any) => {
+    console.log('longpress is triggered', e.target);
+    setlongPressCount(longPressCount + 1)
+    bindElementToCursor(e)
+  };
+
+  const onClick = () => {
+    console.log('click is triggered')
+    setClickCount(clickCount + 1)
+  }
+
+  const defaultOptions = {
+    shouldPreventDefault: false,
+    delay: 500,
+  };
+
+  const longPressEvent = useLongPress(onLongPress, onClick, defaultOptions);
 
   return (
     <div className="App h-screen max-h-screen overflow-y-hidden">
       <header className="
         App-header absolute w-full z-40
       ">
-        <a href="https://dj.liveapps.com.ar">
+        <a
+          href="https://dj.liveapps.com.ar"
+        >
           <div className='
             animate-[bounce_3s_infinite]
             h-32
@@ -68,8 +84,9 @@ function App() {
         xl:grid-rows-6 xl:grid-cols-6
         2xl:grid-rows-12 2xl:grid-cols-12
       ">
-        {shuffledImages.map((imagePath, index) => (
+        {images.map((imagePath: string, index: number) => (
           <div
+            {...longPressEvent}
             onDragStart={preventDefault}
             onDrop={preventDefault}
             className={`
@@ -79,6 +96,7 @@ function App() {
               grayscale hover:grayscale-0
             `}
             key={imageKey(index)}
+            
           >
             <img
               src={process.env.PUBLIC_URL + imagePath}
