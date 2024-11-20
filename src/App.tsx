@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import livedj from './live-dj-iso-black.svg';
 // import background from './background.svg'
 import './App.css';
