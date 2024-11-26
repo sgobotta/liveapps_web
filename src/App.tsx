@@ -112,13 +112,12 @@ function App() {
             onDragStart={preventDefault}
             onDrop={preventDefault}
             className={`
-              border-[1px]] transition duration-[0.75s]
+              border-[1px] border-zinc-600 transition duration-[0.75s]
               active:scale-x-[-0.8] active:scale-y-[0.8]
               active:skew-x-12 active:skew-y-12
               hover:rounded-t-md ${index % 2 ? 'hover:rounded-r-md active:rotate-0' : 'hover:rounded-l-md hover:rotate-6 active:-rotate-0'}
-              animate-[spin_ease-in-out_infinite']
               ${index % 2 ? 'hover:-rotate-6 active:rotate-0' : 'hover:rotate-6 active:-rotate-0'}
-              hover:scale-[1.75] hover:z-50 hover:!border-[0px]
+              hover:scale-[1] hover:z-50 hover:border-dashed hover:border-zinc-300
               grayscale hover:grayscale-0
             `}
             key={imageKey(index)}
