@@ -98,12 +98,11 @@ function App() {
         <iframe title="Jelly Grooves" className="rounded-xl" src="https://open.spotify.com/embed/playlist/2WvKikeI3TfwsMBiNYQUjJ?utm_source=generator" width="100%" height="352" frameBorder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
       </div>
       <div className="
-        grid grid-rows-3 grid-cols-3 gap-0 grow
-        xs:grid-rows-4 xs:grid-cols-4
-        sm:grid-rows-4 sm:grid-cols-4
-        md:grid-rows-5 md:grid-cols-5
-        lg:grid-rows-5 lg:grid-cols-6
-        xl:grid-rows-6 xl:grid-cols-6
+        grid
+        gap-0 grow
+        grid-rows-4 grid-cols-4
+        sm:grid-rows-6 sm:grid-cols-6
+        xl:grid-rows-9 xl:grid-cols-9
         2xl:grid-rows-12 2xl:grid-cols-12
       ">
         {images.map((imagePath: string, index: number) => (
