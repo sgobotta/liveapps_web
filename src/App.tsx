@@ -115,7 +115,7 @@ function App() {
               border-[1px]] transition duration-[0.75s]
               active:scale-x-[-0.8] active:scale-y-[0.8]
               active:skew-x-12 active:skew-y-12
-              hover:rounded-2xl hover:rounded-t-full ${index % 2 ? 'hover:rounded-r-full active:rotate-0' : 'hover:rounded-l-full hover:rotate-6 active:-rotate-0'}
+              hover:rounded-t-md ${index % 2 ? 'hover:rounded-r-md active:rotate-0' : 'hover:rounded-l-md hover:rotate-6 active:-rotate-0'}
               animate-[spin_ease-in-out_infinite']
               ${index % 2 ? 'hover:-rotate-6 active:rotate-0' : 'hover:rotate-6 active:-rotate-0'}
               hover:scale-[1.75] hover:z-50 hover:!border-[0px]
@@ -128,11 +128,11 @@ function App() {
               alt={`image-${index}`}
               className={`
                 transition-all duration-[2s] ease-[cubic-bezier(0.035,0.795,0.05,0.95)]
-                hover:rounded-full hover:rounded-t-full
-                ${index % 2 ? 'hover:rounded-r-full active:rotate-0' : 'hover:rounded-l-full hover:rotate-6 active:-rotate-0'}
+                hover:rounded-md hover:rounded-t-md
+                ${index % 2 ? 'hover:rounded-r-md active:rotate-0' : 'hover:rounded-l-md hover:rotate-6 active:-rotate-0'}
                 hover:translate-x-3 hover:-translate-y-3
                 opacity-80 hover:opacity-100
-                border-[1px] border-accent-s-900/80
+                border-[1px] border-accent-s-900/80 
               `}
               fetchPriority={index < 16 ? 'high' : 'low'}
             />
