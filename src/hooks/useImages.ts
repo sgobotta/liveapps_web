@@ -5,6 +5,10 @@ const useImages = (): {images: string[]} => {
   const [getImages, setImages] = useState<string[]>([])
 
   useEffect(() => {
+    // const landscapeTotalImages = 30
+    // const itemTotalImages = 21
+    // const humanTotalImages = 20
+    // const miscTotalImages = 30
     const landscapeTotalImages = 66
     const itemTotalImages = 21
     const humanTotalImages = 50
