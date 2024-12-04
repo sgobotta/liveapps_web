@@ -3,10 +3,10 @@ import { preventDefault } from '../../utils';
 import { v4 } from 'uuid';
 import { CardApiType, CardProps as Card } from './Card'
 import Board from './Board';
-import { DeckProps } from './Deck';
+import { DeckProps, initDeck } from './Deck';
 
 
-function buildCards(images: string[]): DeckProps {
+function buildCards(images: string[]): Card[] {
   return images.map((imagePath: string) => (
     {
       imagePath,
@@ -29,10 +29,10 @@ type CardGameAPIType = {
 }
 
 const useCardGameAPI = (images: string[]) => {
-  const [getDeck, setDeck] = useState<DeckProps>([])
+  const [getDeck, setDeck] = useState<DeckProps>(initDeck())
 
-  function processCard(e: BaseSyntheticEvent, card: Card, deck: DeckProps, cardApi: CardApiType): Card[] {
-    return deck.map((_card: Card) => {
+  function processCard(e: BaseSyntheticEvent, card: Card, deck: DeckProps, cardApi: CardApiType): DeckProps {
+    const cards = deck.cards.map((_card: Card) => {
       if (_card.id === card.id) {
         if (card.state === "hidden") {
           cardApi.showCard(e.target.parentNode)
@@ -45,10 +45,12 @@ const useCardGameAPI = (images: string[]) => {
         return _card
       }
     })
+
+    return {...deck, cards}
   }
 
   function findCard(deck: DeckProps, cardId: string): Card | undefined {
-    return deck.find((card: Card) => card.id === cardId)
+    return deck.cards.find((card: Card) => card.id === cardId)
   }
 
   const onCardClick = (deck: DeckProps) => (e: BaseSyntheticEvent, cardId: string, cardApi: CardApiType): BaseSyntheticEvent => {
@@ -63,7 +65,7 @@ const useCardGameAPI = (images: string[]) => {
   const cards: Card[] = buildCards(images)
 
   useEffect(() => {
-    setDeck(cards)
+    setDeck({...getDeck, cards})
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [images])
 
@@ -71,7 +73,7 @@ const useCardGameAPI = (images: string[]) => {
 }
 
 export default function CardGame({ images } : CardGameProps) {
-  const [getDeck, setDeck] = useState<DeckProps>([])
+  const [getDeck, setDeck] = useState<DeckProps>(initDeck())
   const { deck, onCardClick }: CardGameAPIType = useCardGameAPI(images)
 
   useEffect(() => {
