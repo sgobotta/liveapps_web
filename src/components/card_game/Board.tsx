@@ -1,6 +1,6 @@
 import React, { BaseSyntheticEvent } from 'react';
-import Card, { CardProps, CardApiType } from './Card'
-import { DeckProps } from './Deck';
+import Card, { t as CardProps, CardApiType } from './Card'
+import { t as DeckProps } from './Deck';
 
 type BoardProps = {
   deck: DeckProps;

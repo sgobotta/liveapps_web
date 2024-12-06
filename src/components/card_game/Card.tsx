@@ -1,6 +1,6 @@
 import { BaseSyntheticEvent } from "react";
 
-export type CardProps = {
+export type t = {
   imagePath: string;
   state: string;
   id: string;
@@ -38,7 +38,7 @@ export default function Card({
   onDragStart,
   onDrop,
   state,
-}: CardProps): React.ReactElement {
+}: t): React.ReactElement {
 
   // border-[1px] hover:border-2 border-zinc-600 transition duration-[0.75s]
   // active:scale-x-[-0.8] active:scale-y-[0.8]
@@ -76,7 +76,7 @@ export default function Card({
 
   return (
     <div
-      onClick={(e: React.MouseEvent) => onClick!(e, id, cardApi())}
+      onClick={async (e: React.MouseEvent) => onClick!(e, id, cardApi())}
       onDragStart={onDragStart}
       onDrop={onDrop}
       className={`

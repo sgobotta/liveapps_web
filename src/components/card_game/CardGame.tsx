@@ -1,9 +1,9 @@
 import React, { BaseSyntheticEvent, useEffect, useState } from 'react';
 import { preventDefault } from '../../utils';
 import { v4 } from 'uuid';
-import { CardApiType, CardProps as Card } from './Card'
+import { CardApiType, t as Card } from './Card'
 import Board from './Board';
-import { DeckProps, initDeck } from './Deck';
+import { t as DeckProps, Deck } from './Deck';
 
 
 function buildCards(images: string[]): Card[] {
@@ -29,24 +29,10 @@ type CardGameAPIType = {
 }
 
 const useCardGameAPI = (images: string[]) => {
-  const [getDeck, setDeck] = useState<DeckProps>(initDeck())
+  const [getDeck, setDeck] = useState<DeckProps>(Deck().init())
 
   function processCard(e: BaseSyntheticEvent, card: Card, deck: DeckProps, cardApi: CardApiType): DeckProps {
-    const cards = deck.cards.map((_card: Card) => {
-      if (_card.id === card.id) {
-        if (card.state === "hidden") {
-          cardApi.showCard(e.target.parentNode)
-          return {...card, state: "visible"}
-        } else {
-          cardApi.hideCard(e.target.parentNode)
-          return {...card, state: "hidden"}
-        }
-      } else {
-        return _card
-      }
-    })
-
-    return {...deck, cards}
+    return Deck().processCard(e, card, deck, cardApi)
   }
 
   function findCard(deck: DeckProps, cardId: string): Card | undefined {
@@ -54,6 +40,7 @@ const useCardGameAPI = (images: string[]) => {
   }
 
   const onCardClick = (deck: DeckProps) => (e: BaseSyntheticEvent, cardId: string, cardApi: CardApiType): BaseSyntheticEvent => {
+    e.preventDefault()
     const card: Card | undefined = findCard(deck, cardId)
     const updatedDeck = processCard(e, card!, deck, cardApi)
 
@@ -73,7 +60,7 @@ const useCardGameAPI = (images: string[]) => {
 }
 
 export default function CardGame({ images } : CardGameProps) {
-  const [getDeck, setDeck] = useState<DeckProps>(initDeck())
+  const [getDeck, setDeck] = useState<DeckProps>(Deck().init())
   const { deck, onCardClick }: CardGameAPIType = useCardGameAPI(images)
 
   useEffect(() => {
