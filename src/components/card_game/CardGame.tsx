@@ -1,11 +1,11 @@
 import Board from './Board';
 import { Deck as DeckT } from '../../types';
-import { useCardGame } from '../../hooks/tile-game/useCardGame';
-import { CardGame as CardGameT, CardGameProps } from '../../types/CardGame';
+import { useTileGame } from '../../hooks/tile-game/useCardGame';
+import { TileGame as CardGameT, TileGameProps } from '../../types/CardGame';
 import { ReactElement } from 'react';
 
-export default function CardGame({ tiles }: CardGameProps): ReactElement {
-  const { getDeck, onCardClick }: CardGameT = useCardGame(tiles);
+export default function CardGame({ tiles }: TileGameProps): ReactElement {
+  const { getDeck, onTileClick: onCardClick }: CardGameT = useTileGame(tiles);
 
   function elementKey(index: number) {
     return `card-${index}`;

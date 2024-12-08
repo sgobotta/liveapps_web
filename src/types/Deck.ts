@@ -1,20 +1,20 @@
 import { BaseSyntheticEvent } from 'react';
-import { CardI, Card as CardT } from './Card';
+import { TileI, Tile as TileT } from './Tile';
 import { TileAsset as TileAssetT } from './TileAsset';
 
 export type Deck = {
-  cards: CardT[];
-  selectedCards: CardT[];
+  tiles: TileT[];
+  selectedTiles: TileT[];
   afterEffect?: Deck | null;
 };
 
 export interface DeckI {
   init: (tiles: TileAssetT[]) => Deck;
-  findCard: (deck: Deck, cardId: string) => CardT | undefined;
-  processCard: (
+  findTile: (deck: Deck, cardId: string) => TileT | undefined;
+  processTile: (
     e: BaseSyntheticEvent,
-    card: CardT,
+    card: TileT,
     deck: Deck,
-    cardAPI: CardI,
+    cardAPI: TileI,
   ) => Promise<Deck>;
 }

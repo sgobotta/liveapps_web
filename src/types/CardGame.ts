@@ -1,20 +1,20 @@
 import { BaseSyntheticEvent } from 'react';
-import { CardI } from './Card';
-import { TileAsset as TileAssetT } from './TileAsset';
-import { Deck as DeckT } from './Deck';
+import { TileI } from './Tile';
+import { TileAsset } from './TileAsset';
+import { Deck } from './Deck';
 
-export type CardGameProps = {
-  tiles: TileAssetT[];
+export type TileGameProps = {
+  tiles: TileAsset[];
 };
 
-export type CardGame = {
-  getDeck: DeckT;
-  setDeck: React.Dispatch<React.SetStateAction<DeckT>>;
-  onCardClick: (
-    deck: DeckT,
+export type TileGame = {
+  getDeck: Deck;
+  setDeck: React.Dispatch<React.SetStateAction<Deck>>;
+  onTileClick: (
+    deck: Deck,
   ) => (
     e: BaseSyntheticEvent,
-    cardId: string,
-    cardAPI: CardI,
+    tileId: string,
+    tileAPI: TileI,
   ) => Promise<BaseSyntheticEvent>;
 };

@@ -1,29 +1,29 @@
 import { BaseSyntheticEvent } from 'react';
 import { TileAsset as TileAssetT } from './TileAsset';
 
-export enum CardState {
+export enum TileState {
   Hidden,
   Visible,
 }
 
-export type Card = {
+export type Tile = {
   asset: TileAssetT;
-  state: CardState;
+  state: TileState;
   id: string;
   index: number;
   // onDragStart: (e: React.DragEvent<HTMLDivElement>) => boolean;
   // onDrop: (e: React.DragEvent<HTMLDivElement>) => boolean;
   onClick?: (
     e: BaseSyntheticEvent,
-    cardId: string,
-    cardAPI: CardI,
+    tileId: string,
+    tileAPI: TileI,
   ) => Promise<BaseSyntheticEvent>;
 };
 
-export interface CardI {
-  reveal: (card: Card) => Card;
-  hide: (card: Card) => Card;
-  init: (tile: TileAssetT, index: number) => Card;
-  showCardEffects: (cardElement: any) => void;
-  hideCardEffects: (cardElement: any) => void;
+export interface TileI {
+  reveal: (tile: Tile) => Tile;
+  hide: (tile: Tile) => Tile;
+  init: (tile: TileAssetT, index: number) => Tile;
+  showTileEffects: (tileElement: any) => void;
+  hideTileEffects: (tileElement: any) => void;
 }

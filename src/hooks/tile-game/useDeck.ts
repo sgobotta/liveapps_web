@@ -1,63 +1,56 @@
 import { shuffleArray } from '../../utils';
-import {
-  Card as CardT,
-  CardI,
-  CardState,
-  Deck as DeckT,
-  TileAsset as TileAssetT,
-  DeckI,
-} from '../../types';
+import { Tile, TileI, TileState, Deck, TileAsset, DeckI } from '../../types';
 import { BaseSyntheticEvent } from 'react';
-import { useCard } from './useCard';
+import { useTile } from './useTile';
 
 export const useDeck = (): DeckI => {
-  const { hide: hideCard, init: initCard, reveal: revealCard } = useCard();
+  const { hide: hideTile, init: initTile, reveal: revealTile } = useTile();
 
   // ---------------------------------------------------------------------------
   // Internal API
   //
 
-  function _cardsSet(cards: CardT[]): CardT[] {
-    return Array.from(cards).filter(
-      (member: CardT, index: number, self: CardT[]) =>
+  function _tilesSet(tiles: Tile[]): Tile[] {
+    return Array.from(tiles).filter(
+      (member: Tile, index: number, self: Tile[]) =>
         self.findIndex((m) => m.id === member.id) === index,
     );
   }
 
-  function _revealSelectedCard(cards: CardT[], card: CardT): CardT[] {
-    return cards.map((_card: CardT) =>
-      _card.id === card.id ? revealCard(_card) : _card,
+  function _revealSelectedTile(tiles: Tile[], tile: Tile): Tile[] {
+    return tiles.map((_tile: Tile) =>
+      _tile.id === tile.id ? revealTile(_tile) : _tile,
     );
   }
 
-  function _hideAllCards(deck: DeckT): DeckT {
-    return { ...deck, cards: deck.cards.map((card: CardT) => hideCard(card)) };
+  function _hideAllTiles(deck: Deck): Deck {
+    return { ...deck, tiles: deck.tiles.map((tile: Tile) => hideTile(tile)) };
   }
 
-  function _hideAllCardsExcept(deck: DeckT, card: CardT): DeckT {
+  function _hideAllTilesExcept(deck: Deck, tile: Tile): Deck {
     return {
       ...deck,
-      cards: [
-        ...deck.cards
-          .filter((_card: CardT) => _card.id !== card.id)
-          .map((card: CardT) => hideCard(card)),
-        card,
+      tiles: [
+        ...deck.tiles
+          .filter((_tile: Tile) => _tile.id !== tile.id)
+          .map((tile: Tile) => hideTile(tile)),
+        tile,
       ],
     };
   }
 
-  function _guessCardEffect(deck: DeckT, card: CardT): DeckT {
+  function _guessTileEffect(deck: Deck, tile: Tile): Deck {
     return {
       ...deck,
-      ..._hideAllCardsExcept(deck, card),
+      ..._hideAllTilesExcept(deck, tile),
       afterEffect: null,
     };
   }
 
-  function _missCardEffect(deck: DeckT): DeckT {
+  function _missTileEffect(deck: Deck): Deck {
     return {
       ...deck,
-      ..._hideAllCards(deck),
+      ..._hideAllTiles(deck),
       afterEffect: null,
     };
   }
@@ -66,84 +59,84 @@ export const useDeck = (): DeckI => {
   // Exportable API
   //
 
-  function init(tiles: TileAssetT[]): DeckT {
+  function init(tiles: TileAsset[]): Deck {
     return {
-      cards: (shuffleArray(tiles.concat(tiles)) as unknown as TileAssetT[]).map(
-        (tile: TileAssetT, index: number) => initCard(tile, index),
+      tiles: (shuffleArray(tiles.concat(tiles)) as unknown as TileAsset[]).map(
+        (tile: TileAsset, index: number) => initTile(tile, index),
       ),
-      selectedCards: [],
+      selectedTiles: [],
     };
   }
 
-  function findCard(deck: DeckT, cardId: string): CardT | undefined {
-    return deck.cards.find((card: CardT) => card.id === cardId);
+  function findTile(deck: Deck, tileId: string): Tile | undefined {
+    return deck.tiles.find((tile: Tile) => tile.id === tileId);
   }
 
-  async function processCard(
+  async function processTile(
     e: BaseSyntheticEvent,
-    card: CardT,
-    deck: DeckT,
-    cardAPI: CardI,
-  ): Promise<DeckT> {
-    let _deck = { ...deck, cards: _revealSelectedCard(deck.cards, card) };
+    tile: Tile,
+    deck: Deck,
+    tileAPI: TileI,
+  ): Promise<Deck> {
+    let _deck = { ...deck, tiles: _revealSelectedTile(deck.tiles, tile) };
 
-    const { selectedCards } = _deck;
+    const { selectedTiles } = _deck;
 
-    switch (card.state) {
-      case CardState.Hidden:
-        cardAPI.showCardEffects(e.target.parentNode);
+    switch (tile.state) {
+      case TileState.Hidden:
+        tileAPI.showTileEffects(e.target.parentNode);
         break;
 
-      case CardState.Visible:
+      case TileState.Visible:
         break;
     }
 
-    switch (selectedCards.length) {
+    switch (selectedTiles.length) {
       case 0:
-        console.log('no selected cards: ', selectedCards);
-        const cards = deck.cards.map((_card: CardT) => {
-          if (_card.id === card.id) {
-            if (card.state === CardState.Hidden) {
-              cardAPI.showCardEffects(e.target.parentNode);
-              return { ...card, state: CardState.Visible };
+        console.log('no selected tiles: ', selectedTiles);
+        const tiles = deck.tiles.map((_tile: Tile) => {
+          if (_tile.id === tile.id) {
+            if (tile.state === TileState.Hidden) {
+              tileAPI.showTileEffects(e.target.parentNode);
+              return { ...tile, state: TileState.Visible };
             } else {
-              cardAPI.hideCardEffects(e.target.parentNode);
-              return { ...card, state: CardState.Hidden };
+              tileAPI.hideTileEffects(e.target.parentNode);
+              return { ...tile, state: TileState.Hidden };
             }
           } else {
-            return _card;
+            return _tile;
           }
         });
-        _deck = { ..._deck, cards, selectedCards: [card] };
+        _deck = { ..._deck, tiles: tiles, selectedTiles: [tile] };
         break;
 
       case 1:
-        const _selectedCards = _cardsSet([...selectedCards, card]);
-        console.log('one selected card: ', _selectedCards);
+        const _selectedTiles = _tilesSet([...selectedTiles, tile]);
+        console.log('one selected tile: ', _selectedTiles);
 
-        // Guessed the card
-        if (_selectedCards.length === 1) {
-          console.log('Guesses card: ', card);
+        // Guessed the tile
+        if (_selectedTiles.length === 1) {
+          console.log('Guesses tile: ', tile);
           _deck = {
             ..._deck,
-            selectedCards: [],
-            afterEffect: _guessCardEffect(_deck, card),
+            selectedTiles: [],
+            afterEffect: _guessTileEffect(_deck, tile),
           };
         }
-        // Did not guessed the card
-        if (_selectedCards.length === 2) {
-          console.log('Did not guessed the card: ', card);
-          // cardApi.showCard(e.target.parentNode)
+        // Did not guessed the tile
+        if (_selectedTiles.length === 2) {
+          console.log('Did not guessed the tile: ', tile);
+          // tileApi.showTile(e.target.parentNode)
           _deck = {
             ..._deck,
-            selectedCards: [],
-            afterEffect: _missCardEffect(_deck),
+            selectedTiles: [],
+            afterEffect: _missTileEffect(_deck),
           };
         }
         break;
 
       case 2:
-        console.log('two selected cards ', selectedCards);
+        console.log('two selected tiles ', selectedTiles);
         break;
     }
 
@@ -152,7 +145,7 @@ export const useDeck = (): DeckI => {
 
   return {
     init,
-    findCard,
-    processCard,
+    findTile,
+    processTile,
   };
 };

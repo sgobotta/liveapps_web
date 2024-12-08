@@ -1,6 +1,6 @@
 import React, { BaseSyntheticEvent } from 'react';
-import Card from './Card';
-import { CardI, Card as CardT, Deck as DeckT } from '../../types';
+import Card from './Tile';
+import { TileI, Tile as CardT, Deck as DeckT } from '../../types';
 
 type BoardProps = {
   deck: DeckT;
@@ -10,7 +10,7 @@ type BoardProps = {
   ) => (
     e: BaseSyntheticEvent,
     cardId: string,
-    cardAPI: CardI,
+    cardAPI: TileI,
   ) => Promise<BaseSyntheticEvent>;
 };
 
@@ -32,7 +32,7 @@ export default function Board({
       grid-rows-6 grid-cols-6
     "
     >
-      {deck.cards.map(({ id, asset, state }: CardT, index: number) => (
+      {deck.tiles.map(({ id, asset, state }: CardT, index: number) => (
         <Card
           onClick={onCardClick(deck)}
           key={elementKeyFunction(index)}

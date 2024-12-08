@@ -1,29 +1,23 @@
 import { BaseSyntheticEvent, useEffect, useState } from 'react';
-import {
-  CardI,
-  Card as CardT,
-  Deck as DeckT,
-  CardGame as CardGameT,
-  TileAsset as TileAssetT,
-} from '../../types';
+import { TileI, Tile, Deck, TileGame, TileAsset } from '../../types';
 import { useDeck } from './useDeck';
 
-export const useCardGame = (tiles: TileAssetT[]): CardGameT => {
-  const { init: initDeck, findCard, processCard } = useDeck();
+export const useTileGame = (tiles: TileAsset[]): TileGame => {
+  const { init: initDeck, findTile, processTile } = useDeck();
 
   const deck = initDeck(tiles);
-  const [getDeck, setDeck] = useState<DeckT>(deck);
+  const [getDeck, setDeck] = useState<Deck>(deck);
 
-  const onCardClick =
-    (deck: DeckT) =>
+  const onTileClick =
+    (deck: Deck) =>
     async (
       e: BaseSyntheticEvent,
-      cardId: string,
-      cardAPI: CardI,
+      tileId: string,
+      tileAPI: TileI,
     ): Promise<BaseSyntheticEvent> => {
       e.preventDefault();
-      const card: CardT | undefined = findCard(deck, cardId);
-      const updatedDeck = await processCard(e, card!, deck, cardAPI);
+      const tile: Tile | undefined = findTile(deck, tileId);
+      const updatedDeck = await processTile(e, tile!, deck, tileAPI);
 
       setDeck(updatedDeck);
 
@@ -45,12 +39,12 @@ export const useCardGame = (tiles: TileAssetT[]): CardGameT => {
           return resolve(getDeck.afterEffect);
         }, 2000);
       }).then((updatedDeck) => {
-        setDeck(updatedDeck as DeckT);
+        setDeck(updatedDeck as Deck);
       });
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [getDeck.afterEffect]);
 
-  return { getDeck, setDeck, onCardClick };
+  return { getDeck, setDeck, onTileClick: onTileClick };
 };
