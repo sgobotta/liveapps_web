@@ -1,9 +1,6 @@
 import { v4 } from 'uuid';
 import { TileAsset as TileAssetT } from '../../types';
-
-export interface TileAssetI {
-  create: (image: string) => TileAssetT;
-}
+import { TileAssetI } from '../../interfaces';
 
 export const useTileAsset = (): TileAssetI => {
   function create(image: string): TileAssetT {

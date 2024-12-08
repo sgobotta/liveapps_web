@@ -1,5 +1,6 @@
 import { v4 } from 'uuid';
-import { Tile, TileI, TileState, TileAsset } from '../../types';
+import { Tile, TileState, TileAsset } from '../../types';
+import { TileI } from '../../interfaces';
 
 export const useTile = (): TileI => {
   function showTileEffects(tileElement: any): void {

@@ -1,5 +1,5 @@
 import { BaseSyntheticEvent } from 'react';
-import { TileI } from './Tile';
+import { TileI } from '../interfaces';
 import { TileAsset } from './TileAsset';
 import { Deck } from './Deck';
 

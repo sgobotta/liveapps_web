@@ -1,5 +1,6 @@
 import { BaseSyntheticEvent, useEffect, useState } from 'react';
-import { TileI, Tile, Deck, TileGame, TileAsset } from '../../types';
+import { Tile, Deck, TileGame, TileAsset } from '../../types';
+import { TileI } from '../../interfaces';
 import { useDeck } from './useDeck';
 
 export const useTileGame = (tiles: TileAsset[]): TileGame => {

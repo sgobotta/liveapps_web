@@ -1,5 +1,6 @@
 import { BaseSyntheticEvent } from 'react';
 import { TileAsset as TileAssetT } from './TileAsset';
+import { TileI } from '../interfaces/Tile';
 
 export enum TileState {
   Hidden,
@@ -19,11 +20,3 @@ export type Tile = {
     tileAPI: TileI,
   ) => Promise<BaseSyntheticEvent>;
 };
-
-export interface TileI {
-  reveal: (tile: Tile) => Tile;
-  hide: (tile: Tile) => Tile;
-  init: (tile: TileAssetT, index: number) => Tile;
-  showTileEffects: (tileElement: any) => void;
-  hideTileEffects: (tileElement: any) => void;
-}

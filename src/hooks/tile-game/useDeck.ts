@@ -1,5 +1,6 @@
 import { shuffleArray } from '../../utils';
-import { Tile, TileI, TileState, Deck, TileAsset, DeckI } from '../../types';
+import { Tile, TileState, Deck, TileAsset } from '../../types';
+import { DeckI, TileI } from '../../interfaces';
 import { BaseSyntheticEvent } from 'react';
 import { useTile } from './useTile';
 

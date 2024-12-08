@@ -1,6 +1,7 @@
 import React, { BaseSyntheticEvent } from 'react';
 import Tile from './Tile';
-import { TileI, Tile as TileT, Deck as DeckT } from '../../types';
+import { Tile as TileT, Deck as DeckT } from '../../types';
+import { TileI } from '../../interfaces';
 
 type BoardProps = {
   deck: DeckT;
