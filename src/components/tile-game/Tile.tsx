@@ -30,7 +30,7 @@ export default function TileComponent({
         className={`
           transition-all duration-[2s] ease-[cubic-bezier(0.035,0.795,0.05,0.95)]
           hover:rounded-md hover:rounded-t-md
-          ${index % 2 ? 'hover:rounded-r-md active:rotate-0' : 'hover:rounded-l-md hover:rotate-6 active:-rotate-0'}
+          ${index % 2 ? 'hover:rounded-r-md hover:-rotate-6 active:rotate-0' : 'hover:rounded-l-md hover:rotate-6 active:-rotate-0'}
           hover:translate-x-3 hover:-translate-y-3
           opacity-80 hover:opacity-100
           border-[1px] border-accent-s-900/80 
@@ -43,14 +43,19 @@ export default function TileComponent({
       case TileState.Hidden:
         return _render('images/back-tile.png', index);
 
-      case TileState.Visible:
+      case TileState.Selected:
         return _render(imagePath, index);
     }
   }
 
+  const _onClick =
+    state === TileState.Selected
+      ? () => {}
+      : (e: React.MouseEvent) => onClick!(e, id, tileAPI);
+
   return (
     <div
-      onClick={async (e: React.MouseEvent) => onClick!(e, id, tileAPI)}
+      onClick={_onClick}
       className={`
         border-[1px] hover:border-2 border-zinc-600 transition duration-[0.75s]
         scale-100

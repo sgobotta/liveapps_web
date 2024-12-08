@@ -4,7 +4,7 @@ import { TileI } from '../interfaces/Tile';
 
 export enum TileState {
   Hidden,
-  Visible,
+  Selected,
 }
 
 export type Tile = {

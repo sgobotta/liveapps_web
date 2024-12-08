@@ -3,10 +3,6 @@ import { Tile, TileState, TileAsset } from '../../types';
 import { TileI } from '../../interfaces';
 
 export const useTile = (): TileI => {
-  function showTileEffects(tileElement: any): void {
-    tileElement.classList.replace('grayscale', '!grayscale-0');
-  }
-
   function hideTileEffects(tileElement: any): void {
     tileElement.classList.replace('!grayscale-0', 'grayscale');
   }
@@ -25,14 +21,18 @@ export const useTile = (): TileI => {
   }
 
   function reveal(tile: Tile): Tile {
-    return { ...tile, state: TileState.Visible };
+    return { ...tile, state: TileState.Selected };
+  }
+
+  function showTileEffects(tileElement: any): void {
+    tileElement.classList.replace('grayscale', '!grayscale-0');
   }
 
   return {
     hide,
-    hideTileEffects: hideTileEffects,
+    hideTileEffects,
     init,
     reveal,
-    showTileEffects: showTileEffects,
+    showTileEffects,
   };
 };

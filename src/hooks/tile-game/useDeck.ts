@@ -88,7 +88,7 @@ export const useDeck = (): DeckI => {
         tileAPI.showTileEffects(e.target.parentNode);
         break;
 
-      case TileState.Visible:
+      case TileState.Selected:
         break;
     }
 
@@ -99,7 +99,7 @@ export const useDeck = (): DeckI => {
           if (_tile.id === tile.id) {
             if (tile.state === TileState.Hidden) {
               tileAPI.showTileEffects(e.target.parentNode);
-              return { ...tile, state: TileState.Visible };
+              return { ...tile, state: TileState.Selected };
             } else {
               tileAPI.hideTileEffects(e.target.parentNode);
               return { ...tile, state: TileState.Hidden };
