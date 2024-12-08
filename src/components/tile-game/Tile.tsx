@@ -43,15 +43,18 @@ export default function TileComponent({
       case TileState.Hidden:
         return _render('images/back-tile.png', index);
 
-      case TileState.Selected || TileState.Matched:
+      case TileState.Selected:
+        return _render(imagePath, index);
+
+      case TileState.Matched:
         return _render(imagePath, index);
     }
   }
 
   const _onClick =
-    state === TileState.Selected
-      ? () => {}
-      : (e: React.MouseEvent) => onClick!(e, id, tileAPI);
+    state === TileState.Hidden
+      ? (e: React.MouseEvent) => onClick!(e, id, tileAPI)
+      : () => {};
 
   return (
     <div

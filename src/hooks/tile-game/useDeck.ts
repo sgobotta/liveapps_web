@@ -57,7 +57,6 @@ export const useDeck = (): DeckI => {
 
   function _guessTileEffect(deck: Deck, selectedTiles: Tile[]): Deck {
     return {
-      ...deck,
       ..._markAsmatched(deck, selectedTiles),
       selectedTiles: [],
       afterEffect: null,
@@ -137,13 +136,16 @@ export const useDeck = (): DeckI => {
         const _selectedTiles = _tilesSet([...selectedTiles, tile]);
         // Guessed the tile
         if (_selectedTiles.length === 1) {
-          console.log('Guesses tile: ', tile);
           _deck = {
             ..._deck,
             tiles: _revealSelectedTile([..._deck.tiles], tile),
-            selectedTiles: [],
+          };
+          _deck = { ..._deck, selectedTiles: [] };
+          _deck = {
+            ..._deck,
             afterEffect: _guessTileEffect(_deck, [...selectedTiles, tile]),
           };
+          break;
         }
         // Did not guessed the tile
         if (_selectedTiles.length === 2) {
@@ -152,9 +154,10 @@ export const useDeck = (): DeckI => {
           _deck = {
             ..._deck,
             tiles: _revealSelectedTile([..._deck.tiles], tile),
-            selectedTiles: [],
-            afterEffect: _missTileEffect(_deck),
           };
+          _deck = { ..._deck, selectedTiles: [] };
+          _deck = { ..._deck, afterEffect: _missTileEffect(_deck) };
+          break;
         }
         break;
 
@@ -163,7 +166,6 @@ export const useDeck = (): DeckI => {
         break;
     }
 
-    console.log('onProcessTile ', _deck);
     return _deck;
   }
 

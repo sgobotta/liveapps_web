@@ -19,7 +19,6 @@ export const useTileGame = (tiles: TileAsset[]): TileGame => {
       e.preventDefault();
       const tile: Tile | undefined = findTile(deck, tileId);
       const updatedDeck = await processTile(e, tile!, deck, tileAPI);
-      console.log('updatedDeck: ', updatedDeck);
 
       setDeck(updatedDeck);
 
@@ -34,13 +33,13 @@ export const useTileGame = (tiles: TileAsset[]): TileGame => {
   useEffect(() => {
     if (getDeck.afterEffect) {
       console.log('Saving afterEffect deck... ', getDeck);
-      setDeck({ ...getDeck, afterEffect: null });
 
       new Promise((resolve) => {
         setTimeout(() => {
           return resolve(getDeck.afterEffect);
         }, 2000);
       }).then((updatedDeck) => {
+        console.log('updatedDeck :: ', updatedDeck);
         setDeck(updatedDeck as Deck);
       });
     }
