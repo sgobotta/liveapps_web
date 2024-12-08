@@ -7,18 +7,15 @@ import {
   TileAsset as TileAssetT,
   DeckI,
 } from '../../types';
-import Card from '../../lib/card-game/Card';
 import { BaseSyntheticEvent } from 'react';
+import { useCard } from './useCard';
 
 export const useDeck = (): DeckI => {
-  function init(tiles: TileAssetT[]): DeckT {
-    return {
-      cards: (shuffleArray(tiles.concat(tiles)) as unknown as TileAssetT[]).map(
-        (tile: TileAssetT, index: number) => Card().init(tile, index),
-      ),
-      selectedCards: [],
-    };
-  }
+  const { hide: hideCard, init: initCard, reveal: revealCard } = useCard();
+
+  // ---------------------------------------------------------------------------
+  // Internal API
+  //
 
   function _cardsSet(cards: CardT[]): CardT[] {
     return Array.from(cards).filter(
@@ -27,22 +24,14 @@ export const useDeck = (): DeckI => {
     );
   }
 
-  function _revealCard(card: CardT): CardT {
-    return { ...card, state: CardState.Visible };
-  }
-
   function _revealSelectedCard(cards: CardT[], card: CardT): CardT[] {
     return cards.map((_card: CardT) =>
-      _card.id === card.id ? _revealCard(_card) : _card,
+      _card.id === card.id ? revealCard(_card) : _card,
     );
   }
 
-  function _hideCard(card: CardT): CardT {
-    return { ...card, state: CardState.Hidden };
-  }
-
   function _hideAllCards(deck: DeckT): DeckT {
-    return { ...deck, cards: deck.cards.map((card: CardT) => _hideCard(card)) };
+    return { ...deck, cards: deck.cards.map((card: CardT) => hideCard(card)) };
   }
 
   function _hideAllCardsExcept(deck: DeckT, card: CardT): DeckT {
@@ -51,7 +40,7 @@ export const useDeck = (): DeckI => {
       cards: [
         ...deck.cards
           .filter((_card: CardT) => _card.id !== card.id)
-          .map((card: CardT) => _hideCard(card)),
+          .map((card: CardT) => hideCard(card)),
         card,
       ],
     };
@@ -73,6 +62,19 @@ export const useDeck = (): DeckI => {
     };
   }
 
+  // ---------------------------------------------------------------------------
+  // Exportable API
+  //
+
+  function init(tiles: TileAssetT[]): DeckT {
+    return {
+      cards: (shuffleArray(tiles.concat(tiles)) as unknown as TileAssetT[]).map(
+        (tile: TileAssetT, index: number) => initCard(tile, index),
+      ),
+      selectedCards: [],
+    };
+  }
+
   function findCard(deck: DeckT, cardId: string): CardT | undefined {
     return deck.cards.find((card: CardT) => card.id === cardId);
   }
@@ -89,7 +91,7 @@ export const useDeck = (): DeckI => {
 
     switch (card.state) {
       case CardState.Hidden:
-        cardAPI.showCard(e.target.parentNode);
+        cardAPI.showCardEffects(e.target.parentNode);
         break;
 
       case CardState.Visible:
@@ -102,10 +104,10 @@ export const useDeck = (): DeckI => {
         const cards = deck.cards.map((_card: CardT) => {
           if (_card.id === card.id) {
             if (card.state === CardState.Hidden) {
-              cardAPI.showCard(e.target.parentNode);
+              cardAPI.showCardEffects(e.target.parentNode);
               return { ...card, state: CardState.Visible };
             } else {
-              cardAPI.hideCard(e.target.parentNode);
+              cardAPI.hideCardEffects(e.target.parentNode);
               return { ...card, state: CardState.Hidden };
             }
           } else {

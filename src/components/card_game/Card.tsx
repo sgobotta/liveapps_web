@@ -1,5 +1,5 @@
 import { useCard } from '../../hooks/tile-game/useCard';
-import { CardState } from '../../lib/card-game/Card';
+import { CardState } from '../../types';
 import { Card as CardT } from '../../types';
 
 function buildImagePath(location: string): string {
