@@ -27,6 +27,15 @@ help: SHELL:=/bin/bash
 help:
 	@grep -E '[a-zA-Z\.\-]+:.*?@ .*$$' $(firstword $(MAKEFILE_LIST))| tr -d '#'  | awk 'BEGIN {FS = ":.*?@ "}; {printf "${GREEN}%-30s${NOFORMAT} %s\n", $$1, $$2}'
 
+#💻 lint: @ Runs lint fixes and formatter
+.PHONY: lint
+lint:
+	@npm run lint
+
+#💻 check: @ Runs all linting checks
+check:
+	@npm run lint:check
+
 #💻 server: @ Starts the nodejs development server
 server: SHELL:=/bin/bash
 server:
