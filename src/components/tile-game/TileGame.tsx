@@ -1,17 +1,19 @@
 import Board from './Board';
-import { Deck as DeckT } from '../../types';
+import { Deck } from '../../types';
 import { useTileGame } from '../../hooks/tile-game/useTileGame';
-import { TileGame as TileGameT, TileGameProps } from '../../types/TileGame';
+import { TileGame, TileGameProps } from '../../types/TileGame';
 import { ReactElement } from 'react';
 
-export default function TileGame({ tiles }: TileGameProps): ReactElement {
-  const { getDeck, onTileClick }: TileGameT = useTileGame(tiles);
+export default function TileGameComponent({
+  tiles,
+}: TileGameProps): ReactElement {
+  const { getDeck, onTileClick }: TileGame = useTileGame(tiles);
 
   function elementKey(index: number) {
     return `tile-${index}`;
   }
 
-  function renderDeck(deck: DeckT) {
+  function renderDeck(deck: Deck) {
     return (
       <Board
         deck={deck}

@@ -1,13 +1,13 @@
 import React, { BaseSyntheticEvent } from 'react';
-import Tile from './Tile';
-import { Tile as TileT, Deck as DeckT } from '../../types';
+import TileComponent from './Tile';
+import { Tile, Deck } from '../../types';
 import { TileI } from '../../interfaces';
 
 type BoardProps = {
-  deck: DeckT;
+  deck: Deck;
   elementKeyFunction: (i: number) => string;
   onTileClick: (
-    deck: DeckT,
+    deck: Deck,
   ) => (
     e: BaseSyntheticEvent,
     tileId: string,
@@ -15,7 +15,7 @@ type BoardProps = {
   ) => Promise<BaseSyntheticEvent>;
 };
 
-export default function Board({
+export default function BoardComponent({
   deck,
   elementKeyFunction,
   onTileClick,
@@ -33,8 +33,8 @@ export default function Board({
       grid-rows-6 grid-cols-6
     "
     >
-      {deck.tiles.map(({ id, asset, state }: TileT, index: number) => (
-        <Tile
+      {deck.tiles.map(({ id, asset, state }: Tile, index: number) => (
+        <TileComponent
           onClick={onTileClick(deck)}
           key={elementKeyFunction(index)}
           id={id}

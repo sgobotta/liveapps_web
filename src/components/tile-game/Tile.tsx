@@ -1,18 +1,18 @@
 import { useTile } from '../../hooks/tile-game/useTile';
 import { TileState } from '../../types';
-import { Tile as TileT } from '../../types';
+import { Tile } from '../../types';
 
 function buildImagePath(location: string): string {
   return process.env.PUBLIC_URL + location;
 }
 
-export default function Tile({
+export default function TileComponent({
   id,
   asset,
   index,
   onClick,
   state,
-}: TileT): React.ReactElement {
+}: Tile): React.ReactElement {
   const tileAPI = useTile();
   // border-[1px] hover:border-2 border-zinc-600 transition duration-[0.75s]
   // active:scale-x-[-0.8] active:scale-y-[0.8]
