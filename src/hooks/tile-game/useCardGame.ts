@@ -1,5 +1,4 @@
 import { BaseSyntheticEvent, useEffect, useState } from 'react';
-import { Deck } from '../../components/card_game/Deck';
 import {
   CardI,
   Card as CardT,
@@ -7,23 +6,13 @@ import {
   CardGame as CardGameT,
   TileAsset as TileAssetT,
 } from '../../types';
+import { useDeck } from './useDeck';
 
 export const useCardGame = (tiles: TileAssetT[]): CardGameT => {
-  const deck = Deck().init(tiles);
+  const { init: initDeck, findCard, processCard } = useDeck();
+
+  const deck = initDeck(tiles);
   const [getDeck, setDeck] = useState<DeckT>(deck);
-
-  async function processCard(
-    e: BaseSyntheticEvent,
-    card: CardT,
-    deck: DeckT,
-    cardAPI: CardI,
-  ): Promise<DeckT> {
-    return await Deck().processCard(e, card, deck, cardAPI);
-  }
-
-  function findCard(deck: DeckT, cardId: string): CardT | undefined {
-    return deck.cards.find((card: CardT) => card.id === cardId);
-  }
 
   const onCardClick =
     (deck: DeckT) =>
