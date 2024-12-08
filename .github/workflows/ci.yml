@@ -17,6 +17,14 @@ on:
       - '**.md'
 
 jobs:
+  dev:
+    runs-on: ubuntu-22.04
+    steps:
+      # Run the dev action -----------------------------------------------------
+      - uses: actions/checkout@v2.3.4
+      - name: Run development checks
+        uses: ./.github/actions/dev
+
   test:
     runs-on: ubuntu-22.04
     steps:
