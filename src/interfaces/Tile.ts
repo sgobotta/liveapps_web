@@ -1,6 +1,7 @@
 import { Tile, TileAsset } from '../types';
 
 export interface TileI {
+  equal: (tileA: Tile, tileB: Tile) => boolean;
   reveal: (tile: Tile) => Tile;
   hide: (tile: Tile) => Tile;
   init: (tile: TileAsset, index: number) => Tile;

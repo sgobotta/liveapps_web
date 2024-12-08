@@ -1,8 +1,18 @@
 import { v4 } from 'uuid';
 import { Tile, TileState, TileAsset } from '../../types';
 import { TileI } from '../../interfaces';
+import { useTileAsset } from './useTileAsset';
 
 export const useTile = (): TileI => {
+  const { equal: equalTileAssets } = useTileAsset();
+
+  function equal(
+    { asset: tileAssetA }: Tile,
+    { asset: tileAssetB }: Tile,
+  ): boolean {
+    return equalTileAssets(tileAssetA, tileAssetB);
+  }
+
   function hideTileEffects(tileElement: any): void {
     tileElement.classList.replace('!grayscale-0', 'grayscale');
   }
@@ -29,6 +39,7 @@ export const useTile = (): TileI => {
   }
 
   return {
+    equal,
     hide,
     hideTileEffects,
     init,

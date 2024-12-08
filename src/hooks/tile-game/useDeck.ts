@@ -5,7 +5,12 @@ import { BaseSyntheticEvent } from 'react';
 import { useTile } from './useTile';
 
 export const useDeck = (): DeckI => {
-  const { hide: hideTile, init: initTile, reveal: revealTile } = useTile();
+  const {
+    hide: hideTile,
+    init: initTile,
+    reveal: revealTile,
+    equal,
+  } = useTile();
 
   // ---------------------------------------------------------------------------
   // Internal API
@@ -13,8 +18,8 @@ export const useDeck = (): DeckI => {
 
   function _tilesSet(tiles: Tile[]): Tile[] {
     return Array.from(tiles).filter(
-      (member: Tile, index: number, self: Tile[]) =>
-        self.findIndex((m) => m.id === member.id) === index,
+      (nextTile: Tile, index: number, self: Tile[]) =>
+        self.findIndex((prevTile) => equal(prevTile, nextTile)) === index,
     );
   }
 

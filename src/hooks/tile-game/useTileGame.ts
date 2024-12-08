@@ -32,7 +32,7 @@ export const useTileGame = (tiles: TileAsset[]): TileGame => {
 
   useEffect(() => {
     if (getDeck.afterEffect) {
-      console.log('doing some after effect...');
+      console.log('Saving afterEffect deck... ', getDeck);
       setDeck({ ...getDeck, afterEffect: null });
 
       new Promise((resolve) => {
