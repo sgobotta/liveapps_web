@@ -1,2 +1,2 @@
-export * from './tile-game'
-export * from './useLongPress'
+export * from './tile-game';
+export * from './useLongPress';

@@ -1,9 +1,12 @@
 import { BaseSyntheticEvent, useEffect, useState } from 'react';
-import { t as CardT } from '../../lib/card-game/Card';
-import { CardApiType } from '../../components/card_game/Card';
 import { Deck } from '../../components/card_game/Deck';
-import { Deck as DeckT, CardGame as CardGameT } from '../../types';
-import { TileAsset as TileAssetT } from '../../types/TileAsset';
+import {
+  CardI,
+  Card as CardT,
+  Deck as DeckT,
+  CardGame as CardGameT,
+  TileAsset as TileAssetT,
+} from '../../types';
 
 export const useCardGame = (tiles: TileAssetT[]): CardGameT => {
   const deck = Deck().init(tiles);
@@ -13,9 +16,9 @@ export const useCardGame = (tiles: TileAssetT[]): CardGameT => {
     e: BaseSyntheticEvent,
     card: CardT,
     deck: DeckT,
-    cardApi: CardApiType,
+    cardAPI: CardI,
   ): Promise<DeckT> {
-    return await Deck().processCard(e, card, deck, cardApi);
+    return await Deck().processCard(e, card, deck, cardAPI);
   }
 
   function findCard(deck: DeckT, cardId: string): CardT | undefined {
@@ -27,11 +30,11 @@ export const useCardGame = (tiles: TileAssetT[]): CardGameT => {
     async (
       e: BaseSyntheticEvent,
       cardId: string,
-      cardApi: CardApiType,
+      cardAPI: CardI,
     ): Promise<BaseSyntheticEvent> => {
       e.preventDefault();
       const card: CardT | undefined = findCard(deck, cardId);
-      const updatedDeck = await processCard(e, card!, deck, cardApi);
+      const updatedDeck = await processCard(e, card!, deck, cardAPI);
 
       setDeck(updatedDeck);
 

@@ -1,5 +1,5 @@
 import { BaseSyntheticEvent } from 'react';
-import { CardAPI as CardAPIT } from './Card';
+import { CardI } from './Card';
 import { TileAsset as TileAssetT } from './TileAsset';
 import { Deck as DeckT } from './Deck';
 
@@ -15,6 +15,6 @@ export type CardGame = {
   ) => (
     e: BaseSyntheticEvent,
     cardId: string,
-    cardApi: CardAPIT,
+    cardAPI: CardI,
   ) => Promise<BaseSyntheticEvent>;
 };

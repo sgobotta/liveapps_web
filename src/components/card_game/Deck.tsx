@@ -1,9 +1,8 @@
 import { BaseSyntheticEvent } from 'react';
-import { CardApiType } from './Card';
-import Card, { CardState, t as CardT } from '../../lib/card-game/Card';
+import Card, { CardState } from '../../lib/card-game/Card';
 import { TileAsset as TileAssetT } from '../../types/TileAsset';
 import { shuffleArray } from '../../utils';
-import { Deck as DeckT } from '../../types';
+import { CardI, Card as CardT, Deck as DeckT } from '../../types';
 
 function init(tiles: TileAssetT[]): DeckT {
   return {
@@ -71,7 +70,7 @@ async function processCard(
   e: BaseSyntheticEvent,
   card: CardT,
   deck: DeckT,
-  cardApi: CardApiType,
+  cardAPI: CardI,
 ): Promise<DeckT> {
   let _deck = { ...deck, cards: revealSelectedCard(deck.cards, card) };
 
@@ -79,7 +78,7 @@ async function processCard(
 
   switch (card.state) {
     case CardState.Hidden:
-      cardApi.showCard(e.target.parentNode);
+      cardAPI.showCard(e.target.parentNode);
       break;
 
     case CardState.Visible:
@@ -92,10 +91,10 @@ async function processCard(
       const cards = deck.cards.map((_card: CardT) => {
         if (_card.id === card.id) {
           if (card.state === CardState.Hidden) {
-            cardApi.showCard(e.target.parentNode);
+            cardAPI.showCard(e.target.parentNode);
             return { ...card, state: CardState.Visible };
           } else {
-            cardApi.hideCard(e.target.parentNode);
+            cardAPI.hideCard(e.target.parentNode);
             return { ...card, state: CardState.Hidden };
           }
         } else {

@@ -1,34 +1,19 @@
 import { v4 } from 'uuid';
 import { TileAsset as TileAssetT } from '../../types';
-import { BaseSyntheticEvent } from 'react';
-import { CardApiType } from '../../components/card_game/Card';
+import { Card as CardT } from '../../types';
 
 export enum CardState {
   Hidden,
   Visible,
 }
 
-export type t = {
-  asset: TileAssetT;
-  state: CardState;
-  id: string;
-  index: number;
-  // onDragStart: (e: React.DragEvent<HTMLDivElement>) => boolean;
-  // onDrop: (e: React.DragEvent<HTMLDivElement>) => boolean;
-  onClick?: (
-    e: BaseSyntheticEvent,
-    cardId: string,
-    cardApi: CardApiType,
-  ) => Promise<BaseSyntheticEvent>;
-};
-
 interface CardI {
-  reveal: (card: t) => t;
-  hide: (card: t) => t;
-  init: (tile: TileAssetT, index: number) => t;
+  reveal: (card: CardT) => CardT;
+  hide: (card: CardT) => CardT;
+  init: (tile: TileAssetT, index: number) => CardT;
 }
 
-function init(asset: TileAssetT, index: number): t {
+function init(asset: TileAssetT, index: number): CardT {
   return {
     asset,
     id: v4(),
@@ -38,11 +23,11 @@ function init(asset: TileAssetT, index: number): t {
 }
 
 export default function Card(): CardI {
-  function reveal(card: t): t {
+  function reveal(card: CardT): CardT {
     return { ...card, state: CardState.Visible };
   }
 
-  function hide(card: t): t {
+  function hide(card: CardT): CardT {
     return { ...card, state: CardState.Hidden };
   }
 

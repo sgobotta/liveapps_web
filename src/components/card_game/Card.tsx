@@ -1,23 +1,9 @@
-import { CardState, t as CardT } from '../../lib/card-game/Card';
+import { useCard } from '../../hooks/tile-game/useCard';
+import { CardState } from '../../lib/card-game/Card';
+import { Card as CardT } from '../../types';
 
 function buildImagePath(location: string): string {
   return process.env.PUBLIC_URL + location;
-}
-
-export type CardApiType = {
-  showCard: (cardElement: any) => void;
-  hideCard: (cardElement: any) => void;
-};
-
-export function cardApi(): CardApiType {
-  return {
-    showCard: (cardElement: any) => {
-      cardElement.classList.replace('grayscale', '!grayscale-0');
-    },
-    hideCard: (cardElement: any) => {
-      cardElement.classList.replace('!grayscale-0', 'grayscale');
-    },
-  };
 }
 
 export default function Card({
@@ -27,6 +13,7 @@ export default function Card({
   onClick,
   state,
 }: CardT): React.ReactElement {
+  const cardAPI = useCard();
   // border-[1px] hover:border-2 border-zinc-600 transition duration-[0.75s]
   // active:scale-x-[-0.8] active:scale-y-[0.8]
 
@@ -63,7 +50,7 @@ export default function Card({
 
   return (
     <div
-      onClick={async (e: React.MouseEvent) => onClick!(e, id, cardApi())}
+      onClick={async (e: React.MouseEvent) => onClick!(e, id, cardAPI)}
       className={`
         border-[1px] hover:border-2 border-zinc-600 transition duration-[0.75s]
         scale-100

@@ -1,7 +1,6 @@
 import React, { BaseSyntheticEvent } from 'react';
-import Card, { CardApiType } from './Card';
-import { t as CardT } from '../../lib/card-game/Card';
-import { Deck as DeckT } from '../../types';
+import Card from './Card';
+import { CardI, Card as CardT, Deck as DeckT } from '../../types';
 
 type BoardProps = {
   deck: DeckT;
@@ -11,7 +10,7 @@ type BoardProps = {
   ) => (
     e: BaseSyntheticEvent,
     cardId: string,
-    cardApi: CardApiType,
+    cardAPI: CardI,
   ) => Promise<BaseSyntheticEvent>;
 };
 

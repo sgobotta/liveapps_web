@@ -1,10 +1,10 @@
 import { BaseSyntheticEvent } from 'react';
 import { TileAsset as TileAssetT } from './TileAsset';
 
-export type CardAPI = {
+export interface CardI {
   showCard: (cardElement: any) => void;
   hideCard: (cardElement: any) => void;
-};
+}
 
 export enum CardState {
   Hidden,
@@ -21,6 +21,6 @@ export type Card = {
   onClick?: (
     e: BaseSyntheticEvent,
     cardId: string,
-    cardApi: CardAPI,
+    cardAPI: CardI,
   ) => Promise<BaseSyntheticEvent>;
 };
