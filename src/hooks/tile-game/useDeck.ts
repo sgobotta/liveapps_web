@@ -6,8 +6,10 @@ import { useTile } from './useTile';
 
 export const useDeck = (): DeckI => {
   const {
+    hasBeenMatched,
     hide: hideTile,
     init: initTile,
+    match: matchTile,
     reveal: revealTile,
     equal,
   } = useTile();
@@ -29,26 +31,35 @@ export const useDeck = (): DeckI => {
     );
   }
 
-  function _hideAllTiles(deck: Deck): Deck {
-    return { ...deck, tiles: deck.tiles.map((tile: Tile) => hideTile(tile)) };
-  }
-
-  function _hideAllTilesExcept(deck: Deck, tile: Tile): Deck {
+  function _hideRemainingTiles(deck: Deck): Deck {
     return {
       ...deck,
-      tiles: [
-        ...deck.tiles
-          .filter((_tile: Tile) => _tile.id !== tile.id)
-          .map((tile: Tile) => hideTile(tile)),
-        tile,
-      ],
+      tiles: deck.tiles.map((tile: Tile) => {
+        if (!hasBeenMatched(tile)) {
+          return hideTile(tile);
+        }
+        return tile;
+      }),
     };
   }
 
-  function _guessTileEffect(deck: Deck, tile: Tile): Deck {
+  function _markAsmatched(deck: Deck, selectedTiles: Tile[]): Deck {
+    const tiles = deck.tiles.map((tile: Tile) => {
+      if (selectedTiles.some((selectedTile: Tile) => equal(selectedTile, tile)))
+        return matchTile(tile);
+      return tile;
+    });
     return {
       ...deck,
-      ..._hideAllTilesExcept(deck, tile),
+      tiles,
+    };
+  }
+
+  function _guessTileEffect(deck: Deck, selectedTiles: Tile[]): Deck {
+    return {
+      ...deck,
+      ..._markAsmatched(deck, selectedTiles),
+      selectedTiles: [],
       afterEffect: null,
     };
   }
@@ -56,7 +67,8 @@ export const useDeck = (): DeckI => {
   function _missTileEffect(deck: Deck): Deck {
     return {
       ...deck,
-      ..._hideAllTiles(deck),
+      ..._hideRemainingTiles(deck),
+      selectedTiles: [],
       afterEffect: null,
     };
   }
@@ -84,7 +96,7 @@ export const useDeck = (): DeckI => {
     deck: Deck,
     tileAPI: TileI,
   ): Promise<Deck> {
-    let _deck = { ...deck, tiles: _revealSelectedTile(deck.tiles, tile) };
+    let _deck = { ...deck };
 
     const { selectedTiles } = _deck;
 
@@ -95,38 +107,42 @@ export const useDeck = (): DeckI => {
 
       case TileState.Selected:
         break;
+
+      case TileState.Matched:
+        break;
     }
 
     switch (selectedTiles.length) {
       case 0:
         console.log('no selected tiles: ', selectedTiles);
-        const tiles = deck.tiles.map((_tile: Tile) => {
+        const tiles = _deck.tiles.map((_tile: Tile) => {
           if (_tile.id === tile.id) {
             if (tile.state === TileState.Hidden) {
               tileAPI.showTileEffects(e.target.parentNode);
-              return { ...tile, state: TileState.Selected };
+              // TODO: nullify the onClick
+              return revealTile(_tile);
             } else {
-              tileAPI.hideTileEffects(e.target.parentNode);
-              return { ...tile, state: TileState.Hidden };
+              // tileAPI.hideTileEffects(e.target.parentNode);
+              // Nothing happens when clicking the same tile on Selected state
+              return _tile;
             }
           } else {
             return _tile;
           }
         });
-        _deck = { ..._deck, tiles: tiles, selectedTiles: [tile] };
+        _deck = { ..._deck, tiles, selectedTiles: [tile] };
         break;
 
       case 1:
         const _selectedTiles = _tilesSet([...selectedTiles, tile]);
-        console.log('one selected tile: ', _selectedTiles);
-
         // Guessed the tile
         if (_selectedTiles.length === 1) {
           console.log('Guesses tile: ', tile);
           _deck = {
             ..._deck,
+            tiles: _revealSelectedTile([..._deck.tiles], tile),
             selectedTiles: [],
-            afterEffect: _guessTileEffect(_deck, tile),
+            afterEffect: _guessTileEffect(_deck, [...selectedTiles, tile]),
           };
         }
         // Did not guessed the tile
@@ -135,6 +151,7 @@ export const useDeck = (): DeckI => {
           // tileApi.showTile(e.target.parentNode)
           _deck = {
             ..._deck,
+            tiles: _revealSelectedTile([..._deck.tiles], tile),
             selectedTiles: [],
             afterEffect: _missTileEffect(_deck),
           };
@@ -146,6 +163,7 @@ export const useDeck = (): DeckI => {
         break;
     }
 
+    console.log('onProcessTile ', _deck);
     return _deck;
   }
 

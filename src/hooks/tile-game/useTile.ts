@@ -13,6 +13,10 @@ export const useTile = (): TileI => {
     return equalTileAssets(tileAssetA, tileAssetB);
   }
 
+  function hasBeenMatched({ state }: Tile) {
+    return state === TileState.Matched;
+  }
+
   function hideTileEffects(tileElement: any): void {
     tileElement.classList.replace('!grayscale-0', 'grayscale');
   }
@@ -30,6 +34,10 @@ export const useTile = (): TileI => {
     };
   }
 
+  function match(tile: Tile) {
+    return { ...tile, state: TileState.Matched };
+  }
+
   function reveal(tile: Tile): Tile {
     return { ...tile, state: TileState.Selected };
   }
@@ -40,9 +48,11 @@ export const useTile = (): TileI => {
 
   return {
     equal,
+    hasBeenMatched,
     hide,
     hideTileEffects,
     init,
+    match,
     reveal,
     showTileEffects,
   };

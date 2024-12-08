@@ -19,6 +19,7 @@ export const useTileGame = (tiles: TileAsset[]): TileGame => {
       e.preventDefault();
       const tile: Tile | undefined = findTile(deck, tileId);
       const updatedDeck = await processTile(e, tile!, deck, tileAPI);
+      console.log('updatedDeck: ', updatedDeck);
 
       setDeck(updatedDeck);
 

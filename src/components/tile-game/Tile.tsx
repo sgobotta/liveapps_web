@@ -43,7 +43,7 @@ export default function TileComponent({
       case TileState.Hidden:
         return _render('images/back-tile.png', index);
 
-      case TileState.Selected:
+      case TileState.Selected || TileState.Matched:
         return _render(imagePath, index);
     }
   }
