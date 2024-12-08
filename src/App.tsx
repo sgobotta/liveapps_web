@@ -1,7 +1,7 @@
 import livedj from './live-dj-iso-black.svg';
 import './App.css';
 import useImages from './hooks/tile-game/useImages';
-import CardGame from './components/card_game/CardGame';
+import TileGame from './components/tile-game/TileGame';
 
 import { takeSome } from './utils';
 
@@ -59,7 +59,7 @@ function App() {
           loading="lazy"
         ></iframe>
       </div>
-      <CardGame tiles={tileAssets} />
+      <TileGame tiles={tileAssets} />
     </div>
   );
 }

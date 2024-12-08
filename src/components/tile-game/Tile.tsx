@@ -1,19 +1,19 @@
 import { useTile } from '../../hooks/tile-game/useTile';
 import { TileState } from '../../types';
-import { Tile as CardT } from '../../types';
+import { Tile as TileT } from '../../types';
 
 function buildImagePath(location: string): string {
   return process.env.PUBLIC_URL + location;
 }
 
-export default function Card({
+export default function Tile({
   id,
   asset,
   index,
   onClick,
   state,
-}: CardT): React.ReactElement {
-  const cardAPI = useTile();
+}: TileT): React.ReactElement {
+  const tileAPI = useTile();
   // border-[1px] hover:border-2 border-zinc-600 transition duration-[0.75s]
   // active:scale-x-[-0.8] active:scale-y-[0.8]
 
@@ -41,7 +41,7 @@ export default function Card({
 
     switch (state) {
       case TileState.Hidden:
-        return _render('images/back-card.png', index);
+        return _render('images/back-tile.png', index);
 
       case TileState.Visible:
         return _render(imagePath, index);
@@ -50,7 +50,7 @@ export default function Card({
 
   return (
     <div
-      onClick={async (e: React.MouseEvent) => onClick!(e, id, cardAPI)}
+      onClick={async (e: React.MouseEvent) => onClick!(e, id, tileAPI)}
       className={`
         border-[1px] hover:border-2 border-zinc-600 transition duration-[0.75s]
         scale-100

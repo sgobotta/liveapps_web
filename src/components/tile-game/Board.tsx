@@ -1,23 +1,23 @@
 import React, { BaseSyntheticEvent } from 'react';
-import Card from './Tile';
-import { TileI, Tile as CardT, Deck as DeckT } from '../../types';
+import Tile from './Tile';
+import { TileI, Tile as TileT, Deck as DeckT } from '../../types';
 
 type BoardProps = {
   deck: DeckT;
   elementKeyFunction: (i: number) => string;
-  onCardClick: (
+  onTileClick: (
     deck: DeckT,
   ) => (
     e: BaseSyntheticEvent,
-    cardId: string,
-    cardAPI: TileI,
+    tileId: string,
+    tileAPI: TileI,
   ) => Promise<BaseSyntheticEvent>;
 };
 
 export default function Board({
   deck,
   elementKeyFunction,
-  onCardClick,
+  onTileClick,
 }: BoardProps): React.ReactElement {
   return (
     <div
@@ -32,9 +32,9 @@ export default function Board({
       grid-rows-6 grid-cols-6
     "
     >
-      {deck.tiles.map(({ id, asset, state }: CardT, index: number) => (
-        <Card
-          onClick={onCardClick(deck)}
+      {deck.tiles.map(({ id, asset, state }: TileT, index: number) => (
+        <Tile
+          onClick={onTileClick(deck)}
           key={elementKeyFunction(index)}
           id={id}
           index={index}

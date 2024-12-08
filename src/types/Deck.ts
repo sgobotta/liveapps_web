@@ -10,11 +10,11 @@ export type Deck = {
 
 export interface DeckI {
   init: (tiles: TileAssetT[]) => Deck;
-  findTile: (deck: Deck, cardId: string) => TileT | undefined;
+  findTile: (deck: Deck, tileId: string) => TileT | undefined;
   processTile: (
     e: BaseSyntheticEvent,
-    card: TileT,
+    tile: TileT,
     deck: Deck,
-    cardAPI: TileI,
+    tileAPI: TileI,
   ) => Promise<Deck>;
 }
