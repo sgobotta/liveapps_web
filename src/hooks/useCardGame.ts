@@ -1,22 +1,11 @@
 import { BaseSyntheticEvent, useEffect, useState } from 'react';
 import { t as CardT } from '../lib/card-game/Card';
 import { CardApiType } from '../components/card_game/Card';
-import { Deck, t as DeckT } from '../components/card_game/Deck';
-import { TileAssetT } from '../lib/card-game/TileAsset';
+import { Deck } from '../components/card_game/Deck';
+import { Deck as DeckT, CardGame as CardGameT } from '../types';
+import { TileAsset as TileAssetT } from '../types/TileAsset';
 
-export type t = {
-  getDeck: DeckT;
-  setDeck: React.Dispatch<React.SetStateAction<DeckT>>;
-  onCardClick: (
-    deck: DeckT,
-  ) => (
-    e: BaseSyntheticEvent,
-    cardId: string,
-    cardApi: CardApiType,
-  ) => Promise<BaseSyntheticEvent>;
-};
-
-export const useCardGame = (tiles: TileAssetT[]): t => {
+export const useCardGame = (tiles: TileAssetT[]): CardGameT => {
   const deck = Deck().init(tiles);
   const [getDeck, setDeck] = useState<DeckT>(deck);
 

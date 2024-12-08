@@ -1,5 +1,5 @@
 import { v4 } from 'uuid';
-import { TileAssetT } from './TileAsset';
+import { TileAsset as TileAssetT } from '../../types';
 import { BaseSyntheticEvent } from 'react';
 import { CardApiType } from '../../components/card_game/Card';
 

@@ -1,16 +1,11 @@
 import { BaseSyntheticEvent } from 'react';
 import { CardApiType } from './Card';
 import Card, { CardState, t as CardT } from '../../lib/card-game/Card';
-import { TileAssetT } from '../../lib/card-game/TileAsset';
+import { TileAsset as TileAssetT } from '../../types/TileAsset';
 import { shuffleArray } from '../../utils';
+import { Deck as DeckT } from '../../types';
 
-export type t = {
-  cards: CardT[];
-  selectedCards: CardT[];
-  afterEffect?: t | null;
-};
-
-function init(tiles: TileAssetT[]): t {
+function init(tiles: TileAssetT[]): DeckT {
   return {
     cards: (shuffleArray(tiles.concat(tiles)) as unknown as TileAssetT[]).map(
       (tile: TileAssetT, index: number) => Card().init(tile, index),
@@ -34,11 +29,11 @@ function hideCard(card: CardT): CardT {
   return { ...card, state: CardState.Hidden };
 }
 
-function hideAllCards(deck: t): t {
+function hideAllCards(deck: DeckT): DeckT {
   return { ...deck, cards: deck.cards.map((card: CardT) => hideCard(card)) };
 }
 
-function hideAllCardsExcept(deck: t, card: CardT): t {
+function hideAllCardsExcept(deck: DeckT, card: CardT): DeckT {
   return {
     ...deck,
     cards: [
@@ -50,7 +45,7 @@ function hideAllCardsExcept(deck: t, card: CardT): t {
   };
 }
 
-function guessCardEffect(deck: t, card: CardT): t {
+function guessCardEffect(deck: DeckT, card: CardT): DeckT {
   return {
     ...deck,
     ...hideAllCardsExcept(deck, card),
@@ -58,7 +53,7 @@ function guessCardEffect(deck: t, card: CardT): t {
   };
 }
 
-function missCardEffect(deck: t): t {
+function missCardEffect(deck: DeckT): DeckT {
   return {
     ...deck,
     ...hideAllCards(deck),
@@ -75,9 +70,9 @@ function revealSelectedCard(cards: CardT[], card: CardT): CardT[] {
 async function processCard(
   e: BaseSyntheticEvent,
   card: CardT,
-  deck: t,
+  deck: DeckT,
   cardApi: CardApiType,
-): Promise<t> {
+): Promise<DeckT> {
   let _deck = { ...deck, cards: revealSelectedCard(deck.cards, card) };
 
   const { selectedCards } = _deck;

@@ -1,9 +1,5 @@
 import { v4 } from 'uuid';
-
-export type TileAssetT = {
-  image: string;
-  twinId: string;
-};
+import { TileAsset as TileAssetT } from '../../types/TileAsset';
 
 export default function TileAsset(image: string): TileAssetT {
   return {

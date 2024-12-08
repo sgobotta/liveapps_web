@@ -1,13 +1,13 @@
 import React, { BaseSyntheticEvent } from 'react';
 import Card, { CardApiType } from './Card';
 import { t as CardT } from '../../lib/card-game/Card';
-import { t as DeckProps } from './Deck';
+import { Deck as DeckT } from '../../types';
 
 type BoardProps = {
-  deck: DeckProps;
+  deck: DeckT;
   elementKeyFunction: (i: number) => string;
   onCardClick: (
-    deck: DeckProps,
+    deck: DeckT,
   ) => (
     e: BaseSyntheticEvent,
     cardId: string,

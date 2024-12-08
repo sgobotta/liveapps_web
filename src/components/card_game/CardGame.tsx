@@ -1,20 +1,17 @@
 import Board from './Board';
-import { t as DeckProps } from './Deck';
-import { useCardGame, t as CardGameT } from '../../hooks/useCardGame';
-import { TileAssetT } from '../../lib/card-game/TileAsset';
+import { Deck as DeckT } from '../../types';
+import { useCardGame } from '../../hooks/useCardGame';
+import { CardGame as CardGameT, CardGameProps } from '../../types/CardGame';
+import { ReactElement } from 'react';
 
-type CardGameProps = {
-  tiles: TileAssetT[];
-};
-
-export default function CardGame({ tiles }: CardGameProps) {
+export default function CardGame({ tiles }: CardGameProps): ReactElement {
   const { getDeck, onCardClick }: CardGameT = useCardGame(tiles);
 
   function elementKey(index: number) {
     return `card-${index}`;
   }
 
-  function renderDeck(deck: DeckProps) {
+  function renderDeck(deck: DeckT) {
     return (
       <Board
         deck={deck}

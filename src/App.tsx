@@ -1,13 +1,12 @@
-import React from 'react';
 import livedj from './live-dj-iso-black.svg';
-// import background from './background.svg'
 import './App.css';
 import useImages from './hooks/useImages';
 import CardGame from './components/card_game/CardGame';
 
 import { takeSome } from './utils';
 
-import TileAsset, { TileAssetT } from './lib/card-game/TileAsset';
+import TileAsset from './lib/card-game/TileAsset';
+import { TileAsset as TileAssetT } from './types';
 
 function App() {
   const { images } = useImages();
