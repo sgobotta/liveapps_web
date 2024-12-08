@@ -1,4 +1,4 @@
-import { Card as CardT } from "./Card";
+import { Card as CardT } from './Card';
 
 export type Deck = {
   cards: CardT[];

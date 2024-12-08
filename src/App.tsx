@@ -5,15 +5,16 @@ import CardGame from './components/card_game/CardGame';
 
 import { takeSome } from './utils';
 
-import TileAsset from './lib/card-game/TileAsset';
+import { useTileAsset } from './hooks/useTileAsset';
 import { TileAsset as TileAssetT } from './types';
 
 function App() {
   const { images } = useImages();
+  const { create: createTileAsset } = useTileAsset();
 
   const filteredImages = takeSome(images, 18);
   const tileAssets = filteredImages.map(
-    (image: string): TileAssetT => TileAsset(image),
+    (image: string): TileAssetT => createTileAsset(image),
   );
 
   return (
