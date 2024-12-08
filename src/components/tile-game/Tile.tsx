@@ -60,7 +60,10 @@ export default function TileComponent({
     <div
       onClick={_onClick}
       className={`
-        border-[1px] hover:border-2 border-zinc-600 transition duration-[0.75s]
+        transition duration-[0.75s]
+        border-[1px] border-opacity-25 border-zinc-600 border-dashed
+        hover:border-2 hover:border-opacity-75
+        rounded-sm hover:rounded-lg
         scale-100
         z-10
       `}

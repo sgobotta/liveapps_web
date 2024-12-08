@@ -4,7 +4,7 @@ import { TileI } from '../../interfaces';
 import { useDeck } from './useDeck';
 
 export const useTileGame = (tiles: TileAsset[]): TileGame => {
-  const { init: initDeck, findTile, processTile } = useDeck();
+  const { init: initDeck, findTile, processTile, isBlocked } = useDeck();
 
   const deck = initDeck(tiles);
   const [getDeck, setDeck] = useState<Deck>(deck);
@@ -17,10 +17,12 @@ export const useTileGame = (tiles: TileAsset[]): TileGame => {
       tileAPI: TileI,
     ): Promise<BaseSyntheticEvent> => {
       e.preventDefault();
-      const tile: Tile | undefined = findTile(deck, tileId);
-      const updatedDeck = await processTile(e, tile!, deck, tileAPI);
+      if (!isBlocked(deck)) {
+        const tile: Tile | undefined = findTile(deck, tileId);
+        const updatedDeck = await processTile(e, tile!, deck, tileAPI);
 
-      setDeck(updatedDeck);
+        setDeck(updatedDeck);
+      }
 
       return e;
     };
@@ -32,14 +34,11 @@ export const useTileGame = (tiles: TileAsset[]): TileGame => {
 
   useEffect(() => {
     if (getDeck.afterEffect) {
-      console.log('Saving afterEffect deck... ', getDeck);
-
       new Promise((resolve) => {
         setTimeout(() => {
           return resolve(getDeck.afterEffect);
         }, 2000);
       }).then((updatedDeck) => {
-        console.log('updatedDeck :: ', updatedDeck);
         setDeck(updatedDeck as Deck);
       });
     }

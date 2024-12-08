@@ -1,5 +1,5 @@
 import { shuffleArray } from '../../utils';
-import { Tile, TileState, Deck, TileAsset } from '../../types';
+import { Tile, TileState, Deck, TileAsset, DeckState } from '../../types';
 import { DeckI, TileI } from '../../interfaces';
 import { BaseSyntheticEvent } from 'react';
 import { useTile } from './useTile';
@@ -44,32 +44,46 @@ export const useDeck = (): DeckI => {
   }
 
   function _markAsmatched(deck: Deck, selectedTiles: Tile[]): Deck {
-    const tiles = deck.tiles.map((tile: Tile) => {
-      if (selectedTiles.some((selectedTile: Tile) => equal(selectedTile, tile)))
-        return matchTile(tile);
-      return tile;
-    });
     return {
       ...deck,
-      tiles,
+      tiles: deck.tiles.map((tile: Tile) => {
+        if (
+          selectedTiles.some((selectedTile: Tile) => equal(selectedTile, tile))
+        )
+          return matchTile(tile);
+        return tile;
+      }),
     };
   }
 
   function _guessTileEffect(deck: Deck, selectedTiles: Tile[]): Deck {
+    let _deck = _markAsmatched(deck, selectedTiles);
+    _deck = { ..._unBlockDeck(_deck) };
+
     return {
-      ..._markAsmatched(deck, selectedTiles),
+      ..._deck,
       selectedTiles: [],
       afterEffect: null,
     };
   }
 
   function _missTileEffect(deck: Deck): Deck {
+    let _deck = _hideRemainingTiles(deck);
+    _deck = { ..._unBlockDeck(_deck) };
+
     return {
-      ...deck,
-      ..._hideRemainingTiles(deck),
+      ..._deck,
       selectedTiles: [],
       afterEffect: null,
     };
+  }
+
+  function _blockDeck(deck: Deck): Deck {
+    return { ...deck, state: DeckState.Blocked };
+  }
+
+  function _unBlockDeck(deck: Deck): Deck {
+    return { ...deck, state: DeckState.Unblocked };
   }
 
   // ---------------------------------------------------------------------------
@@ -82,7 +96,12 @@ export const useDeck = (): DeckI => {
         (tile: TileAsset, index: number) => initTile(tile, index),
       ),
       selectedTiles: [],
+      state: DeckState.Unblocked,
     };
+  }
+
+  function isBlocked(deck: Deck): boolean {
+    return deck.state === DeckState.Blocked;
   }
 
   function findTile(deck: Deck, tileId: string): Tile | undefined {
@@ -113,7 +132,7 @@ export const useDeck = (): DeckI => {
 
     switch (selectedTiles.length) {
       case 0:
-        console.log('no selected tiles: ', selectedTiles);
+        console.debug('No selected tiles: ', selectedTiles);
         const tiles = _deck.tiles.map((_tile: Tile) => {
           if (_tile.id === tile.id) {
             if (tile.state === TileState.Hidden) {
@@ -137,10 +156,9 @@ export const useDeck = (): DeckI => {
         // Guessed the tile
         if (_selectedTiles.length === 1) {
           _deck = {
-            ..._deck,
+            ..._blockDeck(_deck),
             tiles: _revealSelectedTile([..._deck.tiles], tile),
           };
-          _deck = { ..._deck, selectedTiles: [] };
           _deck = {
             ..._deck,
             afterEffect: _guessTileEffect(_deck, [...selectedTiles, tile]),
@@ -149,20 +167,16 @@ export const useDeck = (): DeckI => {
         }
         // Did not guessed the tile
         if (_selectedTiles.length === 2) {
-          console.log('Did not guessed the tile: ', tile);
+          console.debug('Did not guessed the tile: ', tile);
           // tileApi.showTile(e.target.parentNode)
           _deck = {
-            ..._deck,
+            ..._blockDeck(_deck),
             tiles: _revealSelectedTile([..._deck.tiles], tile),
           };
-          _deck = { ..._deck, selectedTiles: [] };
+          _deck = { ..._deck };
           _deck = { ..._deck, afterEffect: _missTileEffect(_deck) };
           break;
         }
-        break;
-
-      case 2:
-        console.log('two selected tiles ', selectedTiles);
         break;
     }
 
@@ -171,6 +185,7 @@ export const useDeck = (): DeckI => {
 
   return {
     init,
+    isBlocked,
     findTile,
     processTile,
   };
