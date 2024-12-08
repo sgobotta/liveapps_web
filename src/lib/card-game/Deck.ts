@@ -1,7 +1,5 @@
-export type t = {
-
-}
+export type t = {};
 
 export default function Deck(): t {
-  return {}
+  return {};
 }

@@ -1,23 +1,23 @@
-import { CardState, t as CardT } from "../../lib/card-game/Card";
+import { CardState, t as CardT } from '../../lib/card-game/Card';
 
 function buildImagePath(location: string): string {
-  return process.env.PUBLIC_URL + location
+  return process.env.PUBLIC_URL + location;
 }
 
 export type CardApiType = {
-  showCard: (cardElement: any) => void,
-  hideCard: (cardElement: any) => void
-}
+  showCard: (cardElement: any) => void;
+  hideCard: (cardElement: any) => void;
+};
 
 export function cardApi(): CardApiType {
   return {
     showCard: (cardElement: any) => {
-      cardElement.classList.replace("grayscale", "!grayscale-0")
+      cardElement.classList.replace('grayscale', '!grayscale-0');
     },
     hideCard: (cardElement: any) => {
-      cardElement.classList.replace("!grayscale-0", "grayscale")
-    }
-  }
+      cardElement.classList.replace('!grayscale-0', 'grayscale');
+    },
+  };
 }
 
 export default function Card({
@@ -27,10 +27,9 @@ export default function Card({
   onClick,
   state,
 }: CardT): React.ReactElement {
-
   // border-[1px] hover:border-2 border-zinc-600 transition duration-[0.75s]
   // active:scale-x-[-0.8] active:scale-y-[0.8]
-  
+
   // hover:rounded-t-md ${index % 2 ? 'hover:rounded-r-md active:rotate-0' : 'hover:rounded-l-md hover:rotate-6 active:-rotate-0'}
   // ${index % 2 ? 'hover:-rotate-6 active:rotate-0' : 'hover:rotate-6 active:-rotate-0'}
   // hover:scale-[1] hover:border-dashed hover:border-zinc-300
@@ -51,14 +50,14 @@ export default function Card({
         `}
         fetchPriority={index < 16 ? 'high' : 'low'}
       />
-    )
+    );
 
     switch (state) {
       case CardState.Hidden:
-        return _render("images/back-card.png", index)
-    
+        return _render('images/back-card.png', index);
+
       case CardState.Visible:
-        return _render(imagePath, index)
+        return _render(imagePath, index);
     }
   }
 
@@ -74,5 +73,5 @@ export default function Card({
     >
       {renderImage(state, index, asset.image)}
     </div>
-  )
+  );
 }
