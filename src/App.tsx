@@ -1,11 +1,11 @@
 import livedj from './live-dj-iso-black.svg';
 import './App.css';
-import useImages from './hooks/useImages';
+import useImages from './hooks/tile-game/useImages';
 import CardGame from './components/card_game/CardGame';
 
 import { takeSome } from './utils';
 
-import { useTileAsset } from './hooks/useTileAsset';
+import { useTileAsset } from './hooks/tile-game/useTileAsset';
 import { TileAsset as TileAssetT } from './types';
 
 function App() {

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { shuffleArray } from '../utils';
+import { shuffleArray } from '../../utils';
 
 const useImages = (): { images: string[] } => {
   const [getImages, setImages] = useState<string[]>([]);

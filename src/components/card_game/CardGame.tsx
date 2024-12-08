@@ -1,6 +1,6 @@
 import Board from './Board';
 import { Deck as DeckT } from '../../types';
-import { useCardGame } from '../../hooks/useCardGame';
+import { useCardGame } from '../../hooks/tile-game/useCardGame';
 import { CardGame as CardGameT, CardGameProps } from '../../types/CardGame';
 import { ReactElement } from 'react';
 

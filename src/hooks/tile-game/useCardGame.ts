@@ -1,9 +1,9 @@
 import { BaseSyntheticEvent, useEffect, useState } from 'react';
-import { t as CardT } from '../lib/card-game/Card';
-import { CardApiType } from '../components/card_game/Card';
-import { Deck } from '../components/card_game/Deck';
-import { Deck as DeckT, CardGame as CardGameT } from '../types';
-import { TileAsset as TileAssetT } from '../types/TileAsset';
+import { t as CardT } from '../../lib/card-game/Card';
+import { CardApiType } from '../../components/card_game/Card';
+import { Deck } from '../../components/card_game/Deck';
+import { Deck as DeckT, CardGame as CardGameT } from '../../types';
+import { TileAsset as TileAssetT } from '../../types/TileAsset';
 
 export const useCardGame = (tiles: TileAssetT[]): CardGameT => {
   const deck = Deck().init(tiles);
