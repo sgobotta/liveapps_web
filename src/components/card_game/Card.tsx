@@ -1,14 +1,4 @@
-import { BaseSyntheticEvent } from "react";
-
-export type t = {
-  imagePath: string;
-  state: string;
-  id: string;
-  index: number;
-  onDragStart: (e: React.DragEvent<HTMLDivElement>) => boolean;
-  onDrop: (e: React.DragEvent<HTMLDivElement>) => boolean;
-  onClick?: (e: BaseSyntheticEvent, cardId: string, cardApi: CardApiType) => BaseSyntheticEvent;
-}
+import { CardState, t as CardT } from "../../lib/card-game/Card";
 
 function buildImagePath(location: string): string {
   return process.env.PUBLIC_URL + location
@@ -32,13 +22,11 @@ export function cardApi(): CardApiType {
 
 export default function Card({
   id,
-  imagePath,
+  asset,
   index,
   onClick,
-  onDragStart,
-  onDrop,
   state,
-}: t): React.ReactElement {
+}: CardT): React.ReactElement {
 
   // border-[1px] hover:border-2 border-zinc-600 transition duration-[0.75s]
   // active:scale-x-[-0.8] active:scale-y-[0.8]
@@ -48,7 +36,7 @@ export default function Card({
   // hover:scale-[1] hover:border-dashed hover:border-zinc-300
   // grayscale
 
-  function renderImage(state: string, index: number, imagePath: string) {
+  function renderImage(state: CardState, index: number, imagePath: string) {
     const _render = (imagePath: string, index: number): React.ReactElement => (
       <img
         src={buildImagePath(imagePath)}
@@ -66,10 +54,10 @@ export default function Card({
     )
 
     switch (state) {
-      case "hidden":
+      case CardState.Hidden:
         return _render("images/back-card.png", index)
     
-      case "visible":
+      case CardState.Visible:
         return _render(imagePath, index)
     }
   }
@@ -77,8 +65,6 @@ export default function Card({
   return (
     <div
       onClick={async (e: React.MouseEvent) => onClick!(e, id, cardApi())}
-      onDragStart={onDragStart}
-      onDrop={onDrop}
       className={`
         border-[1px] hover:border-2 border-zinc-600 transition duration-[0.75s]
         scale-100
@@ -86,7 +72,7 @@ export default function Card({
       `}
       key={id}
     >
-      {renderImage(state, index, imagePath)}
+      {renderImage(state, index, asset.image)}
     </div>
   )
 }

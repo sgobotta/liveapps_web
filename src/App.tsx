@@ -5,13 +5,15 @@ import './App.css';
 import useImages from './hooks/useImages';
 import CardGame from './components/card_game/CardGame'
 
-import { shuffleAssets, takeSome } from './utils';
+import { takeSome } from './utils';
+
+import TileAsset, { TileAssetT } from './lib/card-game/TileAsset';
 
 function App() {
   const { images } = useImages()
 
-  const filteredAssets = takeSome(images, 18)
-  const shuffledAssets: string[] = shuffleAssets(filteredAssets)
+  const filteredImages = takeSome(images, 18)
+  const tileAssets = filteredImages.map((image: string): TileAssetT => TileAsset(image))
 
   return (
     <div className="App h-screen max-h-screen overflow-y-hidden">
@@ -44,7 +46,7 @@ function App() {
       <div className='fixed bottom-5 right-5 z-50 grayscale hover:grayscale-0 duration-500 translate-x-0 hover:translate-x-0 translate-y-52 hover:translate-y-0'>
         <iframe title="Jelly Grooves" className="rounded-xl" src="https://open.spotify.com/embed/playlist/2WvKikeI3TfwsMBiNYQUjJ?utm_source=generator" width="100%" height="352" frameBorder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
       </div>
-      <CardGame images={shuffledAssets} />
+      <CardGame tiles={tileAssets} />
     </div>
   );
 }

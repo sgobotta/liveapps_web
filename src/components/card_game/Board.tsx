@@ -1,11 +1,12 @@
 import React, { BaseSyntheticEvent } from 'react';
-import Card, { t as CardProps, CardApiType } from './Card'
+import Card, { CardApiType } from './Card'
+import { t as CardT } from '../../lib/card-game/Card';
 import { t as DeckProps } from './Deck';
 
 type BoardProps = {
   deck: DeckProps;
   elementKeyFunction: (i: number) => string;
-  onCardClick: (deck: DeckProps) => (e: BaseSyntheticEvent, cardId: string, cardApi: CardApiType) => BaseSyntheticEvent;
+  onCardClick: (deck: DeckProps) => (e: BaseSyntheticEvent, cardId: string, cardApi: CardApiType) => Promise<BaseSyntheticEvent>;
 }
 
 export default function Board({ deck, elementKeyFunction, onCardClick }: BoardProps) : React.ReactElement {
@@ -20,15 +21,13 @@ export default function Board({ deck, elementKeyFunction, onCardClick }: BoardPr
       gap-0 grow
       grid-rows-6 grid-cols-6
     ">
-      {deck.cards.map(({ id, imagePath, onDragStart, onDrop, state }: CardProps, index: number) => (
+      {deck.cards.map(({ id, asset, state }: CardT, index: number) => (
         <Card
           onClick={onCardClick(deck)} 
-          onDragStart={onDragStart}
-          onDrop={onDrop} 
           key={elementKeyFunction(index)}
           id={id}
           index={index}
-          imagePath={imagePath}
+          asset={asset}
           state={state}
         />
       ))}

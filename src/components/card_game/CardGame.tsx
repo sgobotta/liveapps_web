@@ -1,71 +1,71 @@
 import React, { BaseSyntheticEvent, useEffect, useState } from 'react';
-import { preventDefault } from '../../utils';
-import { v4 } from 'uuid';
-import { CardApiType, t as Card } from './Card'
+import { CardApiType } from './Card'
+import { t as CardT } from '../../lib/card-game/Card';
 import Board from './Board';
 import { t as DeckProps, Deck } from './Deck';
+import { TileAssetT } from '../../lib/card-game/TileAsset';
 
-
-function buildCards(images: string[]): Card[] {
-  return images.map((imagePath: string) => (
-    {
-      imagePath,
-      id: v4(),
-      index: 0,
-      state: "hidden",
-      onDragStart: preventDefault,
-      onDrop: preventDefault,
-    }
-  ))
-}
 
 type CardGameProps = {
-  images: string[]
+  tiles: TileAssetT[]
 }
 
 type CardGameAPIType = {
-  deck: DeckProps;
-  onCardClick: (deck: DeckProps) => (e: BaseSyntheticEvent, cardId: string, cardApi: CardApiType) => BaseSyntheticEvent;
+  getDeck: DeckProps;
+  setDeck: React.Dispatch<React.SetStateAction<DeckProps>>;
+  onCardClick: (deck: DeckProps) => (e: BaseSyntheticEvent, cardId: string, cardApi: CardApiType) => Promise<BaseSyntheticEvent>;
 }
 
-const useCardGameAPI = (images: string[]) => {
-  const [getDeck, setDeck] = useState<DeckProps>(Deck().init())
+const useCardGameAPI = (tiles: TileAssetT[]) => {
+  const deck = Deck().init(tiles)
+  const [getDeck, setDeck] = useState<DeckProps>(deck)
 
-  function processCard(e: BaseSyntheticEvent, card: Card, deck: DeckProps, cardApi: CardApiType): DeckProps {
-    return Deck().processCard(e, card, deck, cardApi)
+  async function processCard(e: BaseSyntheticEvent, card: CardT, deck: DeckProps, cardApi: CardApiType): Promise<DeckProps> {
+    return await Deck().processCard(e, card, deck, cardApi)
   }
 
-  function findCard(deck: DeckProps, cardId: string): Card | undefined {
-    return deck.cards.find((card: Card) => card.id === cardId)
+  function findCard(deck: DeckProps, cardId: string): CardT | undefined {
+    return deck.cards.find((card: CardT) => card.id === cardId)
   }
 
-  const onCardClick = (deck: DeckProps) => (e: BaseSyntheticEvent, cardId: string, cardApi: CardApiType): BaseSyntheticEvent => {
+  const onCardClick = (deck: DeckProps) => async (e: BaseSyntheticEvent, cardId: string, cardApi: CardApiType): Promise<BaseSyntheticEvent> => {
     e.preventDefault()
-    const card: Card | undefined = findCard(deck, cardId)
-    const updatedDeck = processCard(e, card!, deck, cardApi)
+    const card: CardT | undefined = findCard(deck, cardId)
+    const updatedDeck = await processCard(e, card!, deck, cardApi)
 
     setDeck(updatedDeck)
 
     return e
   }
 
-  const cards: Card[] = buildCards(images)
-
-  useEffect(() => {
-    setDeck({...getDeck, cards})
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [images])
-
-  return { deck: getDeck, onCardClick }
-}
-
-export default function CardGame({ images } : CardGameProps) {
-  const [getDeck, setDeck] = useState<DeckProps>(Deck().init())
-  const { deck, onCardClick }: CardGameAPIType = useCardGameAPI(images)
-
   useEffect(() => {
     setDeck(deck)
-  }, [deck])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [tiles])
+
+  useEffect(() => {
+    if (getDeck.afterEffect) {
+      console.log("doing some after effect...")
+      setDeck({...getDeck, afterEffect: null})
+      
+      new Promise((resolve) => {
+        setTimeout(() => {
+          return resolve(getDeck.afterEffect)
+        }, 2000)
+      })
+      .then((updatedDeck) => {
+        setDeck(updatedDeck as DeckProps)
+      })
+    }
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [getDeck.afterEffect])
+
+  return { getDeck, setDeck, onCardClick }
+}
+
+export default function CardGame({ tiles } : CardGameProps) {
+  const { getDeck, onCardClick }: CardGameAPIType = useCardGameAPI(tiles)
 
   function elementKey(index: number) { return `card-${index}`}
 
