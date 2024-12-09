@@ -2,8 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
-@import "./css/fonts.css";
-@import "./css/scrollbar.css";
+@import './css/fonts.css';
+@import './css/scrollbar.css';
 
 @layer base {
   body {
@@ -11,25 +11,25 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
-  
+
   code {
     font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
       monospace;
   }
 
   a {
-    @apply text-accent-p-500
+    @apply text-accent-p-500;
   }
 
   h1 {
-    @apply text-3xl
+    @apply text-3xl;
   }
 
   ::-moz-selection {
     /* Code for Firefox */
     @apply text-white bg-accent-p-500;
   }
-  
+
   ::selection {
     @apply text-white bg-accent-p-500;
   }

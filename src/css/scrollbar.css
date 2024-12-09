@@ -12,12 +12,12 @@
   border-radius: 50px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  border: 1px solid #9CA3AF;
-  background: #9CA3AF;
+  border: 1px solid #9ca3af;
+  background: #9ca3af;
 }
 ::-webkit-scrollbar-thumb:active {
-  border: 1px double #9CA3AF;
-  background: #9CA3AF;
+  border: 1px double #9ca3af;
+  background: #9ca3af;
 }
 ::-webkit-scrollbar-track {
   border-style: ridge;
@@ -35,7 +35,7 @@
   border-style: ridge;
   border-width: 1px;
   border-color: transparent;
-  background: transparent;;
+  background: transparent;
 }
 ::-webkit-scrollbar-corner {
   background: transparent;
@@ -48,6 +48,6 @@
 
 /* Hide scrollbar for IE, Edge and Firefox */
 .no-scrollbar {
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
 }
