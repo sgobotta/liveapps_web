@@ -58,5 +58,5 @@ export default function BoardComponent({
     );
   }
 
-  return _renderTilesContainer(deck, isBlocked(deck) ? ['!cursor-none'] : []);
+  return _renderTilesContainer(deck, isBlocked(deck) ? ['cursor-none'] : []);
 }
