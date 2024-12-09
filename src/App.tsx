@@ -1,4 +1,5 @@
-import livedj from './live-dj-iso-black.svg';
+import livedj from './svg/live-dj-iso-black.svg';
+import { ReactComponent as Octocat } from './svg/github.svg';
 import './App.css';
 import useImages from './hooks/tile-game/useImages';
 import TileGameComponent from './components/tile-game/TileGame';
@@ -27,10 +28,10 @@ function App() {
         <a href="https://dj.liveapps.com.ar" target="_blank" rel="noreferrer">
           <div
             className="
+              transition duration-500
               animate-fade-right animate-infinite animate-duration-[5000ms] animate-ease-in-out animate-alternate animate-fill-forwards
-
-              h-20
-              w-3/12 sm:w-2/12 md:w-1/6 xl:w-1/12 2xl:w-1/12
+              h-20 w-20
+              hover:animate-pulse
               backdrop-filter backdrop-invert hover:backdrop-brightness-150 hover:backdrop-blur-3xl backdrop-blur-md
               -translate-x-4 hover:-translate-x-0 scale-100 active:scale-95 active:-translate-x-6
               fixed top-24 flex items-center
@@ -38,7 +39,6 @@ function App() {
               bg-gradient-to-r from-primary-500/0 via-accent-p-500/30 to-secondary-500/0
               border-accent-s-900/70 border-y-[1px] border-r-[1px]
               rounded-e-xl
-              transition duration-300
               opacity-100 hover:bg-accent-p-300/0
             "
           >
@@ -59,6 +59,24 @@ function App() {
           allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
           loading="lazy"
         ></iframe>
+      </div>
+      <div className="fixed bottom-2 left-2 h-12 w-12">
+        <a
+          href="https://github.com/sgobotta/liveapps_web"
+          target="_blank"
+          rel="noreferrer"
+        >
+          <Octocat
+            className={`
+            transition duration-500
+            cursor-default hover:cursor-pointer
+            fill-accent-s-300 stroke-accent-s-700
+            hover:fill-primary-300 hover:stroke-primary-700 hover:animate-jump
+            active:fill-accent-p-500 active:stroke-accent-p-900
+            active:shadow-2xl active:scale-95
+          `}
+          />
+        </a>
       </div>
       <TileGameComponent tiles={tileAssets} />
     </div>
