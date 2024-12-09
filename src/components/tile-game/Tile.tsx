@@ -23,17 +23,23 @@ export default function TileComponent({
   // grayscale
 
   function renderImage(state: TileState, index: number, imagePath: string) {
-    const _render = (imagePath: string, index: number): React.ReactElement => (
+    const _render = (
+      imagePath: string,
+      index: number,
+      extraClasses: string[] = [],
+    ): React.ReactElement => (
       <img
         src={buildImagePath(imagePath)}
         alt={`image-${index}`}
         className={`
           transition-all duration-[2s] ease-[cubic-bezier(0.035,0.795,0.05,0.95)]
+          rounded-sm
           hover:rounded-md hover:rounded-t-md
           ${index % 2 ? 'hover:rounded-r-md hover:-rotate-6 active:rotate-0' : 'hover:rounded-l-md hover:rotate-6 active:-rotate-0'}
           hover:translate-x-3 hover:-translate-y-3
           opacity-80 hover:opacity-100
           border-[1px] border-accent-s-900/80 
+          ${extraClasses.join(', ')}
         `}
         fetchPriority={index < 16 ? 'high' : 'low'}
       />
@@ -41,7 +47,7 @@ export default function TileComponent({
 
     switch (state) {
       case TileState.Hidden:
-        return _render('images/back-tile.png', index);
+        return _render('images/back-tile.png', index, ['cursor-pointer']);
 
       case TileState.Selected:
         return _render(imagePath, index);
@@ -63,7 +69,7 @@ export default function TileComponent({
         transition duration-[0.75s]
         border-[1px] border-opacity-25 border-zinc-600 border-dashed
         hover:border-2 hover:border-opacity-75
-        rounded-sm hover:rounded-lg
+         hover:rounded-lg
         scale-100
         z-10
       `}

@@ -37,7 +37,7 @@ export const useTileGame = (tiles: TileAsset[]): TileGame => {
       new Promise((resolve) => {
         setTimeout(() => {
           return resolve(getDeck.afterEffect);
-        }, 2000);
+        }, 1500);
       }).then((updatedDeck) => {
         setDeck(updatedDeck as Deck);
       });
