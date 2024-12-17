@@ -33,10 +33,10 @@ export const useTileGame = (tiles: TileAsset[]): TileGame => {
   }, [tiles]);
 
   useEffect(() => {
-    if (getDeck.afterEffect) {
+    if (getDeck.newDeck) {
       new Promise((resolve) => {
         setTimeout(() => {
-          return resolve(getDeck.afterEffect);
+          return resolve(getDeck.newDeck);
         }, 1500);
       }).then((updatedDeck) => {
         setDeck(updatedDeck as Deck);
@@ -44,7 +44,7 @@ export const useTileGame = (tiles: TileAsset[]): TileGame => {
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [getDeck.afterEffect]);
+  }, [getDeck.newDeck]);
 
   return { getDeck, setDeck, onTileClick: onTileClick };
 };

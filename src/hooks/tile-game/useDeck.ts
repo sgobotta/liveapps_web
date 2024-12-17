@@ -63,7 +63,7 @@ export const useDeck = (): DeckI => {
     return {
       ..._deck,
       selectedTiles: [],
-      afterEffect: null,
+      newDeck: null,
     };
   }
 
@@ -74,7 +74,7 @@ export const useDeck = (): DeckI => {
     return {
       ..._deck,
       selectedTiles: [],
-      afterEffect: null,
+      newDeck: null,
     };
   }
 
@@ -161,7 +161,7 @@ export const useDeck = (): DeckI => {
           };
           _deck = {
             ..._deck,
-            afterEffect: _guessTileEffect(_deck, [...selectedTiles, tile]),
+            newDeck: _guessTileEffect(_deck, [...selectedTiles, tile]),
           };
           break;
         }
@@ -174,7 +174,7 @@ export const useDeck = (): DeckI => {
             tiles: _revealSelectedTile([..._deck.tiles], tile),
           };
           _deck = { ..._deck };
-          _deck = { ..._deck, afterEffect: _missTileEffect(_deck) };
+          _deck = { ..._deck, newDeck: _missTileEffect(_deck) };
           break;
         }
         break;

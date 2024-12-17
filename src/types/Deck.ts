@@ -1,4 +1,4 @@
-import { Tile as TileT } from './Tile';
+import { Tile } from './Tile';
 
 export enum DeckState {
   Blocked,
@@ -7,7 +7,7 @@ export enum DeckState {
 
 export type Deck = {
   state: DeckState;
-  tiles: TileT[];
-  selectedTiles: TileT[];
-  afterEffect?: Deck | null;
+  tiles: Tile[];
+  selectedTiles: Tile[];
+  newDeck?: Deck | null;
 };

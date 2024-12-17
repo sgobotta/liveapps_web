@@ -1,5 +1,5 @@
 import { BaseSyntheticEvent } from 'react';
-import { TileAsset as TileAssetT } from './TileAsset';
+import { TileAsset } from './TileAsset';
 import { TileI } from '../interfaces/Tile';
 
 export enum TileState {
@@ -9,7 +9,7 @@ export enum TileState {
 }
 
 export type Tile = {
-  asset: TileAssetT;
+  asset: TileAsset;
   state: TileState;
   id: string;
   index: number;
