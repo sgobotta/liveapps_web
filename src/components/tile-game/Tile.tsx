@@ -45,8 +45,8 @@ export default function TileComponent({
     switch (state) {
       case TileState.Hidden:
         return _render('images/back-tile.png', index, [
-          'hover:translate-x-3 hover:-translate-y-3',
-          `${index % 2 ? 'hover:rounded-r-md hover:-rotate-6 active:rotate-0' : 'hover:rounded-l-md hover:rotate-6 active:-rotate-0'}`,
+          // 'hover:translate-x-3 hover:-translate-y-3',
+          `${index % 2 ? 'hover:rounded-r-md sm:hover:-rotate-6 sm:active:rotate-0' : 'hover:rounded-l-md sm:hover:rotate-6 sm:active:-rotate-0'}`,
           'hover:rounded-md hover:rounded-t-md hover:opacity-100',
         ]);
 
