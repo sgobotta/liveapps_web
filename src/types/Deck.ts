@@ -10,6 +10,5 @@ export type Deck = {
   state: DeckState;
   tiles: Tile[];
   selectedTiles: Tile[];
-  newDeck?: Deck | null;
-  lastMove?: Move;
+  lastMove: Move;
 };

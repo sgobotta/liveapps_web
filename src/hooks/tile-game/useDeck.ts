@@ -75,10 +75,9 @@ export const useDeck = (): DeckI => {
     return {
       ..._deck,
       selectedTiles: [],
-      newDeck: null,
       lastMove: {
         newDeck: null,
-        outcome: Outcome.Match,
+        outcome: Outcome.Nothing,
       },
     };
   }
@@ -90,10 +89,9 @@ export const useDeck = (): DeckI => {
     return {
       ..._deck,
       selectedTiles: [],
-      newDeck: null,
       lastMove: {
         newDeck: null,
-        outcome: Outcome.Mismatch,
+        outcome: Outcome.Nothing,
       },
     };
   }
@@ -134,6 +132,10 @@ export const useDeck = (): DeckI => {
       ),
       selectedTiles: [],
       state: DeckState.Unblocked,
+      lastMove: {
+        outcome: Outcome.Nothing,
+        newDeck: null,
+      },
     };
   }
 
@@ -180,7 +182,10 @@ export const useDeck = (): DeckI => {
           _deck = _revealSelectedTile(_deck, tile);
           _deck = {
             ..._deck,
-            newDeck: _processTilesMatch(_deck, [...selectedTiles, tile]),
+            lastMove: {
+              newDeck: _processTilesMatch(_deck, [...selectedTiles, tile]),
+              outcome: Outcome.Match,
+            },
           };
           break;
         }
@@ -191,7 +196,10 @@ export const useDeck = (): DeckI => {
           _deck = _revealSelectedTile(_deck, tile);
           _deck = {
             ..._deck,
-            newDeck: _processTileMismatch(_deck),
+            lastMove: {
+              newDeck: _processTileMismatch(_deck),
+              outcome: Outcome.Mismatch,
+            },
           };
           break;
         }
