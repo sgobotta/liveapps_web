@@ -1,3 +1,4 @@
+import { BaseSyntheticEvent } from 'react';
 import { useTile } from '../../hooks/tile-game/useTile';
 import { TileState } from '../../types';
 import { Tile } from '../../types';
@@ -24,27 +25,47 @@ export default function TileComponent({
 
   function renderImage(state: TileState, index: number, imagePath: string) {
     const _render = (
-      imagePath: string,
+      imagePath: string | null,
       index: number,
       extraClasses: string[] = [],
     ): React.ReactElement => (
-      <img
-        src={buildImagePath(imagePath)}
-        alt={`image-${index}`}
-        className={`
-          transition-all duration-[2s] ease-[cubic-bezier(0.035,0.795,0.05,0.95)]
-          rounded-sm
-          opacity-80
-          border-[1px] border-accent-s-900/80 
-          ${extraClasses.join(', ')}
-        `}
-        fetchPriority={index < 16 ? 'high' : 'low'}
-      />
+      <div className='flip-card'>
+        <div className='flex flex-col flip-card-inner'>
+          <div className='flip-card-front'>
+            <img
+              src={buildImagePath('images/back-tile.png')}
+              alt={`image-${index}`}
+              className={`
+                transition-all duration-[2s] ease-[cubic-bezier(0.035,0.795,0.05,0.95)]
+                rounded-sm
+                opacity-80
+                border-[1px] border-accent-s-900/80 
+                ${extraClasses.join(', ')}
+              `}
+              fetchPriority={index < 16 ? 'high' : 'low'}
+            />
+          </div>
+          <div className="flip-card-back flex flex-col">
+            <img
+              src={buildImagePath(imagePath)}
+              alt={`image-${index}`}
+              className={`
+                transition-all duration-[2s] ease-[cubic-bezier(0.035,0.795,0.05,0.95)]
+                rounded-sm
+                opacity-80
+                border-[1px] border-accent-s-900/80 
+                ${extraClasses.join(', ')}
+              `}
+              fetchPriority={index < 16 ? 'high' : 'low'}
+            />
+          </div>
+        </div>
+      </div>
     );
 
     switch (state) {
       case TileState.Hidden:
-        return _render('images/back-tile.png', index, [
+        return _render(null, index, [
           // 'hover:translate-x-3 hover:-translate-y-3',
           `${index % 2 ? 'hover:rounded-r-md sm:hover:-rotate-6 sm:active:rotate-0' : 'hover:rounded-l-md sm:hover:rotate-6 sm:active:-rotate-0'}`,
           'hover:rounded-md hover:rounded-t-md hover:opacity-100',
@@ -60,7 +81,16 @@ export default function TileComponent({
 
   const _onClick =
     state === TileState.Hidden
-      ? (e: React.MouseEvent) => onClick!(e, id, tileAPI)
+      ? (e: BaseSyntheticEvent) => {
+        console.log("e")
+        console.log(e.target.parentNode)
+        setTimeout(() => {
+          e.target.parentNode.classList.add("transition", "duration-[1s]", "-scale-x-100")
+          // e.target.parentNode.classList.add("transition", "duration-[1s]", "-scale-x-100")
+        }, 50)
+        e.preventDefault()
+        onClick!(e, id, tileAPI)
+      }
       : () => {};
 
   return (

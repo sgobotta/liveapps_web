@@ -13,7 +13,7 @@ function App() {
   const { images } = useImages();
   const { create: createTileAsset } = useTileAsset();
 
-  const filteredImages = takeSome(images, 18);
+  const filteredImages = takeSome(images, 2);
   const tileAssets = filteredImages.map(
     (image: string): TileAssetT => createTileAsset(image),
   );

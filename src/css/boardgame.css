@@ -1,0 +1,23 @@
+.flip-card {}
+
+/* This container is needed to position the front and back side */
+.flip-card-inner {
+  position: relative;
+  /* transition: transform 0.8s; */
+  transform-style: preserve-3d;
+}
+
+/* Position the front and back side */
+.flip-card-front, .flip-card-back {
+  -webkit-backface-visibility: hidden; /* Safari */
+  backface-visibility: hidden;
+}
+
+/* Style the back side */
+.flip-card-back {
+  justify-content: space-evenly;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  transform: rotateY(180deg);
+}
