@@ -43,12 +43,13 @@ export default function BoardComponent({
     return (
       <div
         className={`
-          m-auto sm:w-2/3 align-middle lg:p-12 lg:w-1/2
+          m-auto sm:w-full md:w-full lg:w-full xl:w-3/4 2xl:w-2/4
+          sm:p-24 md:p-24 lg:p-24 align-middle
           absolute
           top-1/2 sm:left-1/2
           transform sm:-translate-x-1/2 -translate-y-1/2
           grid
-          gap-0 grow
+          gap-0 aspect-square
           grid-rows-6 grid-cols-6
           ${extraClasses.join(', ')}
         `}
