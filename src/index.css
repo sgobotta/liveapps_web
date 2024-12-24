@@ -4,6 +4,7 @@
 
 @import './css/fonts.css';
 @import './css/scrollbar.css';
+@import './css/boardgame.css';
 
 @layer base {
   body {
