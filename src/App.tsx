@@ -2,22 +2,15 @@ import livedj from './svg/live-dj-iso-black.svg';
 import { ReactComponent as Octocat } from './svg/github.svg';
 import './App.css';
 import useImages from './hooks/tile-game/useImages';
-import TileGameComponent from './components/tile-game/TileGame';
 
 import { takeSome } from './utils';
 
 import { useTileAsset } from './hooks/tile-game/useTileAsset';
 import { TileAsset as TileAssetT } from './types';
+import { ReactElement } from 'react';
+import ApplicationSelection from './components/app-selection/ApplicationSelection';
 
 function App() {
-  const { images } = useImages();
-  const { create: createTileAsset } = useTileAsset();
-
-  const filteredImages = takeSome(images, 18);
-  const tileAssets = filteredImages.map(
-    (image: string): TileAssetT => createTileAsset(image),
-  );
-
   return (
     <div className="App h-screen max-h-screen overflow-y-hidden">
       <header
@@ -78,9 +71,14 @@ function App() {
           />
         </a>
       </div>
-      <TileGameComponent tiles={tileAssets} />
+      {/* <TileGameComponent tiles={tileAssets} /> */}
+      <ApplicationSelection />
     </div>
   );
 }
+
+const ApplicationOption = (): ReactElement => {
+  return <p className="text-white">Picture cards</p>;
+};
 
 export default App;
