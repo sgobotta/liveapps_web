@@ -77,8 +77,4 @@ function App() {
   );
 }
 
-const ApplicationOption = (): ReactElement => {
-  return <p className="text-white">Picture cards</p>;
-};
-
 export default App;

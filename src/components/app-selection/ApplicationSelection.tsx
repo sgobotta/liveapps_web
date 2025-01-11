@@ -1,12 +1,8 @@
 import { ReactElement, useEffect, useState } from 'react';
 import ApplicationOption from './ApplicationOption';
 import { useAppSelection } from '../../hooks/app-selection';
+import { AppChoice } from '../../types';
 // import TileGameComponent from './components/tile-game/TileGame';
-
-export enum AppChoice {
-  PictureCards,
-  Finance,
-}
 
 export default function ApplicationSelection(): ReactElement {
   const { nextSelection, previousSelection } = useAppSelection({
@@ -18,11 +14,12 @@ export default function ApplicationSelection(): ReactElement {
     useState<AppChoice>(initialOption);
 
   function onKeyDown(e: KeyboardEvent): void {
+    console.log('e', e);
     if (e.key === 'ArrowUp') {
-      _setSelectedOption(previousSelection(getSelectedOption).name);
+      _setSelectedOption(previousSelection().name);
     }
     if (e.key === 'ArrowDown') {
-      _setSelectedOption(nextSelection(getSelectedOption).name);
+      _setSelectedOption(nextSelection().name);
     }
   }
 

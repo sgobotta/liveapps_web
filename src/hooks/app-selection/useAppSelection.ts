@@ -1,23 +1,13 @@
 import { useState } from 'react';
-import { AppChoice } from '../../components/app-selection/ApplicationSelection';
 import {
   CircularLinkedListNode,
   useCircularLinkedList,
 } from '../data-structures/useCircularLinkedList';
+import { AppChoice, AppSelectionOption } from '../../types';
+import { AppSelectionI } from '../../interfaces';
 
 type AppSelectionProps = {
   options: AppChoice[];
-};
-
-interface AppSelectionI {
-  nextSelection: (name: AppChoice) => AppSelectionOption;
-  previousSelection: (name: AppChoice) => AppSelectionOption;
-  getSelectionOptions: () => AppSelectionOption[];
-}
-
-type AppSelectionOption = {
-  name: AppChoice;
-  index: number;
 };
 
 export const useAppSelection = ({
@@ -30,40 +20,29 @@ export const useAppSelection = ({
   } = useCircularLinkedList();
 
   const _options: AppSelectionOption[] = options.map(
-    (applicationChoice, index) => {
+    (appChoice: AppChoice, index: number) => {
       return {
-        name: applicationChoice,
+        name: appChoice,
         index,
       };
     },
   );
 
-  const __options = createLinkedList(_options);
+  const firstOption = createLinkedList(_options);
 
-  const [getOption] = useState<CircularLinkedListNode | null>(__options);
+  const [getOption] = useState<CircularLinkedListNode | null>(firstOption);
 
-  function getSelectionOptions(): AppSelectionOption[] {
-    return _options;
-  }
-
-  // function _findOptionByName(options: AppSelectionOption[], optionName: AppChoice): AppSelectionOption {
-  //   return options.find((appSelectionOption: AppSelectionOption) => {
-  //     return appSelectionOption.name === optionName
-  //   }) as AppSelectionOption
-  // }
-
-  function nextSelection(name: AppChoice): AppSelectionOption {
+  function nextSelection(): AppSelectionOption {
     const nextElement = getNextElement(getOption);
     return nextElement!.data;
   }
 
-  function previousSelection(name: AppChoice): AppSelectionOption {
+  function previousSelection(): AppSelectionOption {
     const previousElement = getPreviousElement(getOption);
     return previousElement!.data;
   }
 
   return {
-    getSelectionOptions,
     nextSelection,
     previousSelection,
   };
