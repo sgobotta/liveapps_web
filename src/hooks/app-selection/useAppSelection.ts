@@ -1,8 +1,4 @@
 import { useState } from 'react';
-import {
-  CircularLinkedListNode,
-  useCircularLinkedList,
-} from '../data-structures/useCircularLinkedList';
 import { AppChoice, AppSelectionOption } from '../../types';
 import { AppSelectionI } from '../../interfaces';
 
@@ -13,37 +9,38 @@ type AppSelectionProps = {
 export const useAppSelection = ({
   options,
 }: AppSelectionProps): AppSelectionI => {
-  const {
-    create: createLinkedList,
-    getNext: getNextElement,
-    getPrevious: getPreviousElement,
-  } = useCircularLinkedList();
+  const selectionOptions: AppSelectionOption[] = initOptions(options);
 
-  const _options: AppSelectionOption[] = options.map(
-    (appChoice: AppChoice, index: number) => {
+  const [getSelections] = useState<AppSelectionOption[]>(selectionOptions);
+  const [currentSelection, setCurrentSelection] = useState<AppSelectionOption>(
+    selectionOptions[0],
+  );
+
+  function initOptions(options: AppChoice[]): AppSelectionOption[] {
+    return options.map((appChoice: AppChoice, index: number) => {
       return {
         name: appChoice,
         index,
       };
-    },
-  );
-
-  const firstOption = createLinkedList(_options);
-
-  const [getOption] = useState<CircularLinkedListNode | null>(firstOption);
-
-  function nextSelection(): AppSelectionOption {
-    const nextElement = getNextElement(getOption);
-    return nextElement!.data;
+    });
   }
 
-  function previousSelection(): AppSelectionOption {
-    const previousElement = getPreviousElement(getOption);
-    return previousElement!.data;
+  function nextSelection(option: AppSelectionOption): void {
+    const index = getSelections.indexOf(option);
+    const nextOption = getSelections[(index + 1) % getSelections.length];
+    setCurrentSelection(nextOption);
+  }
+
+  function previousSelection(option: AppSelectionOption): void {
+    const index = getSelections.indexOf(option);
+    const previousOption =
+      getSelections[(index - 1 + getSelections.length) % getSelections.length];
+    setCurrentSelection(previousOption);
   }
 
   return {
     nextSelection,
     previousSelection,
+    currentSelection,
   };
 };
