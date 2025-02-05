@@ -2,13 +2,20 @@ import { ReactElement, useCallback, useEffect, useState } from 'react';
 import { useAppSelection } from '../../hooks/app-selection';
 import { AppChoice, AppSelectionOption } from '../../types';
 import ApplicationOptionComponent from './ApplicationOption';
+import { useMouseWheel } from '../../hooks/listeners/useScrolling';
 // import TileGameComponent from './components/tile-game/TileGame';
 
 export default function ApplicationSelection(): ReactElement {
-  const { nextSelection, previousSelection, currentSelection } =
-    useAppSelection({
-      options: [AppChoice.PictureCards, AppChoice.Finance, AppChoice.LiveDj],
-    });
+  const {
+    chooseSelection,
+    currentSelection,
+    nextSelection,
+    previousSelection,
+  } = useAppSelection({
+    options: [AppChoice.PictureCards, AppChoice.Finance, AppChoice.LiveDj],
+  });
+
+  const { wheelDirection, wheelUpdated } = useMouseWheel();
 
   const onKeyDown = useCallback(
     (event: KeyboardEvent) => {
@@ -19,11 +26,29 @@ export default function ApplicationSelection(): ReactElement {
         nextSelection(currentSelection);
       }
       if (event.key === 'Enter') {
-        console.log('getSelectedOption???', currentSelection);
+        console.log('Selected Option: ', currentSelection);
       }
     },
     [currentSelection],
   );
+
+  useEffect(() => {
+    switch (wheelDirection) {
+      case 0:
+        break;
+
+      case -1:
+        nextSelection(currentSelection);
+        break;
+
+      case 1:
+        previousSelection(currentSelection);
+        break;
+
+      default:
+        break;
+    }
+  }, [wheelUpdated]);
 
   useEffect(() => {
     document.addEventListener('keydown', onKeyDown);
@@ -52,16 +77,19 @@ export default function ApplicationSelection(): ReactElement {
       "
     >
       <ApplicationOptionComponent
-        name="Picture Cards"
         isSelected={isSelected(currentSelection.name, AppChoice.PictureCards)}
+        name="Picture Cards"
+        onClick={() => chooseSelection(AppChoice.PictureCards)}
       />
       <ApplicationOptionComponent
-        name="Finance"
         isSelected={isSelected(currentSelection.name, AppChoice.Finance)}
+        name="Finance"
+        onClick={() => chooseSelection(AppChoice.Finance)}
       />
       <ApplicationOptionComponent
-        name="LiveDj"
         isSelected={isSelected(currentSelection.name, AppChoice.LiveDj)}
+        onClick={() => chooseSelection(AppChoice.LiveDj)}
+        name="LiveDj"
       />
     </div>
   );

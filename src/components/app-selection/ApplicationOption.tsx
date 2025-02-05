@@ -1,13 +1,15 @@
 import { ReactElement } from 'react';
 
 export type ApplicationOption = {
-  name: string;
   isSelected: boolean;
+  name: string;
+  onClick: () => void;
 };
 
 export default function ApplicationOptionComponent({
-  name,
   isSelected,
+  name,
+  onClick,
 }: ApplicationOption): ReactElement {
   return (
     <p
@@ -16,6 +18,7 @@ export default function ApplicationOptionComponent({
       transition duration-500
       ${isSelected ? 'underline' : ''}
     `}
+      onClick={onClick}
     >
       {name}
       {isSelected && <span className="animate-ping">█</span>}

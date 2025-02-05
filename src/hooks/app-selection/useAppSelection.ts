@@ -38,9 +38,17 @@ export const useAppSelection = ({
     setCurrentSelection(previousOption);
   }
 
+  function chooseSelection(option: AppChoice): void {
+    const selection = getSelections.find(
+      ({ name }) => name === option,
+    ) as AppSelectionOption;
+    setCurrentSelection(selection);
+  }
+
   return {
+    chooseSelection,
+    currentSelection,
     nextSelection,
     previousSelection,
-    currentSelection,
   };
 };
