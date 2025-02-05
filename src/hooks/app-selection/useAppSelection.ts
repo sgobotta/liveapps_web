@@ -11,7 +11,7 @@ export const useAppSelection = ({
 }: AppSelectionProps): AppSelectionI => {
   const selectionOptions: AppSelectionOption[] = initOptions(options);
 
-  const [getSelections] = useState<AppSelectionOption[]>(selectionOptions);
+  const [selections] = useState<AppSelectionOption[]>(selectionOptions);
   const [currentSelection, setCurrentSelection] = useState<AppSelectionOption>(
     selectionOptions[0],
   );
@@ -26,22 +26,21 @@ export const useAppSelection = ({
   }
 
   function nextSelection(option: AppSelectionOption): void {
-    const index = getSelections.indexOf(option);
-    const nextOption = getSelections[(index + 1) % getSelections.length];
+    const index = selections.indexOf(option);
+    const nextOption = selections[(index + 1) % selections.length];
     setCurrentSelection(nextOption);
   }
 
   function previousSelection(option: AppSelectionOption): void {
-    const index = getSelections.indexOf(option);
+    const index = selections.indexOf(option);
     const previousOption =
-      getSelections[(index - 1 + getSelections.length) % getSelections.length];
+      selections[(index - 1 + selections.length) % selections.length];
     setCurrentSelection(previousOption);
   }
 
-  function chooseSelection(option: AppChoice): void {
-    const selection = getSelections.find(
-      ({ name }) => name === option,
-    ) as AppSelectionOption;
+  function chooseSelection(option: AppSelectionOption): void {
+    const index = selections.indexOf(option);
+    const selection = selections[index];
     setCurrentSelection(selection);
   }
 
@@ -50,5 +49,6 @@ export const useAppSelection = ({
     currentSelection,
     nextSelection,
     previousSelection,
+    selections,
   };
 };

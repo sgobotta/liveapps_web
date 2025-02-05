@@ -11,6 +11,7 @@ export default function ApplicationSelection(): ReactElement {
     currentSelection,
     nextSelection,
     previousSelection,
+    selections,
   } = useAppSelection({
     options: [AppChoice.PictureCards, AppChoice.Finance, AppChoice.LiveDj],
   });
@@ -79,16 +80,16 @@ export default function ApplicationSelection(): ReactElement {
       <ApplicationOptionComponent
         isSelected={isSelected(currentSelection.name, AppChoice.PictureCards)}
         name="Picture Cards"
-        onClick={() => chooseSelection(AppChoice.PictureCards)}
+        onClick={() => chooseSelection(selections[0])}
       />
       <ApplicationOptionComponent
         isSelected={isSelected(currentSelection.name, AppChoice.Finance)}
         name="Finance"
-        onClick={() => chooseSelection(AppChoice.Finance)}
+        onClick={() => chooseSelection(selections[1])}
       />
       <ApplicationOptionComponent
         isSelected={isSelected(currentSelection.name, AppChoice.LiveDj)}
-        onClick={() => chooseSelection(AppChoice.LiveDj)}
+        onClick={() => chooseSelection(selections[2])}
         name="LiveDj"
       />
     </div>
