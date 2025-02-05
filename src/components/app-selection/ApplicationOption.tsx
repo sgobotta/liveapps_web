@@ -15,8 +15,11 @@ export default function ApplicationOptionComponent({
     <p
       className={`
       text-white
+      text-2xl
       transition duration-500
-      ${isSelected ? 'underline' : ''}
+      ${isSelected ? 'underline text-sky-300 scale-125' : ''}
+      hover:text-sky-300
+      hover:cursor-pointer
     `}
       onClick={onClick}
     >

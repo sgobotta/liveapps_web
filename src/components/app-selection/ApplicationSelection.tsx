@@ -80,7 +80,7 @@ export default function ApplicationSelection(): ReactElement {
         top-1/2 sm:left-1/2
         transform sm:-translate-x-1/2 -translate-y-1/2
         text-3xl
-        pl-8
+        pl-10
       "
     >
       {selections.map((selection: AppSelectionOption) => (
