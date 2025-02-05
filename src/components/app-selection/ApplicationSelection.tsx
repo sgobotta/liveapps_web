@@ -1,4 +1,4 @@
-import { ReactElement, useCallback, useEffect, useState } from 'react';
+import { ReactElement, useCallback, useEffect } from 'react';
 import { useAppSelection } from '../../hooks/app-selection';
 import { AppChoice, AppSelectionOption } from '../../types';
 import ApplicationOptionComponent from './ApplicationOption';
@@ -13,7 +13,11 @@ export default function ApplicationSelection(): ReactElement {
     previousSelection,
     selections,
   } = useAppSelection({
-    options: [AppChoice.PictureCards, AppChoice.Finance, AppChoice.LiveDj],
+    options: [
+      { choice: AppChoice.PictureCards, name: 'Picture Cards' },
+      { choice: AppChoice.Finance, name: 'Finance' },
+      { choice: AppChoice.LiveDj, name: 'LiveDj' },
+    ],
   });
 
   const { wheelDirection, wheelUpdated } = useMouseWheel();
@@ -30,6 +34,7 @@ export default function ApplicationSelection(): ReactElement {
         console.log('Selected Option: ', currentSelection);
       }
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [currentSelection],
   );
 
@@ -49,6 +54,7 @@ export default function ApplicationSelection(): ReactElement {
       default:
         break;
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [wheelUpdated]);
 
   useEffect(() => {
@@ -77,21 +83,13 @@ export default function ApplicationSelection(): ReactElement {
         pl-8
       "
     >
-      <ApplicationOptionComponent
-        isSelected={isSelected(currentSelection.name, AppChoice.PictureCards)}
-        name="Picture Cards"
-        onClick={() => chooseSelection(selections[0])}
-      />
-      <ApplicationOptionComponent
-        isSelected={isSelected(currentSelection.name, AppChoice.Finance)}
-        name="Finance"
-        onClick={() => chooseSelection(selections[1])}
-      />
-      <ApplicationOptionComponent
-        isSelected={isSelected(currentSelection.name, AppChoice.LiveDj)}
-        onClick={() => chooseSelection(selections[2])}
-        name="LiveDj"
-      />
+      {selections.map((selection: AppSelectionOption) => (
+        <ApplicationOptionComponent
+          isSelected={isSelected(currentSelection.choice, selection.choice)}
+          name={selection.name}
+          onClick={() => chooseSelection(selection)}
+        />
+      ))}
     </div>
   );
 }

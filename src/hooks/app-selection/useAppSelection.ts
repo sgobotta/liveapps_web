@@ -1,9 +1,9 @@
 import { useState } from 'react';
-import { AppChoice, AppSelectionOption } from '../../types';
+import { AppSelectionOption } from '../../types';
 import { AppSelectionI } from '../../interfaces';
 
 type AppSelectionProps = {
-  options: AppChoice[];
+  options: AppSelectionOption[];
 };
 
 export const useAppSelection = ({
@@ -16,13 +16,16 @@ export const useAppSelection = ({
     selectionOptions[0],
   );
 
-  function initOptions(options: AppChoice[]): AppSelectionOption[] {
-    return options.map((appChoice: AppChoice, index: number) => {
-      return {
-        name: appChoice,
-        index,
-      };
-    });
+  function initOptions(options: AppSelectionOption[]): AppSelectionOption[] {
+    return options.map(
+      (appSelectionOption: AppSelectionOption, index: number) => {
+        return {
+          name: appSelectionOption.name,
+          choice: appSelectionOption.choice,
+          index,
+        };
+      },
+    );
   }
 
   function nextSelection(option: AppSelectionOption): void {
