@@ -17,7 +17,7 @@ export default function ApplicationOptionComponent({
       text-white
       text-2xl
       transition duration-500
-      ${isSelected ? 'underline text-sky-300 scale-125' : ''}
+      ${isSelected ? 'underline text-sky-200 scale-125' : ''}
       hover:text-sky-300
       hover:cursor-pointer
     `}

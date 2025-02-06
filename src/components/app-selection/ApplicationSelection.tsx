@@ -3,59 +3,8 @@ import { useAppSelection } from '../../hooks/app-selection';
 import { AppChoice, AppSelectionOption } from '../../types';
 import ApplicationOptionComponent from './ApplicationOption';
 import { useMouseWheel } from '../../hooks/listeners/useScrolling';
+import { ApplicationPreview } from './ApplicationPreview';
 // import TileGameComponent from './components/tile-game/TileGame';
-
-function ApplicationPreview(): ReactElement {
-  return (
-    <div className='relative p-10 h-64 w-64'>
-      <div className='
-        absolute top-[50%] left-[40%]
-        bg-accent-p-300/20
-        h-60 w-60
-        rounded-3xl
-        blur-sm
-      '/>
-      <div className='
-        absolute top-[32%] left-[20%]
-        bg-accent-p-300/100
-        h-32 w-32
-        rounded-[3.0rem]
-        blur-[0.12rem]
-      '/>
-      <div className='
-        absolute top-[35%] left-[78%]
-        bg-accent-p-300/100
-        h-32 w-32
-        rounded-[3.0rem]
-        blur-[0.12rem]
-      '/>
-      <div className='
-        absolute top-[100%] left-[90%]
-        bg-rose-400/100
-        h-32 w-32
-        rounded-[3.0rem]
-        blur-[0.1rem]
-      '/>
-      <div className='
-        absolute top-[88%] left-[28%]
-        bg-accent-p-300/100
-        h-32 w-32
-        rounded-[3.0rem]
-        blur-[0.1rem]
-      '/>
-      <div className='
-        absolute top-[40%] left-[30%]
-        bg-accent-p-300/100
-        h-60 w-60
-        rounded-3xl
-        blur-[0.07rem]
-      '>
-        <p className='text-white'>
-        </p>
-      </div>
-    </div>
-  )
-}
 
 export default function ApplicationSelection(): ReactElement {
   const {
@@ -123,22 +72,52 @@ export default function ApplicationSelection(): ReactElement {
     return selectedOption === applicationChoice;
   }
 
+  function getBgColor(index: number) {
+    switch (index) {
+      case 0:
+        return 'bg-secondary-300';
+
+      case 1:
+        return 'bg-accent-p-300';
+
+      case 2:
+        return 'bg-primary-300';
+
+      default:
+        break;
+    }
+  }
+
   return (
     <div>
-      <div className='
-        w-full
+      <div
+        className="
+        w-full h-full
         align-middle
         absolute flex flex-col items-center
-        top-[10%]
-      '>
-        <ApplicationPreview />
+        overflow-hidden
+      "
+      >
+        {selections.map((selection: AppSelectionOption, index) => (
+          <ApplicationPreview
+            isSelected={isSelected(currentSelection.choice, selection.choice)}
+            extraClasses={`
+              ${getBgColor(index)}
+              ${
+                isSelected(currentSelection.choice, selection.choice)
+                  ? 'translate-x-[0%]'
+                  : 'translate-x-[400%]'
+              }
+            `}
+          />
+        ))}
       </div>
       <div
         className="
           font-mono m-auto sm:w-full md:w-full lg:w-full xl:w-3/4 2xl:w-3/4
           sm:p-24 md:p-24 lg:p-24 align-middle
           absolute flex flex-col items-start
-          top-3/4 sm:top-3/4 sm:left-1/2
+          top-2/3 sm:top-3/4 sm:left-1/2
           transform sm:-translate-x-1/2 -translate-y-1/2
           text-3xl
           pl-10
