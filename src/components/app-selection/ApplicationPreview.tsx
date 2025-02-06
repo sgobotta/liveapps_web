@@ -15,7 +15,7 @@ export function ApplicationPreview({
           className={`
           absolute
           top-[12%] left-[-16%]
-          sm:top-[50%] sm:left-[40%]
+          sm:top-[24%] sm:left-[40%]
           h-60 !w-screen
           sm:h-72 sm:w-72 
           rounded-3xl
@@ -29,7 +29,7 @@ export function ApplicationPreview({
           className={`
           absolute
           top-[10%] left-[0%]
-          sm:top-[48%] sm:left-[70%]
+          sm:top-[22%] sm:left-[70%]
           h-60 w-60 sm:h-72 sm:w-72 
           rounded-3xl
           blur-[0.05rem]

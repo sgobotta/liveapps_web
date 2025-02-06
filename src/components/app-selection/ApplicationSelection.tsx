@@ -93,7 +93,6 @@ export default function ApplicationSelection(): ReactElement {
       <div
         className="
         w-full h-full
-        align-middle
         absolute flex flex-col items-center
         overflow-hidden
       "
@@ -115,10 +114,9 @@ export default function ApplicationSelection(): ReactElement {
       <div
         className="
           font-mono m-auto sm:w-full md:w-full lg:w-full xl:w-3/4 2xl:w-3/4
-          sm:p-24 md:p-24 lg:p-24 align-middle
+          sm:p-14
           absolute flex flex-col items-start
-          top-2/3 sm:top-3/4 sm:left-1/2
-          transform sm:-translate-x-1/2 -translate-y-1/2
+          top-[60%] sm:top-2/4 sm:left-0
           text-3xl
           pl-10
         "
