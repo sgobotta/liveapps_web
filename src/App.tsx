@@ -73,7 +73,6 @@ function App() {
         </a>
       </div>
       {/* <TileGameComponent tiles={tileAssets} /> */}
-      
     </div>
   );
 }

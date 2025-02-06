@@ -88,6 +88,19 @@ export default function ApplicationSelection(): ReactElement {
     }
   }
 
+  function getApplicationContent(choice: AppChoice): ReactElement {
+    switch (choice) {
+      case AppChoice.Finance:
+        return <div>Finance</div>;
+
+      case AppChoice.LiveDj:
+        return <div>LiveDj</div>;
+
+      case AppChoice.PictureCards:
+        return <div>Picture Cards</div>;
+    }
+  }
+
   return (
     <div>
       <div
@@ -99,6 +112,7 @@ export default function ApplicationSelection(): ReactElement {
       >
         {selections.map((selection: AppSelectionOption, index) => (
           <ApplicationPreview
+            previewContent={getApplicationContent(selection.choice)}
             isSelected={isSelected(currentSelection.choice, selection.choice)}
             extraClasses={`
               ${getBgColor(index)}

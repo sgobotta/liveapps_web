@@ -3,10 +3,12 @@ import { ReactElement } from 'react';
 type ApplicationPreviewProps = {
   isSelected?: boolean;
   extraClasses?: string;
+  previewContent?: ReactElement;
 };
 
 export function ApplicationPreview({
   extraClasses = '',
+  previewContent,
 }: ApplicationPreviewProps): ReactElement {
   return (
     <div className="absolute">
@@ -35,9 +37,10 @@ export function ApplicationPreview({
           blur-[0.05rem]
           transition duration-[1.25s]
           ${extraClasses}
+          flex items-center justify-center
         `}
         >
-          <p className="text-white"></p>
+          {previewContent}
         </div>
       </div>
     </div>
