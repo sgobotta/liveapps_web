@@ -112,6 +112,7 @@ export default function ApplicationSelection(): ReactElement {
       >
         {selections.map((selection: AppSelectionOption, index) => (
           <ApplicationPreview
+            key={`preview-${String(selection.choice).toLowerCase()}`}
             previewContent={getApplicationContent(selection.choice)}
             isSelected={isSelected(currentSelection.choice, selection.choice)}
             extraClasses={`
@@ -137,6 +138,7 @@ export default function ApplicationSelection(): ReactElement {
       >
         {selections.map((selection: AppSelectionOption) => (
           <ApplicationOptionComponent
+            key={`option-${String(selection.choice).toLowerCase()}`}
             isSelected={isSelected(currentSelection.choice, selection.choice)}
             name={selection.name}
             onClick={() => chooseSelection(selection)}

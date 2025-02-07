@@ -16,7 +16,7 @@ export function ApplicationPreview({
         <div
           className={`
           absolute
-          top-[12%] left-[-16%]
+          top-[12%] left-[-66%]
           sm:top-[24%] sm:left-[40%]
           h-60 !w-screen
           sm:h-72 sm:w-72 
@@ -30,7 +30,7 @@ export function ApplicationPreview({
         <div
           className={`
           absolute
-          top-[10%] left-[0%]
+          top-[10%] left-[-50%]
           sm:top-[22%] sm:left-[70%]
           h-60 w-60 sm:h-72 sm:w-72 
           rounded-3xl
