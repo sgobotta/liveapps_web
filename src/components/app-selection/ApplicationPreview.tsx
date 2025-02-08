@@ -11,7 +11,7 @@ type ApplicationPreviewProps = {
 
 function FinancePreview(): ReactElement {
   return (
-    <div className="w-full h-fit p-2">
+    <div className="">
       <img
         src={publicImage('images/finance/logo.png')}
         className="w-full h-full rounded-xl"
@@ -30,7 +30,15 @@ function LiveDjPreview(): ReactElement {
 }
 
 function PictureCards(): ReactElement {
-  return <div>Picture Cards</div>;
+  return (
+    <div>
+      <img
+        src={publicImage('images/picture-cards/logo.png')}
+        className="w-full h-full rounded-lg"
+        alt="picture-cards logo"
+      />
+    </div>
+  );
 }
 
 export function ApplicationPreview({
