@@ -72,19 +72,19 @@ export default function ApplicationSelection(): ReactElement {
     return selectedOption === applicationChoice;
   }
 
-  function getBgColor(index: number) {
-    switch (index) {
-      case 0:
+  function getBgColor(choice: AppChoice) {
+    switch (choice) {
+      case AppChoice.PictureCards:
         return 'bg-zinc-300';
 
-      case 1:
+      case AppChoice.Finance:
         return 'bg-zinc-300';
 
-      case 2:
+      case AppChoice.LiveDj:
         return 'bg-zinc-300';
 
       default:
-        break;
+        return 'bg-zinc-300';
     }
   }
 
@@ -103,7 +103,7 @@ export default function ApplicationSelection(): ReactElement {
             key={`preview-${String(selection.choice).toLowerCase()}`}
             isSelected={isSelected(currentSelection.choice, selection.choice)}
             extraClasses={`
-              ${getBgColor(index)}
+              ${getBgColor(selection.choice)}
               ${
                 isSelected(currentSelection.choice, selection.choice)
                   ? 'translate-x-[0%]'
