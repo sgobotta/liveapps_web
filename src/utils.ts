@@ -13,3 +13,7 @@ export function preventDefault(e: React.DragEvent<HTMLDivElement>): boolean {
   e.preventDefault();
   return false;
 }
+
+export function publicImage(imagePath: string): string {
+  return `${process.env.PUBLIC_URL}/${imagePath}`;
+}

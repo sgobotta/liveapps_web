@@ -1,6 +1,7 @@
 import { ReactElement } from 'react';
 import livedj from '../../svg/live-dj-iso-black.svg';
 import { AppChoice } from '../../types';
+import { publicImage } from '../../utils';
 
 type ApplicationPreviewProps = {
   choice: AppChoice;
@@ -12,7 +13,7 @@ function FinancePreview(): ReactElement {
   return (
     <div className="w-full h-fit p-2">
       <img
-        src={process.env.PUBLIC_URL + '/images/finance/logo.png'}
+        src={publicImage('images/finance/logo.png')}
         className="w-full h-full rounded-xl"
         alt="finance logo"
       />
