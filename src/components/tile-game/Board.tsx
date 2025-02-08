@@ -44,7 +44,8 @@ export default function BoardComponent({
       <div
         className={`
           m-auto sm:w-full md:w-full lg:w-full xl:w-3/4 2xl:w-2/4
-          sm:p-24 md:p-24 lg:p-24 align-middle
+          sm:p-24 md:p-24 lg:p-24
+          align-middle
           absolute
           top-1/2 sm:left-1/2
           transform sm:-translate-x-1/2 -translate-y-1/2
