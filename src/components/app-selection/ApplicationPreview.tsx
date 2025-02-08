@@ -9,12 +9,20 @@ type ApplicationPreviewProps = {
 };
 
 function FinancePreview(): ReactElement {
-  return <div>Finance</div>;
+  return (
+    <div className="w-full h-fit p-2">
+      <img
+        src={process.env.PUBLIC_URL + '/images/finance/logo.png'}
+        className="w-full h-full rounded-xl"
+        alt="finance logo"
+      />
+    </div>
+  );
 }
 
 function LiveDjPreview(): ReactElement {
   return (
-    <div className="flex items-center">
+    <div className="flex items-center justify-center">
       <img src={livedj} className="w-3/4 h-3/4" alt="livedj logo" />
     </div>
   );

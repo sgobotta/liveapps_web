@@ -75,13 +75,13 @@ export default function ApplicationSelection(): ReactElement {
   function getBgColor(index: number) {
     switch (index) {
       case 0:
-        return 'bg-secondary-300';
+        return 'bg-zinc-300';
 
       case 1:
-        return 'bg-accent-p-300';
+        return 'bg-zinc-300';
 
       case 2:
-        return 'bg-primary-300';
+        return 'bg-zinc-300';
 
       default:
         break;
