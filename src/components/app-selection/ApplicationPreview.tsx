@@ -1,15 +1,48 @@
 import { ReactElement } from 'react';
+import livedj from '../../svg/live-dj-iso-black.svg';
+import { AppChoice } from '../../types';
 
 type ApplicationPreviewProps = {
+  choice: AppChoice;
   isSelected?: boolean;
   extraClasses?: string;
-  previewContent?: ReactElement;
 };
 
+function FinancePreview(): ReactElement {
+  return <div>Finance</div>;
+}
+
+function LiveDjPreview(): ReactElement {
+  return (
+    <div className="flex items-center">
+      <img src={livedj} className="w-3/4 h-3/4" alt="livedj logo" />
+    </div>
+  );
+}
+
+function PictureCards(): ReactElement {
+  return <div>Picture Cards</div>;
+}
+
 export function ApplicationPreview({
+  choice,
   extraClasses = '',
-  previewContent,
 }: ApplicationPreviewProps): ReactElement {
+  function getContentByChoice(choice: AppChoice): ReactElement {
+    switch (choice) {
+      case AppChoice.Finance:
+        return <FinancePreview />;
+
+      case AppChoice.LiveDj:
+        return <LiveDjPreview />;
+
+      case AppChoice.PictureCards:
+        return <PictureCards />;
+    }
+  }
+
+  const content = getContentByChoice(choice);
+
   return (
     <div className="absolute">
       <div className="relative p-10 w-full h-[80vh]">
@@ -40,7 +73,7 @@ export function ApplicationPreview({
           flex items-center justify-center
         `}
         >
-          {previewContent}
+          {content}
         </div>
       </div>
     </div>
