@@ -17,3 +17,10 @@ export function preventDefault(e: React.DragEvent<HTMLDivElement>): boolean {
 export function publicImage(imagePath: string): string {
   return `${process.env.PUBLIC_URL}/${imagePath}`;
 }
+
+export function openTab(url: string): void {
+  const link = document.createElement('a');
+  link.setAttribute('href', url);
+  link.setAttribute('target', '_blank');
+  link.click();
+}
