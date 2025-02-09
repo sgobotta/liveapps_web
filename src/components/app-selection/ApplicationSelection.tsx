@@ -4,6 +4,7 @@ import { AppChoice, AppSelectionOption } from '../../types';
 import ApplicationOptionComponent from './ApplicationOption';
 import { useMouseWheel } from '../../hooks/listeners/useScrolling';
 import { ApplicationPreview } from './ApplicationPreview';
+import { openTab } from '../../utils';
 // import TileGameComponent from './components/tile-game/TileGame';
 
 export default function ApplicationSelection(): ReactElement {
@@ -15,9 +16,27 @@ export default function ApplicationSelection(): ReactElement {
     selections,
   } = useAppSelection({
     options: [
-      { choice: AppChoice.PictureCards, name: 'Picture Cards' },
-      { choice: AppChoice.Finance, name: 'Finance' },
-      { choice: AppChoice.LiveDj, name: 'LiveDj' },
+      {
+        choice: AppChoice.PictureCards,
+        name: 'Picture Cards',
+        onSelect: () => {
+          console.log('Selected Picture Cards');
+        },
+      },
+      {
+        choice: AppChoice.Finance,
+        name: 'Finance',
+        onSelect: () => {
+          openTab('https://finance.liveapps.com.ar');
+        },
+      },
+      {
+        choice: AppChoice.LiveDj,
+        name: 'LiveDj',
+        onSelect: () => {
+          openTab('https://dj.liveapps.com.ar');
+        },
+      },
     ],
   });
 
@@ -32,7 +51,7 @@ export default function ApplicationSelection(): ReactElement {
         nextSelection(currentSelection);
       }
       if (event.key === 'Enter') {
-        console.log('Selected Option: ', currentSelection);
+        currentSelection.onSelect();
       }
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps

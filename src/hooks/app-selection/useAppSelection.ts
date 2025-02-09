@@ -20,8 +20,7 @@ export const useAppSelection = ({
     return options.map(
       (appSelectionOption: AppSelectionOption, index: number) => {
         return {
-          name: appSelectionOption.name,
-          choice: appSelectionOption.choice,
+          ...appSelectionOption,
           index,
         };
       },
