@@ -94,16 +94,25 @@ export default function ApplicationSelection(): ReactElement {
   function getBgColor(choice: AppChoice) {
     switch (choice) {
       case AppChoice.PictureCards:
-        return 'bg-zinc-300';
+        return {
+          sliderClasses: 'bg-zinc-300 group-active:bg-blue-300',
+          previewClasses: 'bg-zinc-300',
+        };
 
       case AppChoice.Finance:
-        return 'bg-zinc-300';
+        return {
+          sliderClasses: 'bg-zinc-300 group-active:bg-amber-200',
+          previewClasses: 'bg-zinc-300',
+        };
 
       case AppChoice.LiveDj:
-        return 'bg-zinc-300';
+        return {
+          sliderClasses: 'bg-zinc-300 group-active:bg-red-300',
+          previewClasses: 'bg-zinc-300',
+        };
 
       default:
-        return 'bg-zinc-300';
+        return { sliderClasses: 'bg-zinc-300', previewClasses: 'bg-zinc-300' };
     }
   }
 
@@ -121,8 +130,16 @@ export default function ApplicationSelection(): ReactElement {
             choice={selection.choice}
             key={`preview-${String(selection.choice).toLowerCase()}`}
             isSelected={isSelected(currentSelection.choice, selection.choice)}
-            extraClasses={`
-              ${getBgColor(selection.choice)}
+            previewClasses={`
+              ${getBgColor(selection.choice).previewClasses}
+              ${
+                isSelected(currentSelection.choice, selection.choice)
+                  ? 'translate-x-[0%]'
+                  : 'translate-x-[400%]'
+              }
+            `}
+            sliderClasses={`
+              ${getBgColor(selection.choice).sliderClasses}
               ${
                 isSelected(currentSelection.choice, selection.choice)
                   ? 'translate-x-[0%]'

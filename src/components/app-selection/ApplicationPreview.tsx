@@ -7,15 +7,26 @@ type ApplicationPreviewProps = {
   choice: AppChoice;
   isSelected?: boolean;
   extraClasses?: string;
+  previewClasses?: string;
+  sliderClasses?: string;
 };
 
 function FinancePreview(): ReactElement {
   return (
-    <div className="">
+    <div
+      className="
+      cursor-pointer
+      animate-wiggle
+      animate-duration-[5s]
+      animate-iteration-infinite
+      flex items-center justify-center
+    "
+    >
       <img
-        src={publicImage('images/finance/logo.png')}
-        className="w-full h-full rounded-xl"
         alt="finance logo"
+        draggable="false"
+        className="w-full h-full rounded-xl"
+        src={publicImage('images/finance/logo.png')}
       />
     </div>
   );
@@ -23,19 +34,36 @@ function FinancePreview(): ReactElement {
 
 function LiveDjPreview(): ReactElement {
   return (
-    <div className="flex items-center justify-center">
-      <img src={livedj} className="w-3/4 h-3/4" alt="livedj logo" />
+    <div
+      className="
+      cursor-pointer
+      animate-jump
+      animate-duration-[5s]
+      animate-iteration-infinite
+      flex items-center justify-center
+    "
+    >
+      <img
+        alt="livedj logo"
+        draggable="false"
+        className="w-3/4 h-3/4"
+        src={livedj}
+      />
     </div>
   );
 }
 
 function PictureCards(): ReactElement {
   return (
-    <div>
+    <div className="cursor-pointer">
       <img
-        src={publicImage('images/picture-cards/logo.png')}
-        className="w-full h-full rounded-lg"
         alt="picture-cards logo"
+        className="
+          rounded-lg w-full h-full
+          duration-1000 group-active:rounded-[5.5rem]
+        "
+        draggable="false"
+        src={publicImage('images/picture-cards/logo.png')}
       />
     </div>
   );
@@ -44,6 +72,8 @@ function PictureCards(): ReactElement {
 export function ApplicationPreview({
   choice,
   extraClasses = '',
+  previewClasses = '',
+  sliderClasses = '',
 }: ApplicationPreviewProps): ReactElement {
   function getContentByChoice(choice: AppChoice): ReactElement {
     switch (choice) {
@@ -61,8 +91,8 @@ export function ApplicationPreview({
   const content = getContentByChoice(choice);
 
   return (
-    <div className="absolute">
-      <div className="relative p-10 w-full h-[80vh]">
+    <div className="absolute group test-class">
+      <div className="relative h-[80vh]">
         <div
           className={`
           absolute
@@ -71,23 +101,29 @@ export function ApplicationPreview({
           h-60 !w-screen
           sm:h-72 sm:w-72 
           rounded-3xl
-          transition duration-[1s]
-          ${extraClasses}
+          ${sliderClasses}
           bg-opacity-20
           blur-[2px]
+          transition-all duration-1000
+          group-active:rounded-[5rem]
         `}
         />
         <div
           className={`
           absolute
           top-[10%] left-[-50%]
-          sm:top-[22%] sm:left-[70%]
+          sm:top-[22%] sm:left-[50%]
+          ml-[1rem]
           h-60 w-60 sm:h-72 sm:w-72 
           rounded-3xl
           blur-[0.05rem]
           transition duration-[1.25s]
-          ${extraClasses}
+          ${previewClasses}
           flex items-center justify-center
+          transition-all duration-500
+          group-active:-translate-x-5 group-active:translate-y-4
+          group-active:rounded-[5rem]
+          group-active:shadow-inner
         `}
         >
           {content}
