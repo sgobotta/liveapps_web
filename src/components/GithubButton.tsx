@@ -1,6 +1,8 @@
+import { ReactElement } from 'react';
 import { ReactComponent as Octocat } from '../svg/github.svg';
+import Tooltip from './ui/Tooltip';
 
-export default function GithubButton() {
+export default function GithubButton(): ReactElement {
   return (
     <div className="group">
       <div
@@ -10,17 +12,7 @@ export default function GithubButton() {
         animate-jump-in
       "
       >
-        <div className="bg-zinc-600 text-yellow-200 font-bold text-xs rounded py-1 px-3 bottom-full">
-          Star Me!
-          <svg
-            className="absolute text-zinc-600 h-2 w-full left-0 top-full"
-            x="0px"
-            y="0px"
-            viewBox="0 0 255 255"
-          >
-            <polygon className="fill-current" points="0,0 127.5,127.5 255,0" />
-          </svg>
-        </div>
+        <Tooltip text="Star Me!" />
       </div>
       <a
         href="https://github.com/sgobotta/liveapps_web"
