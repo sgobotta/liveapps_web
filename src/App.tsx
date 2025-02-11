@@ -1,7 +1,7 @@
-import { ReactComponent as Octocat } from './svg/github.svg';
 import './App.css';
 import { ReactElement } from 'react';
 import ApplicationSelection from './components/app-selection/ApplicationSelection';
+import GithubButton from './components/GithubButton';
 
 function App(): ReactElement {
   return (
@@ -20,22 +20,7 @@ function App(): ReactElement {
         ></iframe>
       </div>
       <div className="fixed bottom-2 left-2 h-12 w-12">
-        <a
-          href="https://github.com/sgobotta/liveapps_web"
-          target="_blank"
-          rel="noreferrer"
-        >
-          <Octocat
-            className={`
-            transition duration-500
-            cursor-default hover:cursor-pointer
-            fill-accent-s-300 stroke-accent-s-700
-            hover:fill-primary-300 hover:stroke-primary-700 hover:animate-jump
-            active:fill-accent-p-500 active:stroke-accent-p-900
-            active:shadow-2xl active:scale-95
-          `}
-          />
-        </a>
+        <GithubButton />
       </div>
     </div>
   );
