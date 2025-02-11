@@ -51,6 +51,15 @@ export default function ApplicationSelection(): ReactElement {
         nextSelection(currentSelection);
       }
       if (event.key === 'Enter') {
+      }
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [currentSelection],
+  );
+
+  const onKeyUp = useCallback(
+    (event: KeyboardEvent) => {
+      if (event.key === 'Enter') {
         currentSelection.onSelect();
       }
     },
@@ -83,6 +92,13 @@ export default function ApplicationSelection(): ReactElement {
       document.removeEventListener('keydown', onKeyDown);
     };
   }, [onKeyDown]);
+
+  useEffect(() => {
+    document.addEventListener('keyup', onKeyUp);
+    return () => {
+      document.removeEventListener('keyup', onKeyUp);
+    };
+  }, [onKeyUp]);
 
   function isSelected(
     selectedOption: AppChoice,
@@ -129,7 +145,6 @@ export default function ApplicationSelection(): ReactElement {
           <ApplicationPreview
             choice={selection.choice}
             key={`preview-${String(selection.choice).toLowerCase()}`}
-            isSelected={isSelected(currentSelection.choice, selection.choice)}
             previewClasses={`
               ${getBgColor(selection.choice).previewClasses}
               ${

@@ -5,8 +5,6 @@ import { publicImage } from '../../utils';
 
 type ApplicationPreviewProps = {
   choice: AppChoice;
-  isSelected?: boolean;
-  extraClasses?: string;
   previewClasses?: string;
   sliderClasses?: string;
 };
@@ -71,7 +69,6 @@ function PictureCards(): ReactElement {
 
 export function ApplicationPreview({
   choice,
-  extraClasses = '',
   previewClasses = '',
   sliderClasses = '',
 }: ApplicationPreviewProps): ReactElement {
@@ -95,36 +92,36 @@ export function ApplicationPreview({
       <div className="relative h-[80vh]">
         <div
           className={`
-          absolute
-          top-[12%] left-[-66%]
-          sm:top-[24%] sm:left-[40%]
-          h-60 !w-screen
-          sm:h-72 sm:w-72 
-          rounded-3xl
-          ${sliderClasses}
-          bg-opacity-20
-          blur-[2px]
-          transition-all duration-1000
-          group-active:rounded-[5rem]
-        `}
+            absolute
+            top-[12%] left-[-66%]
+            sm:top-[24%] sm:left-[40%]
+            h-60 !w-screen
+            sm:h-72 sm:w-72 
+            rounded-3xl
+            ${sliderClasses}
+            bg-opacity-20
+            blur-[2px]
+            transition-all duration-1000
+            group-active:rounded-[5rem]
+          `}
         />
         <div
           className={`
-          absolute
-          top-[10%] left-[-50%]
-          sm:top-[22%] sm:left-[50%]
-          ml-[1rem]
-          h-60 w-60 sm:h-72 sm:w-72 
-          rounded-3xl
-          blur-[0.05rem]
-          transition duration-[1.25s]
-          ${previewClasses}
-          flex items-center justify-center
-          transition-all duration-500
-          group-active:-translate-x-5 group-active:translate-y-4
-          group-active:rounded-[5rem]
-          group-active:shadow-inner
-        `}
+            absolute
+            top-[10%] left-[-50%]
+            sm:top-[22%] sm:left-[50%]
+            ml-[1rem]
+            h-60 w-60 sm:h-72 sm:w-72 
+            rounded-3xl
+            blur-[0.05rem]
+            transition duration-[1.25s]
+            ${previewClasses}
+            flex items-center justify-center
+            transition-all duration-500
+            group-active:-translate-x-5 group-active:translate-y-4
+            group-active:rounded-[5rem]
+            group-active:shadow-inner
+          `}
         >
           {content}
         </div>
