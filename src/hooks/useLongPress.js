@@ -2,8 +2,8 @@ import { useCallback, useRef, useState } from 'react';
 
 const useLongPress = (
   onLongPress,
-  onClick,
-  { shouldPreventDefault = true, delay = 300 } = {},
+  onClick = () => {},
+  { shouldPreventDefault = true, delay = 1000 } = {},
 ) => {
   const [longPressTriggered, setLongPressTriggered] = useState(false);
   const timeout = useRef();
