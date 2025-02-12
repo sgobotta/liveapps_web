@@ -145,6 +145,7 @@ export default function ApplicationSelection(): ReactElement {
           <ApplicationPreview
             choice={selection.choice}
             key={`preview-${String(selection.choice).toLowerCase()}`}
+            onSelect={selection.onSelect}
             previewClasses={`
               ${getBgColor(selection.choice).previewClasses}
               ${
