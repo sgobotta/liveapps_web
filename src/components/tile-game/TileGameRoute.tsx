@@ -5,7 +5,7 @@ import { useTileAsset } from '../../hooks';
 import { TileAsset as TileAssetT } from '../../types';
 import TileGame from './TileGame';
 
-export default function TileGameComponent(): ReactElement {
+export default function TileGameRoute(): ReactElement {
   const { images } = useImages();
   const { create: createTileAsset } = useTileAsset();
 
