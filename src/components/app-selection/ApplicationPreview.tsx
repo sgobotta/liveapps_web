@@ -115,7 +115,7 @@ export function ApplicationPreview({
   const content = getContentByChoice(choice);
 
   return (
-    <div className="absolute group ml-20 sm:ml-0">
+    <div className="absolute group ml-20 md:ml-60 lg:ml-0">
       <div className="relative h-[80vh]">
         <div
           className={`

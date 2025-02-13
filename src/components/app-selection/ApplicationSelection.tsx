@@ -137,7 +137,7 @@ export default function ApplicationSelection(): ReactElement {
       <div
         className="
         w-full h-full
-        absolute flex flex-col sm:items-center
+        absolute flex flex-col lg:items-center
         overflow-hidden
       "
       >
