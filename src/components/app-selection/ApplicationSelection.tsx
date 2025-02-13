@@ -5,9 +5,11 @@ import ApplicationOptionComponent from './ApplicationOption';
 import { useMouseWheel } from '../../hooks/listeners/useScrolling';
 import { ApplicationPreview } from './ApplicationPreview';
 import { openTab } from '../../utils';
-// import TileGameComponent from './components/tile-game/TileGame';
+import { useNavigate } from 'react-router';
 
 export default function ApplicationSelection(): ReactElement {
+  const navigate = useNavigate();
+
   const {
     chooseSelection,
     currentSelection,
@@ -20,7 +22,7 @@ export default function ApplicationSelection(): ReactElement {
         choice: AppChoice.PictureCards,
         name: 'Picture Cards',
         onSelect: () => {
-          console.log('Selected Picture Cards');
+          navigate('/picture-cards');
         },
       },
       {

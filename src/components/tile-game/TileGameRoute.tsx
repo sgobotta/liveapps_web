@@ -4,8 +4,11 @@ import useImages from '../../hooks/tile-game/useImages';
 import { useTileAsset } from '../../hooks';
 import { TileAsset as TileAssetT } from '../../types';
 import TileGame from './TileGame';
+import { HomeIcon } from '../../svg/HomeIcon';
+import { useNavigate } from 'react-router';
 
 export default function TileGameRoute(): ReactElement {
+  const navigate = useNavigate();
   const { images } = useImages();
   const { create: createTileAsset } = useTileAsset();
 
@@ -16,6 +19,16 @@ export default function TileGameRoute(): ReactElement {
 
   return (
     <div>
+      <div
+        className="
+          absolute top-5 left-5
+          hover:cursor-pointer hover:animate-wiggle
+          active:animate-jump-out
+        "
+        onClick={() => navigate('/')}
+      >
+        <HomeIcon />
+      </div>
       <TileGame tiles={tileAssets} />
     </div>
   );
