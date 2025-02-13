@@ -3,8 +3,11 @@ import { ReactElement } from 'react';
 import ApplicationSelection from './components/app-selection/ApplicationSelection';
 import GithubButton from './components/GithubButton';
 import SpotifyFrame from './components/spotify/SpotifyFrame';
+import { useContextMenuDisabled } from './hooks/useContextMenu';
 
 function App(): ReactElement {
+  useContextMenuDisabled();
+
   return (
     <div className="text-center h-screen max-h-screen overflow-y-hidden">
       <ApplicationSelection />
