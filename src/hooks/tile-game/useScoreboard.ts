@@ -2,15 +2,23 @@ import { useEffect, useState } from 'react';
 import { TileScoreboard } from '../../types';
 import { TileScoreboardI } from '../../interfaces';
 
-export const useScoreboard = (): TileScoreboardI => {
+export type TileScoreboardProps = {
+  tilePairs: number;
+};
+
+export const useScoreboard = (props: TileScoreboardProps): TileScoreboardI => {
   const [attempts, setAttempt] = useState<number>(0);
   const [matches, setMatch] = useState<number>(0);
   const [streak, setStreak] = useState<number>(0);
+  console.log('tilePairs', props.tilePairs);
+  const [remainingPairs, setRemainingPairs] = useState<number>(props.tilePairs);
+  console.log('props', remainingPairs);
   const [scoreboard, setScoreboard] = useState<TileScoreboard>({
     attempts: 0,
     matches: 0,
     accuracy: 0,
-    streak: 0
+    streak: 0,
+    remainingPairs: remainingPairs,
   });
 
   function onAttempt() {
@@ -19,11 +27,12 @@ export const useScoreboard = (): TileScoreboardI => {
 
   function onMatch() {
     setMatch(matches + 1);
-    setStreak(streak + 1)
+    setStreak(streak + 1);
+    setRemainingPairs(remainingPairs - 1);
   }
 
   function onMismatch() {
-    setStreak(0)
+    setStreak(0);
   }
 
   function calculateAccuracy(attempts: number, matches: number) {
@@ -39,19 +48,19 @@ export const useScoreboard = (): TileScoreboardI => {
 
   useEffect(() => {
     const accuracy = calculateAccuracy(attempts, matches);
-    setScoreboard({ ...scoreboard, matches, accuracy });
+    setScoreboard({ ...scoreboard, matches, accuracy, remainingPairs });
     // eslint-disable-next-line
   }, [matches]);
 
   useEffect(() => {
-    setScoreboard({...scoreboard, streak})
+    setScoreboard({ ...scoreboard, streak });
     // eslint-disable-next-line
-  }, [streak])
+  }, [streak]);
 
   return {
     scoreboard,
     onAttempt,
     onMatch,
-    onMismatch
+    onMismatch,
   };
 };

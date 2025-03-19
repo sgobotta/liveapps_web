@@ -13,6 +13,8 @@ export default function TileGameComponent({
     return `tile-${index}`;
   }
 
+  console.log(getDeck);
+
   function renderDeck(deck: Deck) {
     return (
       <Board

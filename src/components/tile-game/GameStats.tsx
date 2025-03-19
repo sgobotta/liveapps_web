@@ -12,6 +12,7 @@ export default function GameStats({ scoreboard }: GameStatsProps) {
         <Matches value={scoreboard.matches} />
         <Accuracy value={scoreboard.accuracy} />
         <Streak value={scoreboard.streak} />
+        <RemainingPairs value={scoreboard.remainingPairs} />
       </div>
     </div>
   );
@@ -53,6 +54,16 @@ function Streak({ value }: { value: number }) {
     <div>
       <span className="text-zinc-300 text-xl">
         🔥<span className="p-2 text-base font-bold font-mono">{value}</span>
+      </span>
+    </div>
+  );
+}
+
+function RemainingPairs({ value }: { value: number }) {
+  return (
+    <div>
+      <span className="text-zinc-300 text-xl">
+        🎴<span className="p-2 text-base font-bold font-mono">{value}</span>
       </span>
     </div>
   );

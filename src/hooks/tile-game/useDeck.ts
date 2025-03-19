@@ -206,7 +206,7 @@ export const useDeck = (): DeckI => {
               outcome: Outcome.Mismatch,
             },
           };
-          onMismatch()
+          onMismatch();
           break;
         }
         break;
