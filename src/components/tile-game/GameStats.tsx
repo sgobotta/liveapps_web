@@ -11,6 +11,7 @@ export default function GameStats({ scoreboard }: GameStatsProps) {
         <Attempts value={scoreboard.attempts} />
         <Matches value={scoreboard.matches} />
         <Accuracy value={scoreboard.accuracy} />
+        <Streak value={scoreboard.streak} />
       </div>
     </div>
   );
@@ -42,6 +43,16 @@ function Accuracy({ value }: { value: number }) {
     <div>
       <span className="text-zinc-300 text-xl">
         📊<span className="p-2 text-base font-bold font-mono">{value}%</span>
+      </span>
+    </div>
+  );
+}
+
+function Streak({ value }: { value: number }) {
+  return (
+    <div>
+      <span className="text-zinc-300 text-xl">
+        🔥<span className="p-2 text-base font-bold font-mono">{value}</span>
       </span>
     </div>
   );

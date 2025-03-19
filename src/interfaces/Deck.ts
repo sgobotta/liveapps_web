@@ -13,5 +13,6 @@ export interface DeckI {
     tileAPI: TileI,
     onAttempt: () => void,
     onMatch: () => void,
+    onMismatch: () => void,
   ) => Promise<Deck>;
 }

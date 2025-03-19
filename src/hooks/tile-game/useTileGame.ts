@@ -6,7 +6,7 @@ import { useScoreboard } from './useScoreboard';
 
 export const useTileGame = (tiles: TileAsset[]): TileGame => {
   const { init: initDeck, findTile, processTile, isBlocked } = useDeck();
-  const { scoreboard, onAttempt, onMatch } = useScoreboard();
+  const { scoreboard, onAttempt, onMatch, onMismatch } = useScoreboard();
 
   const deck = initDeck(tiles);
   const [getDeck, setDeck] = useState<Deck>(deck);
@@ -28,6 +28,7 @@ export const useTileGame = (tiles: TileAsset[]): TileGame => {
           tileAPI,
           onAttempt,
           onMatch,
+          onMismatch
         );
 
         setDeck(updatedDeck);

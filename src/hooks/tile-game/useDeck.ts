@@ -154,6 +154,7 @@ export const useDeck = (): DeckI => {
     tileAPI: TileI,
     onAttempt: () => void,
     onMatch: () => void,
+    onMismatch: () => void,
   ): Promise<Deck> {
     let _deck = { ...deck };
 
@@ -205,6 +206,7 @@ export const useDeck = (): DeckI => {
               outcome: Outcome.Mismatch,
             },
           };
+          onMismatch()
           break;
         }
         break;
