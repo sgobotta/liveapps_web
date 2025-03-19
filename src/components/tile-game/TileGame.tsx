@@ -7,7 +7,7 @@ import { ReactElement } from 'react';
 export default function TileGameComponent({
   tiles,
 }: TileGameProps): ReactElement {
-  const { getDeck, onTileClick }: TileGame = useTileGame(tiles);
+  const { getDeck, onTileClick, scoreboard }: TileGame = useTileGame(tiles);
 
   function elementKey(index: number) {
     return `tile-${index}`;
@@ -19,6 +19,7 @@ export default function TileGameComponent({
         deck={deck}
         elementKeyFunction={elementKey}
         onTileClick={onTileClick}
+        scoreboard={scoreboard}
       />
     );
   }

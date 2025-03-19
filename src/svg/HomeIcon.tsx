@@ -8,30 +8,16 @@ export const HomeIcon = (): ReactElement => {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-      <g
-        id="SVGRepo_tracerCarrier"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-      ></g>
+      <g id="SVGRepo_bgCarrier"></g>
+      <g id="SVGRepo_tracerCarrier"></g>
       <g id="SVGRepo_iconCarrier">
         <path
           className="stroke-zinc-400 group-hover:stroke-zinc-300"
-          fill-rule="evenodd"
-          clip-rule="evenodd"
           d="M18.867 15.8321L18.873 10.0391L14.75 5.92908C13.5057 4.69031 11.4942 4.69031 10.25 5.92908L6.13599 10.0291V15.8291C6.1393 17.5833 7.56377 19.0028 9.31799 19.0001H15.685C17.438 19.0029 18.862 17.5851 18.867 15.8321Z"
-          stroke-width="1.5"
-          stroke-linecap="round"
-          stroke-linejoin="round"
         ></path>
         <path
           className="stroke-zinc-400 group-hover:stroke-zinc-300"
-          fill-rule="evenodd"
-          clip-rule="evenodd"
           d="M14 11.365C13.9846 12.1896 13.3064 12.8471 12.4817 12.8369C11.657 12.8267 10.9952 12.1526 11.0003 11.3279C11.0053 10.5031 11.6752 9.83718 12.5 9.83704C12.9015 9.84073 13.2852 10.0038 13.5665 10.2904C13.8478 10.5769 14.0037 10.9635 14 11.365V11.365Z"
-          stroke-width="1.5"
-          stroke-linecap="round"
-          stroke-linejoin="round"
         ></path>
         <path
           className="fill-zinc-400 group-hover:fill-zinc-300"

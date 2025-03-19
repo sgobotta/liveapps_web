@@ -53,7 +53,6 @@ export default function TileComponent({
                     ${extraClasses.join(', ')}
                     
                   `}
-                  fetchPriority={index < 16 ? 'high' : 'low'}
                 />
               </div>
             </div>
@@ -74,7 +73,6 @@ export default function TileComponent({
                 border-[1px] border-accent-s-900/80 
                 ${extraClasses.join(', ')}
               `}
-              fetchPriority={index < 16 ? 'high' : 'low'}
             />
           </div>
         </div>

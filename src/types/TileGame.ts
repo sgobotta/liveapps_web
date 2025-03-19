@@ -2,6 +2,7 @@ import { BaseSyntheticEvent } from 'react';
 import { TileI } from '../interfaces';
 import { TileAsset } from './TileAsset';
 import { Deck } from './Deck';
+import { TileScoreboard } from './TileScoreboard';
 
 export type TileGameProps = {
   tiles: TileAsset[];
@@ -17,4 +18,5 @@ export type TileGame = {
     tileId: string,
     tileAPI: TileI,
   ) => Promise<BaseSyntheticEvent>;
+  scoreboard: TileScoreboard;
 };

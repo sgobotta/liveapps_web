@@ -1,8 +1,9 @@
 import React, { BaseSyntheticEvent, ReactElement } from 'react';
 import TileComponent from './Tile';
-import { Tile, Deck } from '../../types';
+import { Tile, Deck, TileScoreboard } from '../../types';
 import { TileI } from '../../interfaces';
 import { useDeck } from '../../hooks/tile-game/useDeck';
+import GameStats from './GameStats';
 
 type BoardProps = {
   deck: Deck;
@@ -14,12 +15,14 @@ type BoardProps = {
     tileId: string,
     tileAPI: TileI,
   ) => Promise<BaseSyntheticEvent>;
+  scoreboard: TileScoreboard;
 };
 
 export default function BoardComponent({
   deck,
   elementKeyFunction,
   onTileClick,
+  scoreboard,
 }: BoardProps): React.ReactElement {
   const { isBlocked } = useDeck();
 
@@ -43,19 +46,28 @@ export default function BoardComponent({
     return (
       <div
         className={`
-          m-auto sm:w-full md:w-full lg:w-full xl:w-3/4 2xl:w-2/4
-          sm:p-24 md:p-24 lg:p-24
-          align-middle
-          absolute
-          top-1/2 sm:left-1/2
-          transform sm:-translate-x-1/2 -translate-y-1/2
-          grid
-          gap-0 aspect-square
-          grid-rows-6 grid-cols-6
-          ${extraClasses.join(', ')}
-        `}
+        sm:w-full md:w-3/4 lg:w-4/6 xl:w-2/4 2xl:w-2/4
+        m-auto
+        absolute
+        top-1/2 sm:left-1/2
+        transform sm:-translate-x-1/2 -translate-y-1/2
+      `}
       >
-        {_renderTiles(deck.tiles)}
+        <GameStats scoreboard={scoreboard} />
+        <div>
+          <div
+            className={`
+              p-4 sm:p-12 md:p-12 lg:p-12
+              align-middle
+              grid
+              gap-0 aspect-square
+              grid-rows-6 grid-cols-6
+              ${extraClasses.join(', ')}
+            `}
+          >
+            {_renderTiles(deck.tiles)}
+          </div>
+        </div>
       </div>
     );
   }

@@ -2,9 +2,11 @@ import { BaseSyntheticEvent, useEffect, useState } from 'react';
 import { Tile, Deck, TileGame, TileAsset, Move, Outcome } from '../../types';
 import { TileI } from '../../interfaces';
 import { useDeck } from './useDeck';
+import { useScoreboard } from './useScoreboard';
 
 export const useTileGame = (tiles: TileAsset[]): TileGame => {
   const { init: initDeck, findTile, processTile, isBlocked } = useDeck();
+  const { scoreboard, onAttempt, onMatch } = useScoreboard();
 
   const deck = initDeck(tiles);
   const [getDeck, setDeck] = useState<Deck>(deck);
@@ -19,7 +21,14 @@ export const useTileGame = (tiles: TileAsset[]): TileGame => {
       e.preventDefault();
       if (!isBlocked(deck)) {
         const tile: Tile | undefined = findTile(deck, tileId);
-        const updatedDeck = await processTile(e, tile!, deck, tileAPI);
+        const updatedDeck = await processTile(
+          e,
+          tile!,
+          deck,
+          tileAPI,
+          onAttempt,
+          onMatch,
+        );
 
         setDeck(updatedDeck);
       }
@@ -53,5 +62,5 @@ export const useTileGame = (tiles: TileAsset[]): TileGame => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [getDeck.lastMove.newDeck]);
 
-  return { getDeck, setDeck, onTileClick: onTileClick };
+  return { getDeck, setDeck, onTileClick: onTileClick, scoreboard };
 };
