@@ -4,7 +4,11 @@ import Tooltip, { TooltipPosition } from './ui/Tooltip';
 
 export default function GithubButton(): ReactElement {
   return (
-    <Tooltip text="Star Me!" autoShowDelay={3000} position={TooltipPosition.Top}>
+    <Tooltip
+      text="Star Me!"
+      autoShowDelay={3000}
+      position={TooltipPosition.Top}
+    >
       <a
         href="https://github.com/sgobotta/liveapps_web"
         target="_blank"
