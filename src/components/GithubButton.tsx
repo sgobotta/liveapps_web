@@ -1,27 +1,10 @@
-import { ReactElement, useEffect, useState } from 'react';
+import { ReactElement } from 'react';
 import { ReactComponent as Octocat } from '../svg/github.svg';
 import Tooltip from './ui/Tooltip';
 
 export default function GithubButton(): ReactElement {
-  const [displayClass, setDisplayClass] = useState('hidden');
-
-  useEffect(() => {
-    setTimeout(() => {
-      setDisplayClass('block');
-    }, 5000);
-  }, []);
-
   return (
-    <div className="group">
-      <div
-        className={`
-        absolute bottom-14 ${displayClass} group-hover:block
-        transition duration-500
-        animate-jump-in
-      `}
-      >
-        <Tooltip text="Star Me!" />
-      </div>
+    <Tooltip text="Star Me!" autoShowDelay={6000}>
       <a
         href="https://github.com/sgobotta/liveapps_web"
         target="_blank"
@@ -38,6 +21,6 @@ export default function GithubButton(): ReactElement {
         `}
         />
       </a>
-    </div>
+    </Tooltip>
   );
 }
