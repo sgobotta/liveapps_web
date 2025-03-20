@@ -21,9 +21,10 @@ export default function TileGameRoute(): ReactElement {
     <div>
       <div
         className="
-          absolute top-5 left-5
+          absolute top-3 left-3
           hover:cursor-pointer hover:animate-wiggle
           active:animate-jump-out
+          z-10
         "
         onClick={() => navigate('/')}
       >

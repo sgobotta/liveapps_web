@@ -28,7 +28,7 @@ export const useTileGame = (tiles: TileAsset[]): TileGame => {
           tileAPI,
           onAttempt,
           onMatch,
-          onMismatch
+          onMismatch,
         );
 
         setDeck(updatedDeck);

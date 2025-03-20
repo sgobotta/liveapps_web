@@ -9,7 +9,7 @@ function App(): ReactElement {
   useContextMenuDisabled();
 
   return (
-    <div className="text-center h-screen max-h-screen overflow-y-hidden">
+    <div className="text-center h-screen max-h-screen overflow-y-hidden select-none">
       <ApplicationSelection />
       <div className="fixed bottom-5 right-5 z-50 grayscale hover:grayscale-0 duration-500 translate-x-0 hover:translate-x-0 translate-y-52 hover:translate-y-0">
         <SpotifyFrame />

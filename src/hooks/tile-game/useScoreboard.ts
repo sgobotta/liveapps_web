@@ -10,7 +10,7 @@ export const useScoreboard = (): TileScoreboardI => {
     attempts: 0,
     matches: 0,
     accuracy: 0,
-    streak: 0
+    streak: 0,
   });
 
   function onAttempt() {
@@ -19,11 +19,11 @@ export const useScoreboard = (): TileScoreboardI => {
 
   function onMatch() {
     setMatch(matches + 1);
-    setStreak(streak + 1)
+    setStreak(streak + 1);
   }
 
   function onMismatch() {
-    setStreak(0)
+    setStreak(0);
   }
 
   function calculateAccuracy(attempts: number, matches: number) {
@@ -44,14 +44,14 @@ export const useScoreboard = (): TileScoreboardI => {
   }, [matches]);
 
   useEffect(() => {
-    setScoreboard({...scoreboard, streak})
+    setScoreboard({ ...scoreboard, streak });
     // eslint-disable-next-line
-  }, [streak])
+  }, [streak]);
 
   return {
     scoreboard,
     onAttempt,
     onMatch,
-    onMismatch
+    onMismatch,
   };
 };
