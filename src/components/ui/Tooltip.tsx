@@ -10,7 +10,7 @@ export type TooltipProps = {
   textColor?: string;
   backgroundColor?: string;
   arrowColor?: string;
-  autoShowDelay?: number;
+  autoShowDelay?: number | null;
   position?: TooltipPosition;
   children: ReactNode;
 };
@@ -20,16 +20,18 @@ export default function Tooltip({
   textColor = 'text-yellow-200',
   backgroundColor = 'bg-zinc-600',
   arrowColor = 'text-zinc-600',
-  autoShowDelay = 0,
+  autoShowDelay = null,
   position = TooltipPosition.Top,
   children,
 }: TooltipProps): ReactElement {
   const [displayClass, setDisplayClass] = useState('hidden');
 
   useEffect(() => {
-    setTimeout(() => {
-      setDisplayClass('block');
-    }, autoShowDelay);
+    if (autoShowDelay !== null) {
+      setTimeout(() => {
+        setDisplayClass('block');
+      }, autoShowDelay);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -62,7 +64,7 @@ export default function Tooltip({
         return 'bottom-14';
 
       case TooltipPosition.Bottom:
-        return '-bottom-12';
+        return '-bottom-4';
     }
   }
 
