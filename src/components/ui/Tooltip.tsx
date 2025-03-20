@@ -46,11 +46,31 @@ export default function Tooltip({
     }
   }
 
+  function getSvgAbsolutePosition(position: TooltipPosition) {
+    switch (position) {
+      case TooltipPosition.Top:
+        return 'top-full';
+
+      case TooltipPosition.Bottom:
+        return '-top-1';
+    }
+  }
+
+  function getContainerAbsolutePosition(position: TooltipPosition) {
+    switch (position) {
+      case TooltipPosition.Top:
+        return 'bottom-14';
+
+      case TooltipPosition.Bottom:
+        return '-bottom-12';
+    }
+  }
+
   return (
     <div className="group">
       <div
         className={`
-        absolute bottom-14 ${displayClass} group-hover:block
+        absolute ${getContainerAbsolutePosition(position)} ${displayClass} group-hover:block
         transition duration-500
         animate-jump-in
       `}
@@ -60,7 +80,7 @@ export default function Tooltip({
         >
           {text}
           <svg
-            className={`absolute ${arrowColor} h-2 w-full left-0 top-full`}
+            className={`absolute ${arrowColor} h-2 w-full left-0 bottom-full ${getSvgAbsolutePosition(position)}`}
             x="0px"
             y="0px"
             viewBox="0 0 255 255"
