@@ -3,4 +3,5 @@ export type TileScoreboard = {
   matches: number;
   accuracy: number;
   streak: number;
+  remainingPairs: number;
 };

@@ -1,29 +1,41 @@
 import { useEffect, useState } from 'react';
-import { TileScoreboard } from '../../types';
+import { TileAsset, TileScoreboard } from '../../types';
 import { TileScoreboardI } from '../../interfaces';
 
-export const useScoreboard = (): TileScoreboardI => {
-  const [attempts, setAttempt] = useState<number>(0);
-  const [matches, setMatch] = useState<number>(0);
-  const [streak, setStreak] = useState<number>(0);
+export type TileScoreboardProps = {
+  tiles: TileAsset[];
+};
+
+export const useScoreboard = (tileAssets: TileAsset[]): TileScoreboardI => {
   const [scoreboard, setScoreboard] = useState<TileScoreboard>({
     attempts: 0,
     matches: 0,
     accuracy: 0,
     streak: 0,
+    remainingPairs: 0,
   });
 
-  function onAttempt() {
-    setAttempt(attempts + 1);
-  }
-
   function onMatch() {
-    setMatch(matches + 1);
-    setStreak(streak + 1);
+    const { attempts, matches, remainingPairs, streak } = scoreboard;
+
+    setScoreboard({
+      ...scoreboard,
+      attempts: attempts + 1,
+      matches: matches + 1,
+      streak: streak + 1,
+      accuracy: calculateAccuracy(attempts + 1, matches + 1),
+      remainingPairs: remainingPairs - 1,
+    });
   }
 
   function onMismatch() {
-    setStreak(0);
+    const { attempts, matches } = scoreboard;
+    setScoreboard({
+      ...scoreboard,
+      attempts: attempts + 1,
+      streak: 0,
+      accuracy: calculateAccuracy(attempts + 1, matches),
+    });
   }
 
   function calculateAccuracy(attempts: number, matches: number) {
@@ -32,25 +44,12 @@ export const useScoreboard = (): TileScoreboardI => {
   }
 
   useEffect(() => {
-    const accuracy = calculateAccuracy(attempts, matches);
-    setScoreboard({ ...scoreboard, attempts, accuracy });
+    setScoreboard({ ...scoreboard, remainingPairs: tileAssets.length });
     // eslint-disable-next-line
-  }, [attempts]);
-
-  useEffect(() => {
-    const accuracy = calculateAccuracy(attempts, matches);
-    setScoreboard({ ...scoreboard, matches, accuracy });
-    // eslint-disable-next-line
-  }, [matches]);
-
-  useEffect(() => {
-    setScoreboard({ ...scoreboard, streak });
-    // eslint-disable-next-line
-  }, [streak]);
+  }, [tileAssets]);
 
   return {
     scoreboard,
-    onAttempt,
     onMatch,
     onMismatch,
   };

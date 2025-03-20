@@ -152,7 +152,6 @@ export const useDeck = (): DeckI => {
     tile: Tile,
     deck: Deck,
     tileAPI: TileI,
-    onAttempt: () => void,
     onMatch: () => void,
     onMismatch: () => void,
   ): Promise<Deck> {
@@ -179,7 +178,6 @@ export const useDeck = (): DeckI => {
         break;
 
       case 1:
-        onAttempt();
         const _selectedTiles = _tilesSet([...selectedTiles, tile]);
         // Guessed the tile
         if (_selectedTiles.length === 1) {
