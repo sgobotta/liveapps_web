@@ -19,7 +19,9 @@ export default function GameStats({ scoreboard }: GameStatsProps) {
       >
         <div
           className="
-          grid grid-cols-4 grid-rows-2 sm:grid-rows-1
+          grid
+          grid-cols-3 grid-rows-2
+          sm:grid-cols-5 sm:grid-rows-1
           grid-flow-row sm:grid-flow-col
           justify-items-center
         "
