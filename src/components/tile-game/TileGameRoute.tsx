@@ -36,15 +36,15 @@ export default function TileGameRoute(): ReactElement {
         <div className="flex flex-row justify-center h-full items-center">
           <div
             className="
-            w-full h-[200px] mx-8
+            w-full h-[200px] mx-8 sm:mx-0
             sm:w-[400px]
-            text-zinc-300 bg-zinc-700
+            text-zinc-300 
+            bg-gradient-to-br from-zinc-800 via-zinc-700 to-zinc-800 from-30% to-90%
             border-[1px] border-zinc-800/30
             flex flex-col
-            p-6
-            gap-8 justify-items-center
-            shadow-xl
-            rounded-[4px]
+            gap-8 p-6 justify-items-center
+            shadow-2xl
+            rounded-[6px]
             items-center
             justify-center
           "
@@ -57,8 +57,8 @@ export default function TileGameRoute(): ReactElement {
               className="
                 w-fit
                 py-2 px-6 rounded-lg shadow-lg
-                bg-zinc-200 text-zinc-900
-                pressable font-bold
+                bg-zinc-200 border-zinc-900/30 border-[1px] text-zinc-900
+                pressable font-bold hover:underline active:italic transition-all duration-500
               "
             >
               Start
