@@ -59,7 +59,6 @@ export default function BoardComponent({
             <div
               className={`
                 p-4 sm:p-12 md:p-12 lg:p-12
-                align-middle
                 grid
                 gap-0 aspect-square
                 grid-rows-6 grid-cols-6
