@@ -44,7 +44,7 @@ export default function BoardComponent({
     extraClasses: string[] = [],
   ): ReactElement {
     return (
-      <div className="select-none">
+      <div>
         <GameStats scoreboard={scoreboard} />
         <div
           className={`
