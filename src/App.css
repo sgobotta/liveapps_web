@@ -1,0 +1,3 @@
+.pressable {
+  @apply shadow-button-sm translate-x-0 translate-y-0 transition duration-300 hover:shadow-button-md hover:translate-x-0 hover:translate-y-0 active:translate-x-1 active:translate-y-1 active:shadow-none;
+}

@@ -3,6 +3,12 @@ module.exports = {
   content: ['./src/**/*.{js,jsx,ts,tsx}'],
   theme: {
     extend: {
+      boxShadow: {
+        button: '5px 5px 7px 0px rgba(0, 0, 0, 0.3)',
+        'button-md': '6px 6px 2px 2px rgba(0, 0, 0, 0.3)',
+        'button-sm': '4px 4px 2px 0px rgba(0, 0, 0, 0.3)',
+        'button-xs': '2px 2px 2px 0px rgba(0, 0, 0, 0.3)',
+      },
       colors: {
         primary: {
           50: '#F8E5E5',
@@ -61,4 +67,11 @@ module.exports = {
     },
   },
   plugins: [require('tailwindcss-animated')],
+  variants: {
+    extend: {
+      borderRadius: ['active', 'hover', 'focus'],
+      boxShadow: ['active', 'hover', 'focus'],
+      scale: ['active', 'focus-within', 'hover'],
+    },
+  },
 };
