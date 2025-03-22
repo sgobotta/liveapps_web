@@ -2,10 +2,15 @@ export type AlertProps = {
   confirmText: string;
   contentText: string;
   onConfirm: () => void;
-  visible?: boolean
-}
+  visible?: boolean;
+};
 
-export default function Alert({ onConfirm, confirmText, contentText, visible = true }: AlertProps) {
+export default function Alert({
+  onConfirm,
+  confirmText,
+  contentText,
+  visible = true,
+}: AlertProps) {
   return visible ? (
     <div className="absolute w-full h-full z-[9]">
       <div className="flex flex-row justify-center h-full items-center">
@@ -24,9 +29,7 @@ export default function Alert({ onConfirm, confirmText, contentText, visible = t
           justify-center
         "
         >
-          <p className="text-xl font-normal">
-            {contentText}
-          </p>
+          <p className="text-xl font-normal">{contentText}</p>
           <button
             onClick={onConfirm}
             className="
@@ -41,5 +44,7 @@ export default function Alert({ onConfirm, confirmText, contentText, visible = t
         </div>
       </div>
     </div>
-  ) : <></>
+  ) : (
+    <></>
+  );
 }
