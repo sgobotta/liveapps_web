@@ -3,7 +3,7 @@ import { ReactElement } from 'react';
 import ApplicationSelection from './components/app-selection/ApplicationSelection';
 import GithubButton from './components/GithubButton';
 import SpotifyFrame from './components/spotify/SpotifyFrame';
-import { useContextMenuDisabled } from './hooks/useContextMenu';
+import { useContextMenuDisabled } from './hooks';
 
 function App(): ReactElement {
   useContextMenuDisabled();
