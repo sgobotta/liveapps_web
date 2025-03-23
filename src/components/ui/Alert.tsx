@@ -1,13 +1,17 @@
 export type AlertProps = {
   confirmText: string;
+  cancelText?: string;
   contentText: string;
   onConfirm: () => void;
+  onCancel?: () => void;
   visible?: boolean;
 };
 
 export default function Alert({
   onConfirm,
+  onCancel = undefined,
   confirmText,
+  cancelText = undefined,
   contentText,
   visible = true,
 }: AlertProps) {
@@ -29,18 +33,33 @@ export default function Alert({
           justify-center
         "
         >
-          <p className="text-xl font-normal">{contentText}</p>
-          <button
-            onClick={onConfirm}
-            className="
-              w-fit
-              py-2 px-6 rounded-lg shadow-lg
-              bg-zinc-200 border-zinc-900/30 border-[1px] text-zinc-900
-              pressable font-bold hover:underline active:italic transition-all duration-500
-            "
-          >
-            {confirmText}
-          </button>
+          <p className="text-xl font-normal text-center">{contentText}</p>
+          <div className="flex flex-row gap-6">
+            {onCancel && (
+              <button
+                onClick={onCancel}
+                className="
+                    w-fit
+                    py-2 px-6 rounded-lg shadow-lg
+                    bg-zinc-600 border-zinc-600/30 border-[1px] text-zinc-200
+                    pressable font-bold hover:underline active:italic transition-all duration-500
+                  "
+              >
+                {cancelText}
+              </button>
+            )}
+            <button
+              onClick={onConfirm}
+              className="
+                w-fit
+                py-2 px-6 rounded-lg shadow-lg
+                bg-zinc-200 border-zinc-900/30 border-[1px] text-zinc-900
+                pressable font-bold hover:underline active:italic transition-all duration-500
+              "
+            >
+              {confirmText}
+            </button>
+          </div>
         </div>
       </div>
     </div>

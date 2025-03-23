@@ -4,8 +4,17 @@ import { TileAsset } from './TileAsset';
 import { Deck } from './Deck';
 import { TileScoreboard } from './TileScoreboard';
 
+export enum TileGameState {
+  Idle,
+  Started,
+  Paused,
+  Finished,
+}
+
 export type TileGameProps = {
   tiles: TileAsset[];
+  state: TileGameState;
+  onPause: () => void;
 };
 
 export type TileGame = {

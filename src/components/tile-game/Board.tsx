@@ -1,6 +1,6 @@
 import React, { BaseSyntheticEvent, ReactElement } from 'react';
 import TileComponent from './Tile';
-import { Tile, Deck, TileScoreboard } from '../../types';
+import { Tile, Deck, TileScoreboard, TileGameState } from '../../types';
 import { TileI } from '../../interfaces';
 import { useDeck } from '../../hooks/tile-game/useDeck';
 import GameStats from './GameStats';
@@ -16,6 +16,8 @@ type BoardProps = {
     tileAPI: TileI,
   ) => Promise<BaseSyntheticEvent>;
   scoreboard: TileScoreboard;
+  state: TileGameState;
+  elapsedTime: number;
 };
 
 export default function BoardComponent({
@@ -23,6 +25,8 @@ export default function BoardComponent({
   elementKeyFunction,
   onTileClick,
   scoreboard,
+  state,
+  elapsedTime,
 }: BoardProps): React.ReactElement {
   const { isBlocked } = useDeck();
 
@@ -42,10 +46,11 @@ export default function BoardComponent({
   function _renderTilesContainer(
     deck: Deck,
     extraClasses: string[] = [],
+    elapsedTime: number,
   ): ReactElement {
     return (
       <div>
-        <GameStats scoreboard={scoreboard} />
+        <GameStats scoreboard={scoreboard} elapsedTime={elapsedTime} />
         <div
           className={`
           sm:w-full md:w-3/4 lg:w-4/6 xl:w-2/4 2xl:w-4/12 3xl:w-1/12
@@ -73,5 +78,9 @@ export default function BoardComponent({
     );
   }
 
-  return _renderTilesContainer(deck, isBlocked(deck) ? ['cursor-none'] : []);
+  return _renderTilesContainer(
+    deck,
+    isBlocked(deck) ? ['cursor-none'] : [],
+    elapsedTime,
+  );
 }

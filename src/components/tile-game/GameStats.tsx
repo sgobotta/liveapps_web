@@ -1,19 +1,19 @@
 import { ReactNode } from 'react';
-import { TileScoreboard } from '../../types';
+import { TileGameState, TileScoreboard } from '../../types';
 import Tooltip, { TooltipPosition } from '../ui/Tooltip';
 
 export type GameStatsProps = {
   scoreboard: TileScoreboard;
+  elapsedTime: number;
 };
 
-export default function GameStats({ scoreboard }: GameStatsProps) {
+export default function GameStats({ scoreboard, elapsedTime }: GameStatsProps) {
   return (
     <div className="absolute top-0 w-full">
       <div
         className="
-          mx-16 sm:mx-[25%] lg:mx-[35%] xl:mx-[35%]
-          px-4 sm:px-4 md:px-4 lg:px-4
-          py-4
+          mx-16 sm:mx-[25%] lg:mx-[35%] xl:mx-[25%]
+          px-6 py-4
           border-[1px] border-zinc-700 bg-zinc-800 rounded-b-md
         "
       >
@@ -21,7 +21,7 @@ export default function GameStats({ scoreboard }: GameStatsProps) {
           className="
           grid
           grid-cols-3 grid-rows-2
-          sm:grid-cols-5 sm:grid-rows-1
+          sm:grid-cols-6 sm:grid-rows-1
           grid-flow-row sm:grid-flow-col
           justify-items-center
         "
@@ -31,6 +31,7 @@ export default function GameStats({ scoreboard }: GameStatsProps) {
           <Accuracy value={scoreboard.accuracy} />
           <Streak value={scoreboard.streak} />
           <RemainingPairs value={scoreboard.remainingPairs} />
+          <ElapsedTime value={elapsedTime} />
         </div>
       </div>
     </div>
@@ -44,9 +45,11 @@ type StatIndicatorProps = {
 
 function StatIndicator({ name, children }: StatIndicatorProps) {
   return (
-    <Tooltip position={TooltipPosition.Bottom} text={name}>
-      <div className="text-base sm:text-xl">{children}</div>
-    </Tooltip>
+    <div style={{ justifySelf: 'normal' }} className="w-max">
+      <Tooltip position={TooltipPosition.Bottom} text={name}>
+        <div className="text-base sm:text-xl">{children}</div>
+      </Tooltip>
+    </div>
   );
 }
 
@@ -96,6 +99,16 @@ function RemainingPairs({ value = 0 }: { value: number }) {
     <StatIndicator name="Remaining">
       <span className="text-zinc-300">
         🎴<span className="p-2 text-base font-bold ">{value}</span>
+      </span>
+    </StatIndicator>
+  );
+}
+
+function ElapsedTime({ value }: { value: TileGameState }) {
+  return (
+    <StatIndicator name="Elapsed Time">
+      <span className="text-zinc-300">
+        ⏳<span className="p-2 text-base font-bold ">{value}</span>
       </span>
     </StatIndicator>
   );
