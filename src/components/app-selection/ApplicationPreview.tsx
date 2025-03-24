@@ -49,7 +49,6 @@ function LiveDjPreview({ onSelect }: ApplicationPreviewI): ReactElement {
     <div
       className="
         cursor-pointer
-        
         flex items-center justify-center
         duration-700
         w-full h-full
@@ -83,8 +82,9 @@ function PictureCards({ onSelect }: ApplicationPreviewI): ReactElement {
         alt="picture-cards logo"
         className="
           rounded-lg w-full h-full
-          duration-1000 group-active:rounded-[5.5rem]
+          duration-700 group-active:rounded-[5.5rem]
           group-active:translate-x-[0.1rem]
+          group-hover:rounded-3xl
         "
         draggable="false"
         src={publicImage('images/picture-cards/logo.png')}
@@ -150,7 +150,19 @@ export function ApplicationPreview({
             group-active:shadow-inner
           `}
         >
-          {content}
+          <div className="absolute flex w-full h-full items-center justify-center">
+            <div className="absolute bg-transparent border-zinc-900/30 group-hover:border-zinc-900 border-[1px] group-hover:border-2 w-40 h-40 rounded-full animate-[pressable-ping_1s_cubic-bezier(0,0,0.7,1)_alternate_infinite]" />
+            <div className="absolute bg-transparent border-zinc-900/30 group-hover:border-zinc-900 border-[1px] group-hover:border-2 w-36 h-36 rounded-full animate-[pressable-ping_1.2s_cubic-bezier(0,0,0.7,1)_alternate_infinite]" />
+            <div className="absolute bg-transparent border-zinc-900/30 group-hover:border-zinc-900 border-[1px] group-hover:border-2 w-32 h-32 rounded-full animate-[pressable-ping_1.4s_cubic-bezier(0,0,0.7,1)_alternate_infinite]" />
+            <div className="absolute bg-transparent border-zinc-900/30 group-hover:border-zinc-900 border-[1px] group-hover:border-2 w-28 h-28 rounded-full animate-[pressable-ping_1.5s_cubic-bezier(0,0,0.7,1)_alternate_infinite]" />
+            <div className="absolute bg-transparent border-zinc-900/30 group-hover:border-zinc-900 border-[1px] group-hover:border-2 w-24 h-24 rounded-full animate-[pressable-ping_1.7s_cubic-bezier(0,0,0.7,1)_alternate_infinite]" />
+            <div className="hidden group-hover:block italic group-hover:animate-jump-in animate-jump-out text-zinc-900">
+              Press me!
+            </div>
+          </div>
+          <div className="transition duration-500 group-hover:opacity-15">
+            {content}
+          </div>
         </div>
       </div>
     </div>
