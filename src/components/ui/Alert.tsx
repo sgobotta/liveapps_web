@@ -20,7 +20,7 @@ export default function Alert({
       <div className="flex flex-row justify-center h-full items-center">
         <div
           className="
-          w-full h-[200px] mx-8 sm:mx-0
+          w-2/3 h-[200px] mx-8 sm:mx-0
           sm:w-[400px]
           text-zinc-300 
           bg-gradient-to-br from-zinc-800 via-zinc-700 to-zinc-800 from-30% to-90%
