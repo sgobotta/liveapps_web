@@ -7,6 +7,7 @@ import { TileScoreboard } from './TileScoreboard';
 export enum TileGameState {
   Idle,
   Started,
+  Resumed,
   Paused,
   Finished,
 }

@@ -7,6 +7,7 @@ import {
   TileAsset,
   Move,
   Outcome,
+  TileGameState,
 } from '../../types';
 import { TileI } from '../../interfaces';
 import { useDeck } from './useDeck';
@@ -14,6 +15,7 @@ import { useScoreboard } from './useScoreboard';
 
 export const useTileGame = (
   tiles: TileAsset[],
+  state: TileGameState,
   { onFinish }: TileGameCallbacks,
 ): TileGame => {
   const {
@@ -24,7 +26,7 @@ export const useTileGame = (
     isFinished,
   } = useDeck();
 
-  const { scoreboard, onMatch, onMismatch } = useScoreboard(tiles);
+  const { scoreboard, onMatch, onMismatch } = useScoreboard(tiles, state);
 
   const deck = initDeck(tiles);
   const [getDeck, setDeck] = useState<Deck>(deck);

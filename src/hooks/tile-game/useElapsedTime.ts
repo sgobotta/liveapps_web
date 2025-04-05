@@ -8,7 +8,7 @@ export interface ElapsedTimeI {
 }
 
 export function useElapsedTime(gameState: TileGameState): ElapsedTimeI {
-  const { elapsedTime, resume, pause, isRunning } = useTimer();
+  const { elapsedTime, resume, pause, reset, stop, isRunning } = useTimer();
 
   useEffect(() => {
     switch (gameState) {
@@ -16,6 +16,10 @@ export function useElapsedTime(gameState: TileGameState): ElapsedTimeI {
         break;
 
       case TileGameState.Started:
+        reset();
+        break;
+
+      case TileGameState.Resumed:
         resume();
         break;
 
@@ -24,7 +28,7 @@ export function useElapsedTime(gameState: TileGameState): ElapsedTimeI {
         break;
 
       case TileGameState.Finished:
-        pause();
+        stop();
         break;
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

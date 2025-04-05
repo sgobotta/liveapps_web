@@ -10,14 +10,14 @@ import { HomeIcon } from '../ui/icons';
 
 export default function TileGamePage() {
   const navigate = useNavigate();
-  const { images } = useImages();
+  const { images, shuffle } = useImages();
   const { create: createTileAsset } = useTileAsset();
   const [homeClicked, setHomeClicked] = useState<boolean>(false);
 
   const [gameState, setGameState] = useState<TileGameState>(TileGameState.Idle);
 
   const tileAssets = useMemo(() => {
-    const filteredImages = takeSome(images, 18);
+    const filteredImages = takeSome(images, 3);
     const _tileAssets = filteredImages.map(
       (image: string): TileAssetT => createTileAsset(image),
     );
@@ -26,11 +26,12 @@ export default function TileGamePage() {
   }, [images]);
 
   function onStart() {
+    shuffle();
     setGameState(TileGameState.Started);
   }
 
   function onResume() {
-    setGameState(TileGameState.Started);
+    setGameState(TileGameState.Resumed);
   }
 
   function onPause() {
@@ -83,6 +84,12 @@ export default function TileGamePage() {
         confirmText="Resume"
         contentText="Press the button to continue"
         visible={gameState === TileGameState.Paused}
+      />
+      <Alert
+        onConfirm={onStart}
+        confirmText="Play again?"
+        contentText="Congratulations!"
+        visible={gameState === TileGameState.Finished}
       />
       <TileGame
         tiles={tileAssets}

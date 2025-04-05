@@ -12,9 +12,13 @@ export default function TileGameComponent({
   onPause,
   onFinish,
 }: TileGameProps): ReactElement {
-  const { getDeck, onTileClick, scoreboard }: TileGame = useTileGame(tiles, {
-    onFinish,
-  });
+  const { getDeck, onTileClick, scoreboard }: TileGame = useTileGame(
+    tiles,
+    state,
+    {
+      onFinish,
+    },
+  );
 
   const { elapsedTime } = useElapsedTime(state);
 

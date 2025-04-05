@@ -5,6 +5,8 @@ export interface TimerI {
   elapsedTime: number;
   resume: () => void;
   pause: () => void;
+  reset: () => void;
+  stop: () => void;
   isRunning: boolean;
 }
 
@@ -27,10 +29,21 @@ export function useTimer(): TimerI {
     setIsRunning(false);
   }
 
+  function reset(): void {
+    setElapsedTime(0);
+    setIsRunning(true);
+  }
+
+  function stop(): void {
+    setIsRunning(false);
+  }
+
   return {
     elapsedTime,
     resume,
     pause,
+    reset,
+    stop,
     isRunning,
   };
 }
