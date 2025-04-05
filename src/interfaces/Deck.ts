@@ -5,6 +5,7 @@ import { TileI } from './Tile';
 export interface DeckI {
   init: (tiles: TileAsset[]) => Deck;
   isBlocked: (deck: Deck) => boolean;
+  isFinished: (deck: Deck) => boolean;
   findTile: (deck: Deck, tileId: string) => Tile | undefined;
   processTile: (
     e: BaseSyntheticEvent,

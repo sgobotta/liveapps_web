@@ -139,12 +139,16 @@ export const useDeck = (): DeckI => {
     };
   }
 
-  function isBlocked(deck: Deck): boolean {
-    return deck.state === DeckState.Blocked;
+  function isBlocked({ state }: Deck): boolean {
+    return state === DeckState.Blocked;
+  }
+
+  function isFinished(deck: Deck): boolean {
+    return deck.tiles.every(({ state }: Tile) => state === TileState.Matched);
   }
 
   function findTile(deck: Deck, tileId: string): Tile | undefined {
-    return deck.tiles.find((tile: Tile) => tile.id === tileId);
+    return deck.tiles.find(({ id }: Tile) => id === tileId);
   }
 
   async function processTile(
@@ -216,6 +220,7 @@ export const useDeck = (): DeckI => {
   return {
     init,
     isBlocked,
+    isFinished,
     findTile,
     processTile,
   };

@@ -15,6 +15,7 @@ export type TileGameProps = {
   tiles: TileAsset[];
   state: TileGameState;
   onPause: () => void;
+  onFinish: () => void;
 };
 
 export type TileGame = {
@@ -28,4 +29,8 @@ export type TileGame = {
     tileAPI: TileI,
   ) => Promise<BaseSyntheticEvent>;
   scoreboard: TileScoreboard;
+};
+
+export type TileGameCallbacks = {
+  onFinish: () => void;
 };

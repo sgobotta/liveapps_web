@@ -37,6 +37,10 @@ export default function TileGamePage() {
     setGameState(TileGameState.Paused);
   }
 
+  function onFinish() {
+    setGameState(TileGameState.Finished);
+  }
+
   function onNavigateHome() {
     setHomeClicked(true);
   }
@@ -80,7 +84,12 @@ export default function TileGamePage() {
         contentText="Press the button to continue"
         visible={gameState === TileGameState.Paused}
       />
-      <TileGame tiles={tileAssets} state={gameState} onPause={onPause} />
+      <TileGame
+        tiles={tileAssets}
+        state={gameState}
+        onPause={onPause}
+        onFinish={onFinish}
+      />
     </div>
   );
 }

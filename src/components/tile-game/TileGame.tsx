@@ -10,8 +10,12 @@ export default function TileGameComponent({
   tiles,
   state,
   onPause,
+  onFinish,
 }: TileGameProps): ReactElement {
-  const { getDeck, onTileClick, scoreboard }: TileGame = useTileGame(tiles);
+  const { getDeck, onTileClick, scoreboard }: TileGame = useTileGame(tiles, {
+    onFinish,
+  });
+
   const { elapsedTime } = useElapsedTime(state);
 
   const [pauseButton] = useState(<PauseButton onClick={onPause} />);

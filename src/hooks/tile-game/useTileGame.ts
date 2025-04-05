@@ -1,11 +1,29 @@
 import { BaseSyntheticEvent, useEffect, useState } from 'react';
-import { Tile, Deck, TileGame, TileAsset, Move, Outcome } from '../../types';
+import {
+  Tile,
+  Deck,
+  TileGame,
+  TileGameCallbacks,
+  TileAsset,
+  Move,
+  Outcome,
+} from '../../types';
 import { TileI } from '../../interfaces';
 import { useDeck } from './useDeck';
 import { useScoreboard } from './useScoreboard';
 
-export const useTileGame = (tiles: TileAsset[]): TileGame => {
-  const { init: initDeck, findTile, processTile, isBlocked } = useDeck();
+export const useTileGame = (
+  tiles: TileAsset[],
+  { onFinish }: TileGameCallbacks,
+): TileGame => {
+  const {
+    init: initDeck,
+    findTile,
+    processTile,
+    isBlocked,
+    isFinished,
+  } = useDeck();
+
   const { scoreboard, onMatch, onMismatch } = useScoreboard(tiles);
 
   const deck = initDeck(tiles);
@@ -55,6 +73,9 @@ export const useTileGame = (tiles: TileAsset[]): TileGame => {
           _shouldUseTimeout(getDeck.lastMove) ? 1500 : 200,
         );
       }).then((updatedDeck) => {
+        if (isFinished(updatedDeck as Deck)) {
+          onFinish();
+        }
         setDeck(updatedDeck as Deck);
       });
     }
