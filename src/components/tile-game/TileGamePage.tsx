@@ -7,9 +7,11 @@ import { useNavigate } from 'react-router';
 import Alert from '../ui/Alert';
 import { useMemo, useState } from 'react';
 import { HomeIcon } from '../ui/icons';
+import { useConfetti } from '../../hooks';
 
 export default function TileGamePage() {
   const navigate = useNavigate();
+  const { confetti } = useConfetti();
   const { images, shuffle } = useImages();
   const { create: createTileAsset } = useTileAsset();
   const [homeClicked, setHomeClicked] = useState<boolean>(false);
@@ -17,7 +19,7 @@ export default function TileGamePage() {
   const [gameState, setGameState] = useState<TileGameState>(TileGameState.Idle);
 
   const tileAssets = useMemo(() => {
-    const filteredImages = takeSome(images, 3);
+    const filteredImages = takeSome(images, 18);
     const _tileAssets = filteredImages.map(
       (image: string): TileAssetT => createTileAsset(image),
     );
@@ -40,6 +42,7 @@ export default function TileGamePage() {
 
   function onFinish() {
     setGameState(TileGameState.Finished);
+    confetti();
   }
 
   function onNavigateHome() {
