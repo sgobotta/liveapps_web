@@ -11,7 +11,7 @@ function App(): ReactElement {
   return (
     <div className="text-center h-screen max-h-screen overflow-y-hidden select-none">
       <ApplicationSelection />
-      <div className="fixed bottom-5 right-5 z-50 grayscale hover:grayscale-0 duration-500 translate-x-0 hover:translate-x-0 translate-y-52 hover:translate-y-0">
+      <div className="fixed bottom-5 right-5 z-50 grayscale hover:grayscale-0 duration-500 translate-x-0 hover:translate-x-0 translate-y-[16.5rem] hover:translate-y-0">
         <SpotifyFrame />
       </div>
       <div className="fixed bottom-2 left-2 h-12 w-12">
