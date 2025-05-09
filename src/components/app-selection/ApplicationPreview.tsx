@@ -3,9 +3,11 @@ import livedj from '../../svg/live-dj-iso-black.svg';
 import { AppChoice } from '../../types';
 import { publicImage } from '../../utils';
 import useLongPress from '../../hooks/useLongPress';
+import TypewriterText from '../ui/TypewriterText';
 
 type ApplicationPreviewProps = {
   choice: AppChoice;
+  isSelected: boolean;
   previewClasses?: string;
   sliderClasses?: string;
   onSelect: () => void;
@@ -13,6 +15,22 @@ type ApplicationPreviewProps = {
 
 interface ApplicationPreviewI {
   onSelect: () => void;
+}
+
+type ApplicationDescriptionT = ReactElement;
+
+function ApplicationDescriptionComponent({
+  description,
+}: {
+  description: string;
+}): ReactElement {
+  return (
+    <div className="text-white bg-zinc-900/50 p-2 rounded-lg">
+      <p className="font-mono text-xs font-thin">
+        <TypewriterText text={description} />
+      </p>
+    </div>
+  );
 }
 
 function FinancePreview({ onSelect }: ApplicationPreviewI): ReactElement {
@@ -95,6 +113,7 @@ function PictureCards({ onSelect }: ApplicationPreviewI): ReactElement {
 
 export function ApplicationPreview({
   choice,
+  isSelected,
   previewClasses = '',
   sliderClasses = '',
   onSelect,
@@ -112,24 +131,66 @@ export function ApplicationPreview({
     }
   }
 
+  function getDescriptionByChoice(choice: AppChoice): ApplicationDescriptionT {
+    switch (choice) {
+      case AppChoice.Finance:
+        return (
+          <ApplicationDescriptionComponent
+            description={
+              'Finance is a real-time currency tracking application that displays up-to-date exchange rates for the dollar in Argentina. The app shows historical price data and includes a CEDEAR calculator to compare local market prices against NASDAQ and NYSE stocks, helping users identify when foreign stocks are undervalued or overpriced in the local market.'
+            }
+          />
+        );
+
+      case AppChoice.LiveDj:
+        return (
+          <ApplicationDescriptionComponent
+            description={
+              'LiveDJ is a real-time video sharing app that lets you watch YouTube videos in sync with friends. Create a room, add videos to the queue, and chat while everyone experiences the same content simultaneously, no matter where they are.'
+            }
+          />
+        );
+
+      case AppChoice.PictureCards:
+        return (
+          <ApplicationDescriptionComponent
+            description={
+              'A picture card game where players match and collect illustrated cards based on similarity. Take turns drawing cards to form pairs. The visual elements on the cards are essential to gameplay, creating an engaging experience that combines memory and pattern recognition.'
+            }
+          />
+        );
+    }
+  }
+
+  function getPreviewClasses(isSelected: boolean): string {
+    return isSelected ? 'translate-x-[0%]' : 'translate-x-[400%]';
+  }
+
+  function getSliderClasses(isSelected: boolean): string {
+    return isSelected ? 'translate-x-[0%]' : 'translate-x-[400%]';
+  }
+
   const content = getContentByChoice(choice);
+  const description = getDescriptionByChoice(choice);
 
   return (
-    <div className="absolute group ml-20 md:ml-60 lg:ml-0">
-      <div className="relative h-[80vh]">
+    <div className="absolute group left-[36%] sm:left-[50%] md:left-[60%] lg:left-[60%] w-2/4 sm:w-1/3 h-full">
+      <div className="absolute h-[80vh]">
         <div
           className={`
             absolute
             top-[12%]
             sm:top-[24%]
-            h-60 !w-[150vw]
-            sm:h-72 sm:w-72 
+            h-40 !w-[150vw]
+            sm:h-40 sm:w-40
+            lg:h-60 lg:w-60 
             rounded-3xl
-            ${sliderClasses}
             bg-opacity-20
             blur-[2px]
             transition-all duration-1000
             group-active:rounded-[5rem]
+            ${getSliderClasses(isSelected)}
+            ${sliderClasses}
           `}
         />
         <div
@@ -138,16 +199,18 @@ export function ApplicationPreview({
             top-[10%]
             sm:top-[22%]
             ml-[1rem]
-            h-60 w-60 sm:h-72 sm:w-72 
+            h-40 w-40
+            sm:h-40 sm:w-40 
+            lg:h-60 lg:w-60 
             rounded-3xl
             blur-[0.05rem]
-            transition duration-[1.25s]
-            ${previewClasses}
+            transition-all duration-[1.25s]
             flex items-center justify-center
-            transition-all duration-1000
             group-active:-translate-x-5 group-active:translate-y-4
             group-active:rounded-[5rem]
             group-active:shadow-inner
+            ${getPreviewClasses(isSelected)}
+            ${previewClasses}
           `}
         >
           <div className="absolute flex w-full h-full items-center justify-center">
@@ -165,6 +228,11 @@ export function ApplicationPreview({
           </div>
         </div>
       </div>
+      {isSelected && (
+        <div className="absolute bottom-[40%] sm:bottom-1/3 -left-28">
+          {description}
+        </div>
+      )}
     </div>
   );
 }
