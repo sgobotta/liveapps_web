@@ -148,21 +148,12 @@ export default function ApplicationSelection(): ReactElement {
             choice={selection.choice}
             key={`preview-${String(selection.choice).toLowerCase()}`}
             onSelect={selection.onSelect}
+            isSelected={isSelected(currentSelection.choice, selection.choice)}
             previewClasses={`
               ${getBgColor(selection.choice).previewClasses}
-              ${
-                isSelected(currentSelection.choice, selection.choice)
-                  ? 'translate-x-[0%]'
-                  : 'translate-x-[400%]'
-              }
             `}
             sliderClasses={`
               ${getBgColor(selection.choice).sliderClasses}
-              ${
-                isSelected(currentSelection.choice, selection.choice)
-                  ? 'translate-x-[0%]'
-                  : 'translate-x-[400%]'
-              }
             `}
           />
         ))}
@@ -172,7 +163,7 @@ export default function ApplicationSelection(): ReactElement {
           font-mono m-auto sm:w-full md:w-full lg:w-full xl:w-3/4 2xl:w-3/4
           sm:p-14
           absolute flex flex-col items-start
-          top-[60%] sm:top-2/4 sm:left-0
+          top-[66%] sm:top-2/4 sm:left-0
           text-3xl
           pl-10
         "
