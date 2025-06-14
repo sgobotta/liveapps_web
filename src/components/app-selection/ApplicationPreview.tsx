@@ -174,7 +174,9 @@ export function ApplicationPreview({
   const description = getDescriptionByChoice(choice);
 
   return (
-    <div className="absolute group left-[36%] sm:left-[50%] md:left-[60%] lg:left-[60%] w-2/4 sm:w-1/3 h-full">
+    <div
+      className={`absolute group left-[36%] sm:left-[50%] md:left-[60%] lg:left-[60%] w-2/4 sm:w-1/3 h-full z-10 ${getSliderClasses(isSelected)}`}
+    >
       <div className="absolute h-[80vh]">
         <div
           className={`
