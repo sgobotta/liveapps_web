@@ -29,8 +29,8 @@ In this website you'd also find a few more applications I work on: the finance w
 
 ## Development Requirements
 
-* [asdf](https://asdf-vm.com/guide/getting-started.html#_1-install-asdf) (Optional)
-* [yarn](https://yarnpkg.com/)
+- [asdf](https://asdf-vm.com/guide/getting-started.html#_1-install-asdf) (Optional)
+- [yarn](https://yarnpkg.com/)
 
 Use asdf if you want to install yarn in a quick way.
 
