@@ -199,7 +199,7 @@ export function ApplicationPreview({
         return (
           <ApplicationDescriptionComponent
             description={
-              'Convert a Google My Maps link into a GPX file you can use in GPS apps. Paste your shared map URL, fetch the layer data in the browser, and download the route without saving intermediate KML on disk.'
+              'Convert a Google My Maps link into a GPX file you can use in GPS apps, like Igsport. Paste your shared map URL, fetch the layer data in the browser, and download the route without saving intermediate KML on disk.'
             }
           />
         );
