@@ -2,13 +2,11 @@ import { memo, useEffect, useId, useRef } from 'react';
 
 export default memo(function TypewriterText({ text }: { text: string }) {
   const id = useId();
-  const isDeletingRef = useRef(false);
   const jRef = useRef(0);
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(
     function runTypewriter(): () => void {
-      isDeletingRef.current = false;
       jRef.current = 0;
 
       const element = document.getElementById(id);
@@ -24,27 +22,19 @@ export default memo(function TypewriterText({ text }: { text: string }) {
       }
 
       function type(): void {
-        const maybeElement = document.getElementById(id);
-
-        if (isDeletingRef.current) {
-          if (maybeElement != null) {
-            maybeElement.textContent = text.substring(0, jRef.current - 1);
-          }
-          jRef.current--;
-          if (jRef.current === 0) {
-            isDeletingRef.current = false;
-          }
-        } else {
-          if (maybeElement != null) {
-            maybeElement.textContent = text.substring(0, jRef.current + 1);
-          }
-          jRef.current++;
-          if (jRef.current === text.length) {
-            isDeletingRef.current = true;
-          }
+        if (jRef.current >= text.length) {
+          return;
         }
 
-        timeoutRef.current = setTimeout(type, 40);
+        const maybeElement = document.getElementById(id);
+        jRef.current++;
+        if (maybeElement != null) {
+          maybeElement.textContent = text.substring(0, jRef.current);
+        }
+
+        if (jRef.current < text.length) {
+          timeoutRef.current = setTimeout(type, 40);
+        }
       }
 
       type();
@@ -56,5 +46,5 @@ export default memo(function TypewriterText({ text }: { text: string }) {
     [text, id],
   );
 
-  return <p id={id} />;
+  return <span id={id} />;
 });
