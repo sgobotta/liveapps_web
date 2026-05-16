@@ -1,5 +1,10 @@
 import { FormEvent, ReactElement, useCallback, useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
+import {
+  localizeMapConverterError,
+  TranslateFn,
+} from "../../i18n/mapConverterError";
 import { convertGoogleMapUrlToGpx } from "../../utils/maps/convertGoogleMapUrlToGpx";
 
 const PLACEHOLDER_URL =
@@ -9,6 +14,7 @@ const IGPSPORT_UPLOAD_URL = "https://i.igpsport.com/explorer/upload";
 
 export default function KmzConverterDialog(): ReactElement {
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const [mapUrl, setMapUrl] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -43,16 +49,13 @@ export default function KmzConverterDialog(): ReactElement {
     try {
       const result = await convertGoogleMapUrlToGpx(mapUrl);
       setSuccess(
-        "Downloaded " +
-          result.filename +
-          " (" +
-          String(result.bytesWritten) +
-          " bytes)",
+        t("kmzConverter.downloadSuccess", {
+          filename: result.filename,
+          bytes: String(result.bytesWritten),
+        }),
       );
     } catch (err) {
-      const message =
-        err instanceof Error ? err.message : "Conversion failed.";
-      setError(message);
+      setError(localizeMapConverterError(t as TranslateFn, err));
     } finally {
       setLoading(false);
     }
@@ -87,7 +90,7 @@ export default function KmzConverterDialog(): ReactElement {
         >
           <button
             type="button"
-            aria-label="Close"
+            aria-label={t("common.close")}
             onClick={onClose}
             className="
               absolute top-3 right-3
@@ -104,16 +107,15 @@ export default function KmzConverterDialog(): ReactElement {
             id="kmz-converter-title"
             className="text-2xl font-mono font-normal text-zinc-200 text-center"
           >
-            KMZ Converter
+            {t("kmzConverter.title")}
           </h1>
           <p className="text-sm font-mono text-zinc-400 text-center">
-            Paste a Google My Maps link. We fetch the map data and download a
-            GPX file.
+            {t("kmzConverter.subtitle")}
           </p>
 
           <form className="flex flex-col gap-4" onSubmit={onSubmit}>
             <label className="sr-only" htmlFor="map-url">
-              Google My Maps URL
+              {t("kmzConverter.mapUrlLabel")}
             </label>
             <input
               id="map-url"
@@ -152,7 +154,7 @@ export default function KmzConverterDialog(): ReactElement {
                 rel="noopener noreferrer"
                 className="underline text-zinc-400 hover:text-zinc-200"
               >
-                Upload your iGPSport routes
+                {t("kmzConverter.uploadRoutes")}
               </a>
             </p>
 
@@ -167,7 +169,7 @@ export default function KmzConverterDialog(): ReactElement {
                 disabled:opacity-50 disabled:cursor-not-allowed
               "
             >
-              {loading ? "Converting…" : "Convert & download"}
+              {loading ? t("kmzConverter.converting") : t("kmzConverter.convert")}
             </button>
           </form>
         </div>

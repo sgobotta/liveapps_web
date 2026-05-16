@@ -1,0 +1,64 @@
+{
+  "common": {
+    "close": "Cerrar",
+    "pressMe": "¡Presioná!"
+  },
+  "language": {
+    "label": "Idioma",
+    "en": "🇬🇧 English",
+    "es-AR": "🇦🇷 Español (AR)"
+  },
+  "apps": {
+    "pictureCards": "Juego Memoria",
+    "finance": "Finanzas",
+    "liveDj": "LiveDj",
+    "kmzConverter": "Conversor de Mapas",
+    "descriptions": {
+      "finance": "Finanzas es una aplicación de seguimiento de divisas en tiempo real que muestra cotizaciones actualizadas del dólar en Argentina. La app incluye datos históricos de precios y una calculadora de CEDEAR para comparar precios del mercado local con acciones del NASDAQ y NYSE, ayudando a identificar cuándo las acciones extranjeras están subvaluadas o sobrevaluadas localmente.",
+      "liveDj": "LiveDJ es una app para compartir video en tiempo real que permite ver videos de YouTube sincronizados con amigos. Creá una sala, agregá videos a la cola y chateá mientras todos ven el mismo contenido al mismo tiempo, estén donde estén.",
+      "pictureCards": "Un juego de cartas con imágenes donde un jugador empareja y colecciona cartas ilustradas según su similitud. Por turnos, sacan cartas para formar pares. Los elementos visuales son esenciales para jugar, combinando memoria y reconocimiento de patrones.",
+      "kmzConverter": "Convertí un enlace de Google My Maps en un archivo GPX para usar en apps GPS, como iGPSport. Pegá la URL compartida del mapa, obtené los datos en el navegador y descargá la ruta sin guardar KML intermedio en disco."
+    },
+    "alt": {
+      "financeLogo": "logo de finanzas",
+      "liveDjLogo": "logo de livedj",
+      "kmzConverterLogo": "logo del conversor kmz",
+      "pictureCardsLogo": "logo de cartas con imágenes"
+    }
+  },
+  "kmzConverter": {
+    "title": "Conversor KMZ",
+    "subtitle": "Pegá un enlace de Google My Maps. Obtenemos los datos del mapa y descargamos un archivo GPX.",
+    "mapUrlLabel": "URL de Google My Maps",
+    "uploadRoutes": "Subí tus rutas a iGPSport",
+    "convert": "Convertir y descargar",
+    "converting": "Convirtiendo…",
+    "downloadSuccess": "Descargado {{filename}} ({{bytes}} bytes)",
+    "errors": {
+      "conversionFailed": "La conversión falló.",
+      "urlRequired": "La URL es obligatoria.",
+      "invalidUrl": "URL inválida.",
+      "mapIdNotFound": "No se encontró un id de mapa (mid) en la URL.",
+      "httpFetch": "HTTP {{status}} al obtener los datos del mapa."
+    }
+  },
+  "tileGame": {
+    "leave": "Salir",
+    "back": "Volver",
+    "leaveConfirm": "Si salís de esta pantalla, el juego actual se terminará.",
+    "start": "Empezar",
+    "startPrompt": "¡Presioná empezar para mezclar las imágenes!",
+    "resume": "Continuar",
+    "resumePrompt": "Presioná el botón para seguir",
+    "playAgain": "¿Jugar de nuevo?",
+    "congratulations": "¡Felicitaciones!"
+  },
+  "gameStats": {
+    "attempts": "Intentos",
+    "matches": "Aciertos",
+    "accuracy": "Precisión",
+    "streak": "Racha",
+    "remaining": "Restantes",
+    "elapsedTime": "Tiempo"
+  }
+}

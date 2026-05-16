@@ -1,4 +1,5 @@
 import { ReactNode } from 'react';
+import { useTranslation } from 'react-i18next';
 import { TileGameState, TileScoreboard } from '../../types';
 import Tooltip, { TooltipPosition } from '../ui/Tooltip';
 
@@ -54,8 +55,9 @@ function StatIndicator({ name, children }: StatIndicatorProps) {
 }
 
 function Attempts({ value }: { value: number }) {
+  const { t } = useTranslation();
   return (
-    <StatIndicator name="Attempts">
+    <StatIndicator name={t('gameStats.attempts')}>
       <span className="text-zinc-300">
         🎯
         <span className="p-2 text-base font-bold ">{value}</span>
@@ -65,8 +67,9 @@ function Attempts({ value }: { value: number }) {
 }
 
 function Matches({ value }: { value: number }) {
+  const { t } = useTranslation();
   return (
-    <StatIndicator name="Matches">
+    <StatIndicator name={t('gameStats.matches')}>
       <span className="text-zinc-300">
         ✅<span className="p-2 text-base font-bold ">{value}</span>
       </span>
@@ -75,8 +78,9 @@ function Matches({ value }: { value: number }) {
 }
 
 function Accuracy({ value }: { value: number }) {
+  const { t } = useTranslation();
   return (
-    <StatIndicator name="Accuracy">
+    <StatIndicator name={t('gameStats.accuracy')}>
       <span className="text-zinc-300">
         📊<span className="p-2 text-base font-bold ">{value}%</span>
       </span>
@@ -85,8 +89,9 @@ function Accuracy({ value }: { value: number }) {
 }
 
 function Streak({ value }: { value: number }) {
+  const { t } = useTranslation();
   return (
-    <StatIndicator name="Streak">
+    <StatIndicator name={t('gameStats.streak')}>
       <span className="text-zinc-300">
         🔥<span className="p-2 text-base font-bold ">{value}</span>
       </span>
@@ -95,8 +100,9 @@ function Streak({ value }: { value: number }) {
 }
 
 function RemainingPairs({ value = 0 }: { value: number }) {
+  const { t } = useTranslation();
   return (
-    <StatIndicator name="Remaining">
+    <StatIndicator name={t('gameStats.remaining')}>
       <span className="text-zinc-300">
         🎴<span className="p-2 text-base font-bold ">{value}</span>
       </span>
@@ -105,8 +111,9 @@ function RemainingPairs({ value = 0 }: { value: number }) {
 }
 
 function ElapsedTime({ value }: { value: TileGameState }) {
+  const { t } = useTranslation();
   return (
-    <StatIndicator name="Elapsed Time">
+    <StatIndicator name={t('gameStats.elapsedTime')}>
       <span className="text-zinc-300">
         ⏳<span className="p-2 text-base font-bold ">{value}</span>
       </span>

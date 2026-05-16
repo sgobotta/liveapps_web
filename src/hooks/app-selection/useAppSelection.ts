@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { AppSelectionOption } from '../../types';
 import { AppSelectionI } from '../../interfaces';
 
@@ -6,26 +6,44 @@ type AppSelectionProps = {
   options: AppSelectionOption[];
 };
 
+function initOptions(options: AppSelectionOption[]): AppSelectionOption[] {
+  return options.map(function withIndex(
+    appSelectionOption: AppSelectionOption,
+    index: number,
+  ): AppSelectionOption {
+    return {
+      ...appSelectionOption,
+      index,
+    };
+  });
+}
+
 export const useAppSelection = ({
   options,
 }: AppSelectionProps): AppSelectionI => {
-  const selectionOptions: AppSelectionOption[] = initOptions(options);
+  const initialSelections = initOptions(options);
 
-  const [selections] = useState<AppSelectionOption[]>(selectionOptions);
+  const [selections, setSelections] =
+    useState<AppSelectionOption[]>(initialSelections);
   const [currentSelection, setCurrentSelection] = useState<AppSelectionOption>(
-    selectionOptions[0],
+    initialSelections[0],
   );
 
-  function initOptions(options: AppSelectionOption[]): AppSelectionOption[] {
-    return options.map(
-      (appSelectionOption: AppSelectionOption, index: number) => {
-        return {
-          ...appSelectionOption,
-          index,
-        };
-      },
-    );
-  }
+  useEffect(
+    function syncOptionsWithLocale(): void {
+      const nextSelections = initOptions(options);
+      setSelections(nextSelections);
+      setCurrentSelection(function keepChoice(prevSelection): AppSelectionOption {
+        const matched = nextSelections.find(function sameChoice(
+          option: AppSelectionOption,
+        ): boolean {
+          return option.choice === prevSelection.choice;
+        });
+        return matched == null ? nextSelections[0] : matched;
+      });
+    },
+    [options],
+  );
 
   function nextSelection(option: AppSelectionOption): void {
     const index = selections.indexOf(option);

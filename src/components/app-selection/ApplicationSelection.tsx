@@ -1,4 +1,5 @@
-import { ReactElement, useCallback, useEffect } from 'react';
+import { ReactElement, useCallback, useEffect, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import {
   useAppSelection,
   useRouteSyncedSelection,
@@ -13,6 +14,43 @@ import { useLocation, useNavigate } from 'react-router';
 export default function ApplicationSelection(): ReactElement {
   const navigate = useNavigate();
   const location = useLocation();
+  const { t, i18n } = useTranslation();
+
+  const selectionOptions = useMemo(
+    function buildSelectionOptions(): AppSelectionOption[] {
+      return [
+        {
+          choice: AppChoice.PictureCards,
+          name: t('apps.pictureCards'),
+          onSelect: function onSelectPictureCards(): void {
+            navigate('/picture-cards');
+          },
+        },
+        {
+          choice: AppChoice.Finance,
+          name: t('apps.finance'),
+          onSelect: function onSelectFinance(): void {
+            openTab('https://finance.liveapps.com.ar');
+          },
+        },
+        {
+          choice: AppChoice.LiveDj,
+          name: t('apps.liveDj'),
+          onSelect: function onSelectLiveDj(): void {
+            openTab('https://dj.liveapps.com.ar');
+          },
+        },
+        {
+          choice: AppChoice.KmzConverter,
+          name: t('apps.kmzConverter'),
+          onSelect: function onSelectKmzConverter(): void {
+            navigate('/kmz-converter');
+          },
+        },
+      ];
+    },
+    [t, navigate, i18n.language],
+  );
 
   const {
     chooseSelection,
@@ -21,36 +59,7 @@ export default function ApplicationSelection(): ReactElement {
     previousSelection,
     selections,
   } = useAppSelection({
-    options: [
-      {
-        choice: AppChoice.PictureCards,
-        name: 'Picture Cards',
-        onSelect: () => {
-          navigate('/picture-cards');
-        },
-      },
-      {
-        choice: AppChoice.Finance,
-        name: 'Finance',
-        onSelect: () => {
-          openTab('https://finance.liveapps.com.ar');
-        },
-      },
-      {
-        choice: AppChoice.LiveDj,
-        name: 'LiveDj',
-        onSelect: () => {
-          openTab('https://dj.liveapps.com.ar');
-        },
-      },
-      {
-        choice: AppChoice.KmzConverter,
-        name: 'KMZ Converter',
-        onSelect: () => {
-          navigate('/kmz-converter');
-        },
-      },
-    ],
+    options: selectionOptions,
   });
 
   const { wheelDirection, wheelUpdated } = useMouseWheel();

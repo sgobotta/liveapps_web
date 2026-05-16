@@ -1,3 +1,5 @@
+import { useTranslation } from 'react-i18next';
+import LanguageSwitcher from '../LanguageSwitcher';
 import { takeSome } from '../../utils';
 import useImages from '../../hooks/tile-game/useImages';
 import { useTileAsset } from '../../hooks';
@@ -10,6 +12,7 @@ import { HomeIcon } from '../ui/icons';
 import { useConfetti } from '../../hooks';
 
 export default function TileGamePage() {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const { confetti } = useConfetti();
   const { images, shuffle } = useImages();
@@ -55,6 +58,7 @@ export default function TileGamePage() {
 
   return (
     <div className="select-none">
+      <LanguageSwitcher />
       <div
         className="
           absolute top-3 left-3
@@ -69,29 +73,29 @@ export default function TileGamePage() {
       <div className="z-10">
         <Alert
           onConfirm={navigateHome}
-          confirmText="Leave"
+          confirmText={t('tileGame.leave')}
           onCancel={() => setHomeClicked(false)}
-          cancelText="Back"
-          contentText="Leaving this screen will terminate the current game."
+          cancelText={t('tileGame.back')}
+          contentText={t('tileGame.leaveConfirm')}
           visible={homeClicked}
         />
       </div>
       <Alert
         onConfirm={onStart}
-        confirmText="Start"
-        contentText="Press start to shuffle pictures!"
+        confirmText={t('tileGame.start')}
+        contentText={t('tileGame.startPrompt')}
         visible={gameState === TileGameState.Idle}
       />
       <Alert
         onConfirm={onResume}
-        confirmText="Resume"
-        contentText="Press the button to continue"
+        confirmText={t('tileGame.resume')}
+        contentText={t('tileGame.resumePrompt')}
         visible={gameState === TileGameState.Paused}
       />
       <Alert
         onConfirm={onStart}
-        confirmText="Play again?"
-        contentText="Congratulations!"
+        confirmText={t('tileGame.playAgain')}
+        contentText={t('tileGame.congratulations')}
         visible={gameState === TileGameState.Finished}
       />
       <TileGame

@@ -1,0 +1,64 @@
+{
+  "common": {
+    "close": "Close",
+    "pressMe": "Press me!"
+  },
+  "language": {
+    "label": "Language",
+    "en": "🇬🇧 English",
+    "es-AR": "🇦🇷 Español (AR)"
+  },
+  "apps": {
+    "pictureCards": "Picture Cards",
+    "finance": "Finance",
+    "liveDj": "LiveDj",
+    "kmzConverter": "KMZ Converter",
+    "descriptions": {
+      "finance": "Finance is a real-time currency tracking application that displays up-to-date exchange rates for the dollar in Argentina. The app shows historical price data and includes a CEDEAR calculator to compare local market prices against NASDAQ and NYSE stocks, helping users identify when foreign stocks are undervalued or overpriced in the local market.",
+      "liveDj": "LiveDJ is a real-time video sharing app that lets you watch YouTube videos in sync with friends. Create a room, add videos to the queue, and chat while everyone experiences the same content simultaneously, no matter where they are.",
+      "pictureCards": "A picture card game where a player matches and collects illustrated cards based on similarity. Take turns drawing cards to form pairs. The visual elements on the cards are essential to gameplay, creating an engaging experience that combines memory and pattern recognition.",
+      "kmzConverter": "Convert a Google My Maps link into a GPX file you can use in GPS apps, like Igsport. Paste your shared map URL, fetch the layer data in the browser, and download the route without saving intermediate KML on disk."
+    },
+    "alt": {
+      "financeLogo": "finance logo",
+      "liveDjLogo": "livedj logo",
+      "kmzConverterLogo": "kmz converter logo",
+      "pictureCardsLogo": "picture-cards logo"
+    }
+  },
+  "kmzConverter": {
+    "title": "KMZ Converter",
+    "subtitle": "Paste a Google My Maps link. We fetch the map data and download a GPX file.",
+    "mapUrlLabel": "Google My Maps URL",
+    "uploadRoutes": "Upload your iGPSport routes",
+    "convert": "Convert & download",
+    "converting": "Converting…",
+    "downloadSuccess": "Downloaded {{filename}} ({{bytes}} bytes)",
+    "errors": {
+      "conversionFailed": "Conversion failed.",
+      "urlRequired": "URL is required.",
+      "invalidUrl": "Invalid URL.",
+      "mapIdNotFound": "Could not find a map id (mid) in the URL.",
+      "httpFetch": "HTTP {{status}} while fetching map data."
+    }
+  },
+  "tileGame": {
+    "leave": "Leave",
+    "back": "Back",
+    "leaveConfirm": "Leaving this screen will terminate the current game.",
+    "start": "Start",
+    "startPrompt": "Press start to shuffle pictures!",
+    "resume": "Resume",
+    "resumePrompt": "Press the button to continue",
+    "playAgain": "Play again?",
+    "congratulations": "Congratulations!"
+  },
+  "gameStats": {
+    "attempts": "Attempts",
+    "matches": "Matches",
+    "accuracy": "Accuracy",
+    "streak": "Streak",
+    "remaining": "Remaining",
+    "elapsedTime": "Elapsed Time"
+  }
+}

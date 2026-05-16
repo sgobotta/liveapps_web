@@ -1,41 +1,60 @@
-import { memo, useEffect, useId, useState } from 'react';
+import { memo, useEffect, useId, useRef } from 'react';
 
 export default memo(function TypewriterText({ text }: { text: string }) {
   const id = useId();
-  const [isDeleting, setDeleting] = useState(false);
+  const isDeletingRef = useRef(false);
+  const jRef = useRef(0);
+  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  let i = 0;
-  let j = 0;
-  function type() {
-    const currentWord = text;
-    if (isDeleting) {
-      const maybe_element = document.getElementById(id);
-      if (maybe_element)
-        maybe_element.textContent = currentWord.substring(0, j - 1);
-      j--;
-      if (j === 0) {
-        setDeleting(false);
-        i++;
-        if (i === [text].length) {
-          i = 0;
+  useEffect(
+    function runTypewriter(): () => void {
+      isDeletingRef.current = false;
+      jRef.current = 0;
+
+      const element = document.getElementById(id);
+      if (element != null) {
+        element.textContent = '';
+      }
+
+      function clearTimer(): void {
+        if (timeoutRef.current != null) {
+          clearTimeout(timeoutRef.current);
+          timeoutRef.current = null;
         }
       }
-    } else {
-      const maybe_element = document.getElementById(id);
-      if (maybe_element)
-        maybe_element.textContent = currentWord.substring(0, j + 1);
-      j++;
-      if (j === currentWord.length) {
-        setDeleting(true);
+
+      function type(): void {
+        const maybeElement = document.getElementById(id);
+
+        if (isDeletingRef.current) {
+          if (maybeElement != null) {
+            maybeElement.textContent = text.substring(0, jRef.current - 1);
+          }
+          jRef.current--;
+          if (jRef.current === 0) {
+            isDeletingRef.current = false;
+          }
+        } else {
+          if (maybeElement != null) {
+            maybeElement.textContent = text.substring(0, jRef.current + 1);
+          }
+          jRef.current++;
+          if (jRef.current === text.length) {
+            isDeletingRef.current = true;
+          }
+        }
+
+        timeoutRef.current = setTimeout(type, 40);
       }
-    }
-    setTimeout(type, 40);
-  }
 
-  useEffect(() => {
-    type();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+      type();
 
-  return <p id={id}>{text}</p>;
+      return function cleanup(): void {
+        clearTimer();
+      };
+    },
+    [text, id],
+  );
+
+  return <p id={id} />;
 });

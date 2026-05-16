@@ -1,4 +1,5 @@
 import { ReactElement } from 'react';
+import { useTranslation } from 'react-i18next';
 import mapConverterLogo from '../../svg/map-converter-iso-black.svg';
 import livedj from '../../svg/live-dj-iso-black.svg';
 import { AppChoice } from '../../types';
@@ -35,6 +36,7 @@ function ApplicationDescriptionComponent({
 }
 
 function FinancePreview({ onSelect }: ApplicationPreviewI): ReactElement {
+  const { t } = useTranslation();
   const onLongPress = useLongPress(onSelect);
 
   return (
@@ -52,7 +54,7 @@ function FinancePreview({ onSelect }: ApplicationPreviewI): ReactElement {
       {...onLongPress}
     >
       <img
-        alt="finance logo"
+        alt={t('apps.alt.financeLogo')}
         draggable="false"
         className="w-full h-full rounded-xl"
         src={publicImage('images/finance/logo.png')}
@@ -62,6 +64,7 @@ function FinancePreview({ onSelect }: ApplicationPreviewI): ReactElement {
 }
 
 function LiveDjPreview({ onSelect }: ApplicationPreviewI): ReactElement {
+  const { t } = useTranslation();
   const onLongPress = useLongPress(onSelect);
 
   return (
@@ -78,7 +81,7 @@ function LiveDjPreview({ onSelect }: ApplicationPreviewI): ReactElement {
       {...onLongPress}
     >
       <img
-        alt="livedj logo"
+        alt={t('apps.alt.liveDjLogo')}
         draggable="false"
         className="
           w-3/4 h-3/4
@@ -93,6 +96,7 @@ function LiveDjPreview({ onSelect }: ApplicationPreviewI): ReactElement {
 }
 
 function KmzConverterPreview({ onSelect }: ApplicationPreviewI): ReactElement {
+  const { t } = useTranslation();
   const onLongPress = useLongPress(onSelect);
 
   return (
@@ -109,7 +113,7 @@ function KmzConverterPreview({ onSelect }: ApplicationPreviewI): ReactElement {
       {...onLongPress}
     >
       <img
-        alt="kmz converter logo"
+        alt={t('apps.alt.kmzConverterLogo')}
         draggable="false"
         className="
           w-3/4 h-3/4
@@ -124,12 +128,13 @@ function KmzConverterPreview({ onSelect }: ApplicationPreviewI): ReactElement {
 }
 
 function PictureCards({ onSelect }: ApplicationPreviewI): ReactElement {
+  const { t } = useTranslation();
   const onLongPress = useLongPress(onSelect);
 
   return (
     <div className="cursor-pointer" {...onLongPress}>
       <img
-        alt="picture-cards logo"
+        alt={t('apps.alt.pictureCardsLogo')}
         className="
           rounded-lg w-full h-full
           duration-700 group-active:rounded-[5.5rem]
@@ -150,6 +155,8 @@ export function ApplicationPreview({
   sliderClasses = '',
   onSelect,
 }: ApplicationPreviewProps): ReactElement {
+  const { t } = useTranslation();
+
   function getContentByChoice(choice: AppChoice): ReactElement {
     switch (choice) {
       case AppChoice.Finance:
@@ -171,36 +178,28 @@ export function ApplicationPreview({
       case AppChoice.Finance:
         return (
           <ApplicationDescriptionComponent
-            description={
-              'Finance is a real-time currency tracking application that displays up-to-date exchange rates for the dollar in Argentina. The app shows historical price data and includes a CEDEAR calculator to compare local market prices against NASDAQ and NYSE stocks, helping users identify when foreign stocks are undervalued or overpriced in the local market.'
-            }
+            description={t('apps.descriptions.finance')}
           />
         );
 
       case AppChoice.LiveDj:
         return (
           <ApplicationDescriptionComponent
-            description={
-              'LiveDJ is a real-time video sharing app that lets you watch YouTube videos in sync with friends. Create a room, add videos to the queue, and chat while everyone experiences the same content simultaneously, no matter where they are.'
-            }
+            description={t('apps.descriptions.liveDj')}
           />
         );
 
       case AppChoice.PictureCards:
         return (
           <ApplicationDescriptionComponent
-            description={
-              'A picture card game where players match and collect illustrated cards based on similarity. Take turns drawing cards to form pairs. The visual elements on the cards are essential to gameplay, creating an engaging experience that combines memory and pattern recognition.'
-            }
+            description={t('apps.descriptions.pictureCards')}
           />
         );
 
       case AppChoice.KmzConverter:
         return (
           <ApplicationDescriptionComponent
-            description={
-              'Convert a Google My Maps link into a GPX file you can use in GPS apps, like Igsport. Paste your shared map URL, fetch the layer data in the browser, and download the route without saving intermediate KML on disk.'
-            }
+            description={t('apps.descriptions.kmzConverter')}
           />
         );
     }
@@ -266,7 +265,7 @@ export function ApplicationPreview({
             <div className="absolute bg-transparent border-zinc-900/30 group-hover:border-zinc-900 border-[1px] group-hover:border-2 w-28 h-28 rounded-full animate-[pressable-ping_1.5s_cubic-bezier(0,0,0.7,1)_alternate_infinite]" />
             <div className="absolute bg-transparent border-zinc-900/30 group-hover:border-zinc-900 border-[1px] group-hover:border-2 w-24 h-24 rounded-full animate-[pressable-ping_1.7s_cubic-bezier(0,0,0.7,1)_alternate_infinite]" />
             <div className="hidden group-hover:block italic group-hover:animate-jump-in animate-jump-out text-zinc-900">
-              Press me!
+              {t('common.pressMe')}
             </div>
           </div>
           <div className="transition duration-500 group-hover:opacity-15">
