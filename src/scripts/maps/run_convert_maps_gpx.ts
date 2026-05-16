@@ -1,4 +1,3 @@
-import path from "path";
 import { convertUrlToGpx } from "./convert_kmz_to_gpx";
 
 const argv = process.argv.slice(2);
@@ -28,7 +27,7 @@ if (urlFromFlag != null) {
 
 const outPath = flagValue(outFlag);
 if (outPath != null) {
-  opts.outputPath = path.resolve(outPath);
+  opts.outputPath = outPath;
 }
 
 void convertUrlToGpx(Object.keys(opts).length > 0 ? opts : undefined)
