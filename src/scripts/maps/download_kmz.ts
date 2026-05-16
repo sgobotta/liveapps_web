@@ -2,6 +2,7 @@ import http from "http";
 import https from "https";
 import path from "path";
 import { URL } from "url";
+import { resolveMapFetchUrl } from "../../utils/maps/resolveMapFetchUrl";
 
 /** Default map URL (same as the original script). */
 export const DEFAULT_MAP_URL =
@@ -14,7 +15,7 @@ const DEFAULT_FILENAME_HINT = "map.kml";
  * Fetches map KML/KMZ bytes from a full URL (in memory; no file write).
  */
 export function fetchMapFromUrl(url: string): Promise<Buffer> {
-  return fetchBuffer(url, 0);
+  return fetchBuffer(resolveMapFetchUrl(url), 0);
 }
 
 function fetchBuffer(targetUrl: string, redirectCount: number): Promise<Buffer> {

@@ -5,6 +5,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter, Routes, Route } from 'react-router';
 import TileGameRoute from './components/tile-game/TileGameRoute';
+import KmzConverterRoute from './components/kmz-converter/KmzConverterRoute';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,
@@ -14,6 +15,7 @@ root.render(
     <Routes>
       <Route index element={<App />} />
       <Route path="/picture-cards" element={<TileGameRoute />} />
+      <Route path="/kmz-converter" element={<KmzConverterRoute />} />
     </Routes>
   </BrowserRouter>,
 );

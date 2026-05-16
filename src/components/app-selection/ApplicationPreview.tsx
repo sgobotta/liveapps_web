@@ -91,6 +91,28 @@ function LiveDjPreview({ onSelect }: ApplicationPreviewI): ReactElement {
   );
 }
 
+function KmzConverterPreview({ onSelect }: ApplicationPreviewI): ReactElement {
+  const onLongPress = useLongPress(onSelect);
+
+  return (
+    <div
+      className="
+        cursor-pointer
+        flex items-center justify-center
+        duration-700
+        w-full h-full
+        hover:bg-emerald-500/20 hover:rounded-2xl
+        group-active:rounded-[5rem] group-active:bg-transparent
+      "
+      {...onLongPress}
+    >
+      <span className="font-mono text-3xl sm:text-4xl font-bold text-zinc-700 tracking-tight">
+        GPX
+      </span>
+    </div>
+  );
+}
+
 function PictureCards({ onSelect }: ApplicationPreviewI): ReactElement {
   const onLongPress = useLongPress(onSelect);
 
@@ -128,6 +150,9 @@ export function ApplicationPreview({
 
       case AppChoice.PictureCards:
         return <PictureCards onSelect={onSelect} />;
+
+      case AppChoice.KmzConverter:
+        return <KmzConverterPreview onSelect={onSelect} />;
     }
   }
 
@@ -156,6 +181,15 @@ export function ApplicationPreview({
           <ApplicationDescriptionComponent
             description={
               'A picture card game where players match and collect illustrated cards based on similarity. Take turns drawing cards to form pairs. The visual elements on the cards are essential to gameplay, creating an engaging experience that combines memory and pattern recognition.'
+            }
+          />
+        );
+
+      case AppChoice.KmzConverter:
+        return (
+          <ApplicationDescriptionComponent
+            description={
+              'Convert a Google My Maps link into a GPX file you can use in GPS apps. Paste your shared map URL, fetch the layer data in the browser, and download the route without saving intermediate KML on disk.'
             }
           />
         );

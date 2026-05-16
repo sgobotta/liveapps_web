@@ -1,7 +1,9 @@
 import fs from "fs";
 import path from "path";
 import { DOMParser } from "@xmldom/xmldom";
-import { DEFAULT_MAP_URL, fetchMapFromUrl, filenameHintFromUrl } from "./download_kmz";
+import { filenameHintFromFetchUrl, gpxFilenameFromDateTime } from "../../utils/maps/gpxFilename";
+import { resolveMapFetchUrl } from "../../utils/maps/resolveMapFetchUrl";
+import { DEFAULT_MAP_URL, fetchMapFromUrl } from "./download_kmz";
 import { kmzToGpx } from "./kmz_to_gpx";
 
 const domGlobal = globalThis as typeof globalThis & {
@@ -11,23 +13,7 @@ domGlobal.DOMParser = DOMParser as unknown as (typeof domGlobal)["DOMParser"];
 
 const GPX_EXTENSION = ".gpx";
 
-/** e.g. `2026-05-16T14-30-45.gpx` (local time, filesystem-safe) */
-export function gpxFilenameFromDateTime(date: Date = new Date()): string {
-  const pad = (n: number) => (n < 10 ? "0" : "") + String(n);
-  const stamp =
-    String(date.getFullYear()) +
-    "-" +
-    pad(date.getMonth() + 1) +
-    "-" +
-    pad(date.getDate()) +
-    "T" +
-    pad(date.getHours()) +
-    "-" +
-    pad(date.getMinutes()) +
-    "-" +
-    pad(date.getSeconds());
-  return stamp + GPX_EXTENSION;
-}
+export { gpxFilenameFromDateTime };
 
 function defaultGpxOutputPath(cwd: string = process.cwd()): string {
   return path.join(cwd, gpxFilenameFromDateTime());
@@ -54,11 +40,12 @@ export async function convertUrlToGpx(options?: {
   bytesFetched: number;
   bytesWritten: number;
 }> {
-  const sourceUrl = options != null && options.url != null ? options.url : DEFAULT_MAP_URL;
+  const inputUrl = options != null && options.url != null ? options.url : DEFAULT_MAP_URL;
 
-  const mapBuffer = await fetchMapFromUrl(sourceUrl);
+  const fetchUrl = resolveMapFetchUrl(inputUrl);
+  const mapBuffer = await fetchMapFromUrl(inputUrl);
   const blob = new Blob([new Uint8Array(mapBuffer)]);
-  const result = await kmzToGpx(blob, filenameHintFromUrl(sourceUrl));
+  const result = await kmzToGpx(blob, filenameHintFromFetchUrl(fetchUrl));
 
   const out =
     options != null && options.outputPath != null

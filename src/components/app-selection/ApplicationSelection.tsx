@@ -39,6 +39,13 @@ export default function ApplicationSelection(): ReactElement {
           openTab('https://dj.liveapps.com.ar');
         },
       },
+      {
+        choice: AppChoice.KmzConverter,
+        name: 'KMZ Converter',
+        onSelect: () => {
+          navigate('/kmz-converter');
+        },
+      },
     ],
   });
 
@@ -126,6 +133,12 @@ export default function ApplicationSelection(): ReactElement {
       case AppChoice.LiveDj:
         return {
           sliderClasses: 'bg-zinc-300 group-active:bg-red-300',
+          previewClasses: 'bg-zinc-300',
+        };
+
+      case AppChoice.KmzConverter:
+        return {
+          sliderClasses: 'bg-zinc-300 group-active:bg-emerald-300',
           previewClasses: 'bg-zinc-300',
         };
 
