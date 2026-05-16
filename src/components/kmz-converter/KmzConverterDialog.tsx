@@ -5,6 +5,8 @@ import { convertGoogleMapUrlToGpx } from "../../utils/maps/convertGoogleMapUrlTo
 const PLACEHOLDER_URL =
   "https://www.google.com/maps/d/u/0/viewer?mid=...";
 
+const IGPSPORT_UPLOAD_URL = "https://i.igpsport.com/explorer/upload";
+
 export default function KmzConverterDialog(): ReactElement {
   const navigate = useNavigate();
   const [mapUrl, setMapUrl] = useState("");
@@ -142,6 +144,17 @@ export default function KmzConverterDialog(): ReactElement {
                 {success}
               </p>
             ) : null}
+
+            <p className="text-xs font-mono text-right">
+              <a
+                href={IGPSPORT_UPLOAD_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline text-zinc-400 hover:text-zinc-200"
+              >
+                Upload your iGPSport routes
+              </a>
+            </p>
 
             <button
               type="submit"
