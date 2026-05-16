@@ -1,18 +1,21 @@
-import fs from "fs";
-import path from "path";
-import { DOMParser } from "@xmldom/xmldom";
-import { filenameHintFromFetchUrl, gpxFilenameFromDateTime } from "../../utils/maps/gpxFilename";
-import { ensureMapOutputDir, MAP_OUTPUT_DIR } from "../../utils/maps/outputDir";
-import { resolveMapFetchUrl } from "../../utils/maps/resolveMapFetchUrl";
-import { DEFAULT_MAP_URL, fetchMapFromUrl } from "./download_kmz";
-import { kmzToGpx } from "./kmz_to_gpx";
+import fs from 'fs';
+import path from 'path';
+import { DOMParser } from '@xmldom/xmldom';
+import {
+  filenameHintFromFetchUrl,
+  gpxFilenameFromDateTime,
+} from '../../utils/maps/gpxFilename';
+import { ensureMapOutputDir, MAP_OUTPUT_DIR } from '../../utils/maps/outputDir';
+import { resolveMapFetchUrl } from '../../utils/maps/resolveMapFetchUrl';
+import { DEFAULT_MAP_URL, fetchMapFromUrl } from './download_kmz';
+import { kmzToGpx } from './kmz_to_gpx';
 
 const domGlobal = globalThis as typeof globalThis & {
   DOMParser: typeof DOMParser;
 };
-domGlobal.DOMParser = DOMParser as unknown as (typeof domGlobal)["DOMParser"];
+domGlobal.DOMParser = DOMParser as unknown as (typeof domGlobal)['DOMParser'];
 
-const GPX_EXTENSION = ".gpx";
+const GPX_EXTENSION = '.gpx';
 
 export { gpxFilenameFromDateTime };
 
@@ -29,9 +32,11 @@ function withGpxExtension(filePath: string): string {
  */
 function resolveGpxOutputPath(outputPath?: string): string {
   ensureMapOutputDir();
-  if (outputPath != null && outputPath !== "") {
+  if (outputPath != null && outputPath !== '') {
     const relative =
-      path.isAbsolute(outputPath) === true ? path.basename(outputPath) : outputPath;
+      path.isAbsolute(outputPath) === true
+        ? path.basename(outputPath)
+        : outputPath;
     return withGpxExtension(path.join(MAP_OUTPUT_DIR, relative));
   }
   return withGpxExtension(path.join(MAP_OUTPUT_DIR, gpxFilenameFromDateTime()));
@@ -51,7 +56,8 @@ export async function convertUrlToGpx(options?: {
   bytesFetched: number;
   bytesWritten: number;
 }> {
-  const inputUrl = options != null && options.url != null ? options.url : DEFAULT_MAP_URL;
+  const inputUrl =
+    options != null && options.url != null ? options.url : DEFAULT_MAP_URL;
 
   const fetchUrl = resolveMapFetchUrl(inputUrl);
   const mapBuffer = await fetchMapFromUrl(inputUrl);
@@ -62,10 +68,10 @@ export async function convertUrlToGpx(options?: {
     options != null ? options.outputPath : undefined,
   );
 
-  fs.writeFileSync(out, result.gpx, "utf8");
+  fs.writeFileSync(out, result.gpx, 'utf8');
   return {
     outputPath: out,
     bytesFetched: mapBuffer.length,
-    bytesWritten: Buffer.byteLength(result.gpx, "utf8"),
+    bytesWritten: Buffer.byteLength(result.gpx, 'utf8'),
   };
 }

@@ -1,12 +1,15 @@
-import { kmzToGpx } from "../../scripts/maps/kmz_to_gpx";
-import { fetchMapBlob } from "./fetchMapBlob";
-import { filenameHintFromFetchUrl, gpxFilenameFromDateTime } from "./gpxFilename";
-import { resolveMapFetchUrl } from "./resolveMapFetchUrl";
+import { kmzToGpx } from '../../scripts/maps/kmz_to_gpx';
+import { fetchMapBlob } from './fetchMapBlob';
+import {
+  filenameHintFromFetchUrl,
+  gpxFilenameFromDateTime,
+} from './gpxFilename';
+import { resolveMapFetchUrl } from './resolveMapFetchUrl';
 
 function downloadGpxFile(filename: string, gpx: string): void {
-  const blob = new Blob([gpx], { type: "application/gpx+xml" });
+  const blob = new Blob([gpx], { type: 'application/gpx+xml' });
   const objectUrl = URL.createObjectURL(blob);
-  const anchor = document.createElement("a");
+  const anchor = document.createElement('a');
   anchor.href = objectUrl;
   anchor.download = filename;
   anchor.click();

@@ -1,8 +1,8 @@
-import JSZip from "jszip";
-import { kml as toGeoJSON } from "@tmcw/togeojson";
+import JSZip from 'jszip';
+import { kml as toGeoJSON } from '@tmcw/togeojson';
 // @ts-ignore
-import togpx from "togpx";
-import type { FeatureCollection, Feature, Geometry } from "geojson";
+import togpx from 'togpx';
+import type { FeatureCollection, Feature, Geometry } from 'geojson';
 
 export interface ConversionStats {
   points: number;
@@ -25,14 +25,14 @@ export interface ConversionResult {
  */
 export async function kmzToGpx(
   file: File | Blob,
-  filename: string = (file as File).name ?? ""
+  filename: string = (file as File).name ?? '',
 ): Promise<ConversionResult> {
   const kmlText = await extractKml(file, filename);
   const kmlDom = parseKml(kmlText);
   const geojson = toGeoJSON(kmlDom) as FeatureCollection;
 
   if (!geojson?.features?.length) {
-    throw new Error("No features found in the KML file.");
+    throw new Error('No features found in the KML file.');
   }
 
   const gpx = togpx(geojson) as string;
@@ -44,19 +44,22 @@ export async function kmzToGpx(
 /**
  * Extracts KML text from a KMZ (zip) or plain KML file.
  */
-async function extractKml(file: File | Blob, filename: string): Promise<string> {
-  if (filename.toLowerCase().endsWith(".kmz")) {
+async function extractKml(
+  file: File | Blob,
+  filename: string,
+): Promise<string> {
+  if (filename.toLowerCase().endsWith('.kmz')) {
     const zip = await JSZip.loadAsync(file);
 
     const kmlEntry = Object.values(zip.files).find((f) =>
-      f.name.toLowerCase().endsWith(".kml")
+      f.name.toLowerCase().endsWith('.kml'),
     );
 
     if (!kmlEntry) {
-      throw new Error("No .kml file found inside the .kmz archive.");
+      throw new Error('No .kml file found inside the .kmz archive.');
     }
 
-    return kmlEntry.async("string");
+    return kmlEntry.async('string');
   }
 
   return file.text();
@@ -68,22 +71,27 @@ async function extractKml(file: File | Blob, filename: string): Promise<string> 
  */
 function parseKml(kmlText: string): Document {
   const parser = new DOMParser();
-  const doc = parser.parseFromString(kmlText, "text/xml");
+  const doc = parser.parseFromString(kmlText, 'text/xml');
 
-  const errors = doc.getElementsByTagName("parsererror");
+  const errors = doc.getElementsByTagName('parsererror');
   const firstErr = errors.length > 0 ? errors.item(0) : null;
   if (firstErr != null) {
     const msg =
-      typeof firstErr.textContent === "string" ? firstErr.textContent.trim() : "";
-    throw new Error("Failed to parse KML: " + msg);
+      typeof firstErr.textContent === 'string'
+        ? firstErr.textContent.trim()
+        : '';
+    throw new Error('Failed to parse KML: ' + msg);
   }
 
   return doc;
 }
 
-const POINT_TYPES = new Set<Geometry["type"]>(["Point", "MultiPoint"]);
-const TRACK_TYPES = new Set<Geometry["type"]>(["LineString", "MultiLineString"]);
-const ROUTE_TYPES = new Set<Geometry["type"]>(["Polygon", "MultiPolygon"]);
+const POINT_TYPES = new Set<Geometry['type']>(['Point', 'MultiPoint']);
+const TRACK_TYPES = new Set<Geometry['type']>([
+  'LineString',
+  'MultiLineString',
+]);
+const ROUTE_TYPES = new Set<Geometry['type']>(['Polygon', 'MultiPolygon']);
 
 /**
  * Counts waypoints, tracks, and routes from a GeoJSON feature list.

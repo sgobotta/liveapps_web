@@ -4,11 +4,7 @@ import { initReactI18next } from 'react-i18next';
 import en from './locales/en.json';
 import esAR from './locales/es-AR.json';
 import { normalizeDetectedLocale } from './normalizeDetectedLocale';
-import {
-  DEFAULT_LOCALE,
-  LOCALE_STORAGE_KEY,
-  SupportedLocale,
-} from './types';
+import { DEFAULT_LOCALE, LOCALE_STORAGE_KEY, SupportedLocale } from './types';
 
 function syncDocumentLanguage(locale: SupportedLocale): void {
   document.documentElement.lang = locale;

@@ -33,14 +33,16 @@ export const useAppSelection = ({
     function syncOptionsWithLocale(): void {
       const nextSelections = initOptions(options);
       setSelections(nextSelections);
-      setCurrentSelection(function keepChoice(prevSelection): AppSelectionOption {
-        const matched = nextSelections.find(function sameChoice(
-          option: AppSelectionOption,
-        ): boolean {
-          return option.choice === prevSelection.choice;
-        });
-        return matched == null ? nextSelections[0] : matched;
-      });
+      setCurrentSelection(
+        function keepChoice(prevSelection): AppSelectionOption {
+          const matched = nextSelections.find(function sameChoice(
+            option: AppSelectionOption,
+          ): boolean {
+            return option.choice === prevSelection.choice;
+          });
+          return matched == null ? nextSelections[0] : matched;
+        },
+      );
     },
     [options],
   );

@@ -1,8 +1,8 @@
-import { convertUrlToGpx } from "./convert_kmz_to_gpx";
+import { convertUrlToGpx } from './convert_kmz_to_gpx';
 
 const argv = process.argv.slice(2);
-const urlFlag = argv.indexOf("--url");
-const outFlag = argv.indexOf("--out");
+const urlFlag = argv.indexOf('--url');
+const outFlag = argv.indexOf('--out');
 
 function flagValue(flagIndex: number): string | undefined {
   return flagIndex !== -1 ? argv[flagIndex + 1] : undefined;
@@ -14,7 +14,9 @@ function isFlagValueIndex(i: number): boolean {
 
 const urlFromFlag = flagValue(urlFlag);
 const urlPositional = argv.find(function isUrlArg(arg, i) {
-  return arg.indexOf("--") !== 0 && !isFlagValueIndex(i) && arg.indexOf("://") !== -1;
+  return (
+    arg.indexOf('--') !== 0 && !isFlagValueIndex(i) && arg.indexOf('://') !== -1
+  );
 });
 
 const opts: { url?: string; outputPath?: string } = {};
@@ -34,11 +36,11 @@ void convertUrlToGpx(Object.keys(opts).length > 0 ? opts : undefined)
   .then(function onDone(info): void {
     // eslint-disable-next-line no-console
     console.info(
-      "Fetched",
+      'Fetched',
       String(info.bytesFetched),
-      "bytes -> GPX",
+      'bytes -> GPX',
       info.outputPath,
-      "(" + String(info.bytesWritten) + " bytes)"
+      '(' + String(info.bytesWritten) + ' bytes)',
     );
   })
   .catch(function onErr(err): void {

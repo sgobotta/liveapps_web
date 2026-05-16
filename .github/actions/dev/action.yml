@@ -13,22 +13,22 @@ runs:
     - name: Setup nodejs
       uses: actions/setup-node@v4
       with:
-        node-version: '20.x'
+        node-version: '22.22.2'
 
     # Print version names ------------------------------------------------------
     - name: Output Node version
       shell: bash
       run: node --version
-    - name: Output Npm version
+    - name: Output Yarn version
       shell: bash
-      run: npm --version
+      run: yarn --version
 
-    # Get and build all the deps -----------------------------------------------
+    # Get and install all deps -------------------------------------------------
     - name: Install Dependencies
       shell: bash
-      run: npm install
+      run: yarn install --frozen-lockfile
 
     # Run tests ----------------------------------------------------------------
     - name: Run tests
       shell: bash
-      run: npm run lint:check
+      run: yarn lint:check

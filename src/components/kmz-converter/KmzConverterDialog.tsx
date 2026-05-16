@@ -1,40 +1,48 @@
-import { FormEvent, ReactElement, useCallback, useEffect, useState } from "react";
-import { useTranslation } from "react-i18next";
-import { useNavigate } from "react-router";
+import {
+  FormEvent,
+  ReactElement,
+  useCallback,
+  useEffect,
+  useState,
+} from 'react';
+import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router';
 import {
   localizeMapConverterError,
   TranslateFn,
-} from "../../i18n/mapConverterError";
-import { convertGoogleMapUrlToGpx } from "../../utils/maps/convertGoogleMapUrlToGpx";
+} from '../../i18n/mapConverterError';
+import { convertGoogleMapUrlToGpx } from '../../utils/maps/convertGoogleMapUrlToGpx';
 
-const PLACEHOLDER_URL =
-  "https://www.google.com/maps/d/u/0/viewer?mid=...";
+const PLACEHOLDER_URL = 'https://www.google.com/maps/d/u/0/viewer?mid=...';
 
-const IGPSPORT_UPLOAD_URL = "https://i.igpsport.com/explorer/upload";
+const IGPSPORT_UPLOAD_URL = 'https://i.igpsport.com/explorer/upload';
 
 export default function KmzConverterDialog(): ReactElement {
   const navigate = useNavigate();
   const { t } = useTranslation();
-  const [mapUrl, setMapUrl] = useState("");
+  const [mapUrl, setMapUrl] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
 
-  const onClose = useCallback(function onClose(): void {
-    navigate("/");
-  }, [navigate]);
+  const onClose = useCallback(
+    function onClose(): void {
+      navigate('/');
+    },
+    [navigate],
+  );
 
   useEffect(
     function onMount(): () => void {
       function onKeyDown(event: KeyboardEvent): void {
-        if (event.key === "Escape") {
+        if (event.key === 'Escape') {
           onClose();
         }
       }
 
-      document.addEventListener("keydown", onKeyDown);
+      document.addEventListener('keydown', onKeyDown);
       return function onUnmount(): void {
-        document.removeEventListener("keydown", onKeyDown);
+        document.removeEventListener('keydown', onKeyDown);
       };
     },
     [onClose],
@@ -49,7 +57,7 @@ export default function KmzConverterDialog(): ReactElement {
     try {
       const result = await convertGoogleMapUrlToGpx(mapUrl);
       setSuccess(
-        t("kmzConverter.downloadSuccess", {
+        t('kmzConverter.downloadSuccess', {
           filename: result.filename,
           bytes: String(result.bytesWritten),
         }),
@@ -90,7 +98,7 @@ export default function KmzConverterDialog(): ReactElement {
         >
           <button
             type="button"
-            aria-label={t("common.close")}
+            aria-label={t('common.close')}
             onClick={onClose}
             className="
               absolute top-3 right-3
@@ -107,15 +115,15 @@ export default function KmzConverterDialog(): ReactElement {
             id="kmz-converter-title"
             className="text-2xl font-mono font-normal text-zinc-200 text-center"
           >
-            {t("kmzConverter.title")}
+            {t('kmzConverter.title')}
           </h1>
           <p className="text-sm font-mono text-zinc-400 text-center">
-            {t("kmzConverter.subtitle")}
+            {t('kmzConverter.subtitle')}
           </p>
 
           <form className="flex flex-col gap-4" onSubmit={onSubmit}>
             <label className="sr-only" htmlFor="map-url">
-              {t("kmzConverter.mapUrlLabel")}
+              {t('kmzConverter.mapUrlLabel')}
             </label>
             <input
               id="map-url"
@@ -154,7 +162,7 @@ export default function KmzConverterDialog(): ReactElement {
                 rel="noopener noreferrer"
                 className="underline text-zinc-400 hover:text-zinc-200"
               >
-                {t("kmzConverter.uploadRoutes")}
+                {t('kmzConverter.uploadRoutes')}
               </a>
             </p>
 
@@ -169,7 +177,9 @@ export default function KmzConverterDialog(): ReactElement {
                 disabled:opacity-50 disabled:cursor-not-allowed
               "
             >
-              {loading ? t("kmzConverter.converting") : t("kmzConverter.convert")}
+              {loading
+                ? t('kmzConverter.converting')
+                : t('kmzConverter.convert')}
             </button>
           </form>
         </div>
