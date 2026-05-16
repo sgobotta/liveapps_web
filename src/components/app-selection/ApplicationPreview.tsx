@@ -1,4 +1,5 @@
 import { ReactElement } from 'react';
+import mapConverterLogo from '../../svg/map-converter-iso-black.svg';
 import livedj from '../../svg/live-dj-iso-black.svg';
 import { AppChoice } from '../../types';
 import { publicImage } from '../../utils';
@@ -103,12 +104,21 @@ function KmzConverterPreview({ onSelect }: ApplicationPreviewI): ReactElement {
         w-full h-full
         hover:bg-emerald-500/20 hover:rounded-2xl
         group-active:rounded-[5rem] group-active:bg-transparent
+        animate-wiggle animate-infinite
       "
       {...onLongPress}
     >
-      <span className="font-mono text-3xl sm:text-4xl font-bold text-zinc-700 tracking-tight">
-        GPX
-      </span>
+      <img
+        alt="kmz converter logo"
+        draggable="false"
+        className="
+          w-3/4 h-3/4
+          animate-jump
+          animate-duration-[5s]
+          animate-iteration-infinite
+        "
+        src={mapConverterLogo}
+      />
     </div>
   );
 }
