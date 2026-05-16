@@ -1,14 +1,18 @@
 import { ReactElement, useCallback, useEffect } from 'react';
-import { useAppSelection } from '../../hooks/app-selection';
+import {
+  useAppSelection,
+  useRouteSyncedSelection,
+} from '../../hooks/app-selection';
 import { AppChoice, AppSelectionOption } from '../../types';
 import ApplicationOptionComponent from './ApplicationOption';
 import { useMouseWheel } from '../../hooks/listeners/useScrolling';
 import { ApplicationPreview } from './ApplicationPreview';
 import { openTab } from '../../utils';
-import { useNavigate } from 'react-router';
+import { useLocation, useNavigate } from 'react-router';
 
 export default function ApplicationSelection(): ReactElement {
   const navigate = useNavigate();
+  const location = useLocation();
 
   const {
     chooseSelection,
@@ -50,6 +54,13 @@ export default function ApplicationSelection(): ReactElement {
   });
 
   const { wheelDirection, wheelUpdated } = useMouseWheel();
+
+  useRouteSyncedSelection({
+    pathname: location.pathname,
+    selections,
+    currentChoice: currentSelection.choice,
+    chooseSelection,
+  });
 
   const onKeyDown = useCallback(
     (event: KeyboardEvent) => {
