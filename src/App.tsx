@@ -1,5 +1,6 @@
 import './App.css';
 import { ReactElement } from 'react';
+import { Outlet } from 'react-router';
 import ApplicationSelection from './components/app-selection/ApplicationSelection';
 import GithubButton from './components/GithubButton';
 import SpotifyFrame from './components/spotify/SpotifyFrame';
@@ -17,6 +18,7 @@ function App(): ReactElement {
       <div className="fixed bottom-2 left-2 h-12 w-12">
         <GithubButton />
       </div>
+      <Outlet />
     </div>
   );
 }

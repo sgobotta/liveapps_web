@@ -13,9 +13,10 @@ const root = ReactDOM.createRoot(
 root.render(
   <BrowserRouter>
     <Routes>
-      <Route index element={<App />} />
+      <Route path="/" element={<App />}>
+        <Route path="kmz-converter" element={<KmzConverterRoute />} />
+      </Route>
       <Route path="/picture-cards" element={<TileGameRoute />} />
-      <Route path="/kmz-converter" element={<KmzConverterRoute />} />
     </Routes>
   </BrowserRouter>,
 );

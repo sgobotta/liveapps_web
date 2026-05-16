@@ -1,6 +1,6 @@
 import { ReactElement } from "react";
-import KmzConverterPage from "./KmzConverterPage";
+import KmzConverterDialog from "./KmzConverterDialog";
 
 export default function KmzConverterRoute(): ReactElement {
-  return <KmzConverterPage />;
+  return <KmzConverterDialog />;
 }
