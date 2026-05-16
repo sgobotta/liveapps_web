@@ -14,8 +14,10 @@ export function preventDefault(e: React.DragEvent<HTMLDivElement>): boolean {
   return false;
 }
 
+import { withBaseUrl } from './utils/baseUrl';
+
 export function publicImage(imagePath: string): string {
-  return `${process.env.PUBLIC_URL}/${imagePath}`;
+  return withBaseUrl(imagePath);
 }
 
 export function openTab(url: string): void {

@@ -2,9 +2,10 @@ import { BaseSyntheticEvent, useEffect, useState } from 'react';
 import { useTile } from '../../hooks/tile-game/useTile';
 import { TileState } from '../../types';
 import { Tile } from '../../types';
+import { withBaseUrl } from '../../utils/baseUrl';
 
 function buildImagePath(location: string): string {
-  return process.env.PUBLIC_URL + location;
+  return withBaseUrl(location);
 }
 
 export default function TileComponent({

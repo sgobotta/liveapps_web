@@ -1,8 +1,8 @@
 /**
- * In development, routes through the CRA proxy (`src/setupProxy.js`) to avoid CORS.
+ * In development, routes through the Vite dev proxy (`vite.config.ts`) to avoid CORS.
  */
 function toFetchUrl(absoluteUrl: string): string {
-  if (process.env.NODE_ENV === "development") {
+  if (import.meta.env.DEV) {
     const parsed = new URL(absoluteUrl);
     return "/maps-proxy" + parsed.pathname + parsed.search;
   }

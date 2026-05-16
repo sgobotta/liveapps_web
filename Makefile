@@ -49,4 +49,4 @@ setup:
 #🧪 test: @ Runs all test suites
 test: SHELL:=/bin/bash
 test:
-	@yarn test -- --watchAll=false --passWithNoTests
+	@yarn test run --passWithNoTests

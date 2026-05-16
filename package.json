@@ -7,7 +7,6 @@
     "@testing-library/react": "^13.0.0",
     "@testing-library/user-event": "^13.2.1",
     "@tmcw/togeojson": "^7.1.2",
-    "@types/jest": "^27.0.1",
     "@types/node": "^16.7.13",
     "@types/react": "^18.0.0",
     "@types/react-dom": "^18.0.0",
@@ -20,7 +19,6 @@
     "react-dom": "^18.3.1",
     "react-i18next": "^17.0.8",
     "react-router": "^7.1.5",
-    "react-scripts": "5.0.1",
     "tailwindcss-animated": "^1.1.2",
     "togpx": "^0.5.4",
     "typescript": "^4.4.2",
@@ -28,19 +26,13 @@
     "web-vitals": "^2.1.0"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
+    "start": "vite",
+    "build": "vite build",
+    "test": "vitest",
+    "preview": "vite preview",
     "lint": "prettier . --write",
     "lint:check": "prettier . --check",
     "maps:gpx-from-mymaps": "tsx src/scripts/maps/run_convert_maps_gpx.ts"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
   },
   "browserslist": {
     "production": [
@@ -57,8 +49,15 @@
   "devDependencies": {
     "@types/canvas-confetti": "^1.9.0",
     "@types/geojson": "^7946.0.16",
+    "@vitejs/plugin-react": "^4.3.4",
     "@xmldom/xmldom": "^0.9.10",
+    "autoprefixer": "^10.4.20",
+    "jsdom": "^26.0.0",
+    "postcss": "^8.4.49",
     "tailwindcss": "^3.4.6",
-    "tsx": "^4.22.0"
+    "tsx": "^4.22.0",
+    "vite": "^6.0.3",
+    "vite-plugin-svgr": "^4.3.0",
+    "vitest": "^3.0.5"
   }
 }

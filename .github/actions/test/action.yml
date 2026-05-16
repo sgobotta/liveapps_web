@@ -31,4 +31,4 @@ runs:
     # Run tests ----------------------------------------------------------------
     - name: Run tests
       shell: bash
-      run: npm test -- --watchAll=false --passWithNoTests
+      run: npm run test -- run --passWithNoTests

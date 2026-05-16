@@ -1,5 +1,5 @@
 import { ReactElement } from 'react';
-import { ReactComponent as Octocat } from '../svg/github.svg';
+import Octocat from '../svg/github.svg?react';
 import Tooltip, { TooltipPosition } from './ui/Tooltip';
 
 export default function GithubButton(): ReactElement {
