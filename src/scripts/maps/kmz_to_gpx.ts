@@ -1,8 +1,7 @@
 import JSZip from 'jszip';
 import { kml as toGeoJSON } from '@tmcw/togeojson';
-// @ts-ignore
-import togpx from 'togpx';
 import type { FeatureCollection, Feature, Geometry } from 'geojson';
+import { geojsonToGpx } from '../../utils/maps/geojsonToGpx';
 
 export interface ConversionStats {
   points: number;
@@ -25,7 +24,7 @@ export interface ConversionResult {
  */
 export async function kmzToGpx(
   file: File | Blob,
-  filename: string = (file as File).name ?? '',
+  filename: string = (file as File).name == null ? '' : (file as File).name,
 ): Promise<ConversionResult> {
   const kmlText = await extractKml(file, filename);
   const kmlDom = parseKml(kmlText);
@@ -35,7 +34,7 @@ export async function kmzToGpx(
     throw new Error('No features found in the KML file.');
   }
 
-  const gpx = togpx(geojson) as string;
+  const gpx = geojsonToGpx(geojson, { creator: 'liveapps' });
   const stats = computeStats(geojson.features);
 
   return { gpx, stats };
