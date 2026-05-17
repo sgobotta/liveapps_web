@@ -17,7 +17,7 @@
       "finance": "Finanzas es una aplicación de seguimiento de divisas en tiempo real que muestra cotizaciones actualizadas del dólar en Argentina. La app incluye datos históricos de precios y una calculadora de CEDEAR para comparar precios del mercado local con acciones del NASDAQ y NYSE, ayudando a identificar cuándo las acciones extranjeras están subvaluadas o sobrevaluadas localmente.",
       "liveDj": "LiveDJ es una app para compartir video en tiempo real que permite ver videos de YouTube sincronizados con amigos. Creá una sala, agregá videos a la cola y chateá mientras todos ven el mismo contenido al mismo tiempo, estén donde estén.",
       "pictureCards": "Un juego de cartas con imágenes donde un jugador empareja y colecciona cartas ilustradas según su similitud. Por turnos, sacan cartas para formar pares. Los elementos visuales son esenciales para jugar, combinando memoria y reconocimiento de patrones.",
-      "kmzConverter": "Convertí un enlace de Google My Maps en un archivo GPX para usar en apps GPS, como iGPSport. Pegá la URL compartida del mapa, obtené los datos en el navegador y descargá la ruta sin guardar KML intermedio en disco."
+      "kmzConverter": "Convertí un enlace de Google My Maps en un archivo GPX para usar en apps GPS, como iGPSport. Pegá la URL compartida del mapa y descargá la ruta GPX."
     },
     "alt": {
       "financeLogo": "logo de finanzas",

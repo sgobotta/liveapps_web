@@ -17,7 +17,7 @@
       "finance": "Finance is a real-time currency tracking application that displays up-to-date exchange rates for the dollar in Argentina. The app shows historical price data and includes a CEDEAR calculator to compare local market prices against NASDAQ and NYSE stocks, helping users identify when foreign stocks are undervalued or overpriced in the local market.",
       "liveDj": "LiveDJ is a real-time video sharing app that lets you watch YouTube videos in sync with friends. Create a room, add videos to the queue, and chat while everyone experiences the same content simultaneously, no matter where they are.",
       "pictureCards": "A picture card game where a player matches and collects illustrated cards based on similarity. Take turns drawing cards to form pairs. The visual elements on the cards are essential to gameplay, creating an engaging experience that combines memory and pattern recognition.",
-      "kmzConverter": "Convert a Google My Maps link into a GPX file you can use in GPS apps, like Igsport. Paste your shared map URL, fetch the layer data in the browser, and download the route without saving intermediate KML on disk."
+      "kmzConverter": "Convert a Google My Maps link into a GPX file you can use in GPS apps, like Igsport. Paste your shared map URL and download the route GPX file."
     },
     "alt": {
       "financeLogo": "finance logo",
